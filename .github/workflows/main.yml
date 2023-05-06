@@ -32,6 +32,7 @@ jobs:
         run: |
           flutter config --enable-windows-desktop
           flutter pub get
+          dart run slang
           flutter build windows
     
       - name: Archive Release

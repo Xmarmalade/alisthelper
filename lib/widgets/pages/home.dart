@@ -5,6 +5,7 @@ import 'package:alisthelper/widgets/pages/alist_helper_page.dart';
 import 'package:alisthelper/widgets/responsive_builder.dart';
 import 'package:alisthelper/widgets/pages/settings_page.dart';
 import 'package:flutter/material.dart';
+import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AlistHelperIcon extends StatelessWidget {
@@ -42,13 +43,14 @@ enum HomeTab {
   final IconData icon;
 
   const HomeTab(this.icon);
+  
 
   String get label {
     switch (this) {
       case HomeTab.home:
-        return 'Home';
+        return t.tabs.home;
       case HomeTab.settings:
-        return 'Settings';
+        return t.tabs.settings;
     }
   }
 }

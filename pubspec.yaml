@@ -34,6 +34,11 @@ dependencies:
   file_picker: ^5.2.11
   # http is used to check upgrade
   http: ^0.13.6
+  #i18n
+  slang: ^3.17.0
+  slang_flutter: ^3.17.0
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:

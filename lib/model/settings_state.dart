@@ -1,3 +1,4 @@
+import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
 class SettingsState {
@@ -10,6 +11,7 @@ class SettingsState {
   final ThemeMode themeMode;
   final Color themeColor;
   final List<String> alistArgs;
+  final AppLocale? locale;
 
   SettingsState({
     required this.minimizeToTray,
@@ -21,6 +23,7 @@ class SettingsState {
     required this.themeColor,
     required this.alistArgs,
     required this.autoStartAlist,
+    required this.locale,
   });
 
   SettingsState copyWith({
@@ -33,6 +36,7 @@ class SettingsState {
     ThemeMode? themeMode,
     Color? themeColor,
     List<String>? alistArgs,
+    AppLocale? locale,
   }) {
     return SettingsState(
       autoStartAlist: autoStartAlist ?? this.autoStartAlist,
@@ -44,6 +48,7 @@ class SettingsState {
       themeColor: themeColor ?? this.themeColor,
       saveWindowPlacement: saveWindowPlacement ?? this.saveWindowPlacement,
       alistArgs: alistArgs ?? this.alistArgs,
+      locale: locale ?? this.locale,
     );
   }
 }

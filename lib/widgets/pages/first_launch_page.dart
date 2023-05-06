@@ -1,3 +1,4 @@
+import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
 import 'package:alisthelper/widgets/pages/about_page.dart';
 import 'package:alisthelper/widgets/responsive_builder.dart';
@@ -43,6 +44,7 @@ class _IntroTabState extends ConsumerState<IntroTab> {
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider);
     final settingsNotifier = ref.watch(settingsProvider.notifier);
+    final t = Translations.of(context);
     return Center(
       child: Container(
         constraints: const BoxConstraints(maxWidth: 800),
@@ -51,16 +53,14 @@ class _IntroTabState extends ConsumerState<IntroTab> {
             Card(
               margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
               child: Column(children: [
-                const ListTile(
-                  title: Text(
-                      'Welcome to use Alist Helper, let\'s get started!',
-                      style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
+                ListTile(
+                  title: Text(t.firstLaunch.intro,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w600, fontSize: 18)),
                 ),
                 ListTile(
                   leading: const Icon(Icons.info_outline),
-                  title: const Text(
-                      'Click here to learn more about Alist Helper!'),
+                  title: Text(t.firstLaunch.about),
                   onTap: () {
                     Navigator.push(
                         context,
@@ -74,10 +74,10 @@ class _IntroTabState extends ConsumerState<IntroTab> {
             Card(
               margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
               child: Column(children: [
-                const ListTile(
+                ListTile(
                     title: Text(
-                        'First, let\'s choose your preferred theme here!',
-                        style: TextStyle(
+                        t.firstLaunch.chooseTheme,
+                        style: const TextStyle(
                             fontWeight: FontWeight.w600, fontSize: 18))),
                 ChangeThemeModeTile(
                     settings: settings, settingsNotifier: settingsNotifier),
@@ -89,15 +89,15 @@ class _IntroTabState extends ConsumerState<IntroTab> {
             Card(
               margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
               child: Column(children: [
-                const ListTile(
+                ListTile(
                     title: Text(
-                        'Second, you have to get an alist and tell the alist helper where it is!',
-                        style: TextStyle(
+                        t.firstLaunch.getAlist,
+                        style: const TextStyle(
                             fontWeight: FontWeight.w600, fontSize: 18))),
                 ListTile(
                   leading: const Icon(Icons.info_outline),
                   title:
-                      const Text('If you don\'t have alist yet, get it here!'),
+                      Text(t.firstLaunch.getAlist),
                   onTap: () async {
                     await launchUrl(
                         Uri.parse(

@@ -1,3 +1,4 @@
+import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/provider/alist_helper_provider.dart';
 import 'package:alisthelper/provider/alist_provider.dart';
 import 'package:alisthelper/utils/textutils.dart';
@@ -31,10 +32,11 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
     final alistState = ref.watch(alistProvider);
     final alistHelperNotifier = ref.read(alistHelperProvider.notifier);
     final alistHelperState = ref.watch(alistHelperProvider);
+    final t = Translations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Upgrade',
-            style: TextStyle(fontWeight: FontWeight.bold)),
+        title:Text(t.upgrade.upgrade,
+            style: const TextStyle(fontWeight: FontWeight.bold)),
       ),
       body: Center(
         child: Container(
@@ -45,22 +47,22 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
                 Card(
                   margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                   child: Column(children: [
-                    const ListTile(
-                      title: Text('Alist Version',
-                          style: TextStyle(
+                    ListTile(
+                      title: Text(t.upgrade.alistVersion.title,
+                          style: const TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 18)),
                     ),
                     ListTile(
-                        title: const Text('Current Alist Version'),
+                        title: Text(t.upgrade.alistVersion.currentVersion),
                         subtitle: Consumer(
                           builder: (context, watch, child) {
                             return Text(alistState.currentVersion);
                           },
                         )),
                     ListTile(
-                      title: const Text('Latest Alist Version'),
+                      title: Text(t.upgrade.alistVersion.latestVersion),
                       subtitle: Text((alistState.latestVersion == 'v1.0.0')
-                          ? 'Chick me to check'
+                          ? t.upgrade.clickToCheck
                           : alistState.latestVersion),
                       onTap: () async {
                         try {
@@ -75,21 +77,21 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
                       },
                     ),
                     ListTile(
-                      title: const Text('Upgrade Alist'),
+                      title: Text(t.upgrade.upgrade),
                       subtitle: Text(
                         (alistState.latestVersion == 'v1.0.0'
-                            ? 'Check first'
+                            ? t.upgrade.checkFirst
                             : (TextUtils.isNewVersion(alistState.currentVersion,
                                     alistState.latestVersion)
-                                ? 'You can upgrade now'
-                                : 'You are using the latest alist')),
+                                ? t.upgrade.canUpgrade
+                                : t.upgrade.noUpgrade)),
                       ),
                       trailing: ElevatedButton(
                         onPressed: () async {
                           await launchUrl(Uri.parse(
                               'https://github.com/alist-org/alist/releases/latest'));
                         },
-                        child: const Text('Upgrade'),
+                        child: Text(t.button.upgrade),
                       ),
                     ),
                     Container(height: 10)
@@ -98,13 +100,13 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
                 Card(
                   margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                   child: Column(children: [
-                    const ListTile(
-                      title: Text('Alist Helper Version',
-                          style: TextStyle(
+                    ListTile(
+                      title: Text(t.upgrade.alistHelperVersion.title,
+                          style: const TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 18)),
                     ),
                     ListTile(
-                        title: const Text('Current Alist Helper Version'),
+                        title: Text(t.upgrade.alistHelperVersion.currentVersion),
                         subtitle: Consumer(
                           builder: (context, watch, child) {
                             //alistHelperNotifier.getAlistHelperCurrentVersion();
@@ -112,10 +114,10 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
                           },
                         )),
                     ListTile(
-                      title: const Text('Latest Alist Helper Version'),
+                      title: Text(t.upgrade.alistHelperVersion.latestVersion),
                       subtitle: Text(
                           (alistHelperState.latestVersion == 'v0.0.0')
-                              ? 'Chick me to check'
+                              ? t.upgrade.clickToCheck
                               : alistHelperState.latestVersion),
                       onTap: () async {
                         try {
@@ -131,22 +133,22 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
                       },
                     ),
                     ListTile(
-                      title: const Text('Upgrade Alist Helper'),
+                      title: Text(t.upgrade.upgrade),
                       subtitle: Text(
                         (alistHelperState.latestVersion == 'v0.0.0'
-                            ? 'Check first'
+                            ? t.upgrade.checkFirst
                             : (TextUtils.isNewVersion(
                                     alistHelperState.currentVersion,
                                     alistHelperState.latestVersion)
-                                ? 'You can upgrade now'
-                                : 'You are using the latest alist helper')),
+                                ? t.upgrade.canUpgrade
+                                : t.upgrade.noUpgrade)),
                       ),
                       trailing: ElevatedButton(
                         onPressed: () async {
                           await launchUrl(Uri.parse(
                               'https://github.com/iiijam/alisthelper/releases/latest'));
                         },
-                        child: const Text('Upgrade'),
+                        child: Text(t.button.upgrade),
                       ),
                     ),
                     Container(height: 10)

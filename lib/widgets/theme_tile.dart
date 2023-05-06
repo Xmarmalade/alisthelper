@@ -1,3 +1,4 @@
+import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/model/settings_state.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
 
@@ -15,15 +16,16 @@ class ChangeThemeModeTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     return ListTile(
       leading: Icon(Icons.dark_mode, color: settings.themeColor),
-      title: const Text('Theme mode'),
+      title: Text(t.settings.interfaceSettings.themeMode  ),
       trailing: ElevatedButton(
         onPressed: () {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              title: const Text('Theme mode'),
+              title: Text(t.settings.interfaceSettings.themeMode),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -92,15 +94,16 @@ class ChangeThemeColorTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     return ListTile(
         leading: Icon(Icons.color_lens_rounded, color: settings.themeColor),
-        title: const Text('Theme color'),
+        title: Text(t.settings.interfaceSettings.themeColor),
         trailing: ElevatedButton(
           onPressed: () {
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                title: const Text('Theme color'),
+                title: Text(t.settings.interfaceSettings.themeColor),
                 content: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -121,7 +124,7 @@ class ChangeThemeColorTile extends StatelessWidget {
               ),
             );
           },
-          child: const Text('Select'),
+          child: Text(t.button.select),
         ));
   }
 }

@@ -1,0 +1,112 @@
+{
+    "locale": "English",
+    "alistOperation": {
+        "startAlist": "Start",
+        "endAlist": "End",
+        "openGUI": "Open GUI",
+        "getAdmin": "Admin",
+        "getVersion": "Version"
+    },
+    "firstLaunch": {
+        "intro": "Welcome to use Alist Helper, let's get started!",
+        "about": "Click here to learn more about Alist Helper!",
+        "chooseTheme": "First, let's choose your preferred theme here!",
+        "chooseDirectory": "Second, you have to get an alist and tell the alist helper where it is!",
+        "getAlist": "If you don't have alist yet, get it here!"
+    },
+    "tabs": {
+        "home": "Home",
+        "settings": "Settings"
+    },
+    "home":{
+        "options":"Options",
+        "logs":"Logs"
+    },
+    "languageSettings": {
+        "language": "Language"
+    },
+    "button": {
+        "ok": "OK",
+        "cancel": "Cancel",
+        "yes": "Yes",
+        "no": "No",
+        "select": "Select",
+        "edit": "Edit",
+        "save": "Save",
+        "upgrade": "Upgrade"
+    },
+    "settings": {
+        "interfaceSettings": {
+            "title": "Interface",
+            "themeMode": "Theme mode",
+            "themeColor": "Theme color",
+            "language": "Choose Language"
+        },
+        "alistHelperSettings": {
+            "title": "Alist Helper Options",
+            "saveWindowPlacement": {
+                "title": "Save Alist Helper window placement",
+                "description": "This will allow Alist Helper save window placement."
+            },
+            "minimizeToTray": {
+                "title": "Allow Alist Helper minimize to tray",
+                "description": "This will allow Alist Helper to minimize to tray."
+            },
+            "autoStart": {
+                "title": "Allow auto start",
+                "description": "This will allow Alist Helper auto start."
+            },
+            "autoStartLaunchMinimized": {
+                "title": "Allow silent auto start",
+                "description": "This will allow Alist Helper auto start silently."
+            }
+        },
+        "alistSettings": {
+            "title": "Alist Options",
+            "autoStartAlist": {
+                "title": "Allow alist auto start",
+                "description": "This will auto start alist when Alist Helper starts."
+            },
+            "autoStartLaunchMinimized": {
+                "title": "Allow silent auto start",
+                "description": "This will allow Alist Helper auto start silently."
+            },
+            "workingDirectory": {
+                "title": "Working Directory",
+                "description": "Set Working Directory",
+                "hint": "It's a Directory, not a File!",
+                "chooseFrom": "Choose from...",
+                "notFound": "No alist found in directory.",
+                "found": "Found alist.exe"
+            },
+            "argumentsList": {
+                "title": "Arguments List",
+                "description": "Edit startup arguments for alist.exe",
+                "editArguments": "Edit Arguments",
+                "addArgument": "Add Argument"
+            }
+        },
+        "others": {
+            "title": "Others",
+            "checkForUpdates": "Check for updates",
+            "about": "About"
+        }
+    },
+    "upgrade": {
+        "clickToCheck": "Click to check for updates",
+        "checkFirst": "Check for updates first",
+        "canUpgrade": "A new version is available, do you want to upgrade?",
+        "noUpgrade": "You are using the latest version.",
+        "upgrade": "Upgrade",
+        "alistVersion": {
+            "title": "Alist Version",
+            "currentVersion": "Current Alist Version",
+            "latestVersion": "Latest Alist Version"
+        },
+        "alistHelperVersion": {
+            "title": "Alist Helper Version",
+            "currentVersion": "Current Alist Helper Version",
+            "latestVersion": "Latest Alist Helper Version"
+        }
+    }
+}

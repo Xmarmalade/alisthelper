@@ -1,3 +1,4 @@
+import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/model/settings_state.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
 
@@ -15,11 +16,12 @@ class AlistArgsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     return ListTile(
       contentPadding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-      title: const Text(
-        'Arguments List',
-        style: TextStyle(fontWeight: FontWeight.w500),
+      title: Text(
+        t.settings.alistSettings.argumentsList.title,
+        style: const TextStyle(fontWeight: FontWeight.w500),
       ),
       subtitle: Text(settings.alistArgs.join(', ')),
       trailing: ElevatedButton(
@@ -34,7 +36,7 @@ class AlistArgsTile extends StatelessWidget {
             settingsNotifier.setAlistArgs(args);
           }
         },
-        child: const Text('Edit'),
+        child: Text(t.button.edit),
       ),
     );
   }
@@ -62,7 +64,7 @@ class __AlistArgsDialogState extends State<_AlistArgsDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Edit Arguments'),
+      title: Text(t.settings.alistSettings.argumentsList.title),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -93,7 +95,7 @@ class __AlistArgsDialogState extends State<_AlistArgsDialog> {
                   args.add('');
                 });
               },
-              child: const Text('Add Argument'),
+              child: Text(t.settings.alistSettings.argumentsList.addArgument),
             ),
           ],
         ),
@@ -101,11 +103,11 @@ class __AlistArgsDialogState extends State<_AlistArgsDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Cancel'),
+          child: Text(t.button.cancel),
         ),
         ElevatedButton(
           onPressed: () => Navigator.of(context).pop(args),
-          child: const Text('Save'),
+          child: Text(t.button.save),
         ),
       ],
     );

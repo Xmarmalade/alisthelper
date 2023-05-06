@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/provider/alist_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,6 +13,7 @@ class MultiButtonCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final alistState = ref.watch(alistProvider);
     final alistNotifier = ref.read(alistProvider.notifier);
+    final t = Translations.of(context);
 
     Future<void> openAList() async {
       final Uri url = Uri.parse(alistState.url);
@@ -38,21 +40,21 @@ class MultiButtonCard extends ConsumerWidget {
                     onPressed: alistState.isRunning
                         ? null
                         : () => alistNotifier.startAlist(),
-                    child: const Text('Run')),
+                    child: Text(t.alistOperation.startAlist)),
                 ElevatedButton(
                     onPressed: alistState.isRunning
                         ? () => alistNotifier.endAlist()
                         : null,
-                    child: const Text('End')),
+                    child: Text(t.alistOperation.endAlist)),
                 ElevatedButton(
                     onPressed: alistState.isRunning ? openAList : null,
-                    child: const Text('Open GUI')),
+                    child: Text(t.alistOperation.openGUI)),
                 ElevatedButton(
                     onPressed: () => alistNotifier.getAlistAdmin(),
-                    child: const Text('Admin')),
+                    child: Text(t.alistOperation.getAdmin)),
                 ElevatedButton(
                     onPressed: () => alistNotifier.getAlistCurrentVersion(addToOutput:true),
-                    child: const Text('Version')),
+                    child: Text(t.alistOperation.getVersion)),
               ],
             ),
           ),

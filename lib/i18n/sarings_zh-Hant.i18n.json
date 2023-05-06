@@ -1,0 +1,112 @@
+{
+    "locale": "繁體中文",
+    "alistOperation": {
+        "startAlist": "啟動",
+        "endAlist": "關閉",
+        "openGUI": "打開 GUI",
+        "getAdmin": "獲取管理員權限",
+        "getVersion": "版本信息"
+    },
+    "firstLaunch": {
+        "intro": "歡迎使用 Alist Helper，讓我們開始吧！",
+        "about": "點擊此處了解更多關於 Alist Helper 的信息！",
+        "chooseTheme": "首先，讓我們在這裡選擇您喜歡的主題！",
+        "chooseDirectory": "第二步，您需要一個 alist 並告訴 alist helper 它在哪裡！",
+        "getAlist": "如果您還沒有 alist，請在這裡獲取！"
+    },
+    "tabs": {
+        "home": "首頁",
+        "settings": "設置"
+    },
+    "home":{
+        "options":"選項",
+        "logs":"日誌"
+    },
+    "languageSettings": {
+        "language": "語言"
+    },
+    "button": {
+        "ok": "確認",
+        "cancel": "取消",
+        "yes": "是",
+        "no": "否",
+        "select": "選擇",
+        "edit": "編輯",
+        "save": "保存",
+        "upgrade": "升級"
+    },
+    "settings": {
+        "interfaceSettings": {
+            "title": "介面",
+            "themeMode": "主題模式",
+            "themeColor": "主題顏色",
+            "language": "選擇語言"
+        },
+        "alistHelperSettings": {
+            "title": "Alist Helper 選項",
+            "saveWindowPlacement": {
+                "title": "保存 Alist Helper 窗口位置",
+                "description": "這將允許 Alist Helper 保存窗口位置。"
+            },
+            "minimizeToTray": {
+                "title": "允許 Alist Helper 最小化到托盤",
+                "description": "這將允許 Alist Helper 最小化到托盤。"
+            },
+            "autoStart": {
+                "title": "允許自動啟動",
+                "description": "這將允許 Alist Helper 自動啟動。"
+            },
+            "autoStartLaunchMinimized": {
+                "title": "允許靜音自動啟動",
+                "description": "這將允許 Alist Helper 靜音自動啟動。"
+            }
+        },
+        "alistSettings": {
+            "title": "Alist 選項",
+            "autoStartAlist": {
+                "title": "允許 alist 自動啟動",
+                "description": "這將在 Alist Helper 啟動時自動啟動 alist。"
+            },
+            "autoStartLaunchMinimized": {
+                "title": "允許靜音自動啟動",
+                "description": "這將允許 Alist Helper 靜音自動啟動。"
+            },
+            "workingDirectory": {
+                "title": "工作目錄",
+                "description": "設置工作目錄",
+                "hint": "這是一個目錄，不是文件！",
+                "chooseFrom": "從以下選擇...",
+                "notFound": "目錄中找不到 alist。",
+                "found": "找到 alist.exe"
+            },
+            "argumentsList": {
+                "title": "啟動引數列表",
+                "description": "編輯 alist.exe 的啟動引數",
+                "editArguments": "編輯引數",
+                "addArgument": "添加引數"
+            }
+        },
+        "others": {
+            "title": "其他",
+            "checkForUpdates": "檢查更新",
+            "about": "關於"
+        }
+    },
+    "upgrade": {
+        "clickToCheck": "點擊檢查更新",
+        "checkFirst": "請先檢查更新",
+        "canUpgrade": "發現新版本，您想升級嗎？",
+        "noUpgrade": "您正在使用最新版本。",
+        "upgrade": "升級",
+        "alistVersion": {
+            "title": "Alist 版本",
+            "currentVersion": "當前 Alist 版本",
+            "latestVersion": "最新 Alist 版本"
+        },
+        "alistHelperVersion": {
+            "title": "Alist Helper 版本",
+            "currentVersion": "當前 Alist Helper 版本",
+            "latestVersion": "最新 Alist Helper 版本"
+        }
+    }
+}

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/provider/alist_provider.dart';
 import 'package:alisthelper/provider/persistence_provider.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
@@ -16,6 +17,30 @@ Future<PersistenceService> preInit(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final persistenceService = await PersistenceService.initialize();
+
+  // Register default plural resolver
+  for (final locale in AppLocale.values) {
+    if ([AppLocale.en].contains(locale)) {
+      continue;
+    }
+
+    LocaleSettings.setPluralResolver(
+      locale: locale,
+      cardinalResolver: (n, {zero, one, two, few, many, other}) {
+        if (n == 0) {
+          return zero ?? other ?? n.toString();
+        }
+        if (n == 1) {
+          return one ?? other ?? n.toString();
+        }
+        return other ?? n.toString();
+      },
+      ordinalResolver: (n, {zero, one, two, few, many, other}) {
+        return other ?? n.toString();
+      },
+    );
+  }
+
 
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     // Check if this app is already open and let it "show up".

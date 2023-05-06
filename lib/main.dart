@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/provider/alist_provider.dart';
 import 'package:alisthelper/provider/app_arguments_provider.dart';
 import 'package:alisthelper/provider/persistence_provider.dart';
@@ -12,16 +13,15 @@ import 'package:alisthelper/utils/native/window_watcher.dart';
 import 'package:alisthelper/widgets/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> main(List<String> args) async {
-
   final persistenceService = await preInit(args);
-  
+
   runApp(ProviderScope(overrides: [
     persistenceProvider.overrideWithValue(persistenceService),
     appArgumentsProvider.overrideWith((ref) => args),
-  ], child: const MyApp()));
+  ], child: TranslationProvider(child: const MyApp())));
 }
 
 class MyApp extends ConsumerWidget {
@@ -30,7 +30,8 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final alistNotifier = ref.read(alistProvider.notifier);
-    Color color = ref.watch(settingsProvider.select((settings) => settings.themeColor));
+    Color color =
+        ref.watch(settingsProvider.select((settings) => settings.themeColor));
     return TrayWatcher(
       child: WindowWatcher(
         onClose: () async {
@@ -47,11 +48,13 @@ class MyApp extends ConsumerWidget {
         },
         child: MaterialApp(
           title: 'Alist Helper',
-          themeMode: ref.watch(settingsProvider.select((settings) => settings.themeMode)),
-          theme: AlistHelperTheme(color)
-              .lightThemeData,
-          darkTheme: AlistHelperTheme(color)
-              .darkThemeData,
+          locale: TranslationProvider.of(context).flutterLocale,
+          supportedLocales: AppLocaleUtils.supportedLocales,
+          localizationsDelegates: GlobalMaterialLocalizations.delegates,
+          themeMode: ref
+              .watch(settingsProvider.select((settings) => settings.themeMode)),
+          theme: AlistHelperTheme(color).lightThemeData,
+          darkTheme: AlistHelperTheme(color).darkThemeData,
           home: const Home(),
         ),
       ),

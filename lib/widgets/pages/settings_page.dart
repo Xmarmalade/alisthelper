@@ -1,6 +1,8 @@
+import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
 import 'package:alisthelper/widgets/alist_args_tile.dart';
 import 'package:alisthelper/widgets/pages/about_page.dart';
+import 'package:alisthelper/widgets/pages/language_page.dart';
 import 'package:alisthelper/widgets/pages/upgrade_page.dart';
 import 'package:alisthelper/widgets/responsive_builder.dart';
 import 'package:alisthelper/widgets/theme_tile.dart';
@@ -8,7 +10,6 @@ import 'package:alisthelper/widgets/toggle_tile.dart';
 import 'package:alisthelper/widgets/working_directory_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key, required this.sizingInformation});
@@ -20,8 +21,8 @@ class SettingsPage extends StatelessWidget {
         appBar: (sizingInformation.isDesktop
             ? null
             : AppBar(
-                title: const Text('Settings',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
+                title: Text(t.tabs.settings,
+                    style: const TextStyle(fontWeight: FontWeight.bold)),
               )),
         body: const SettingsTab());
   }
@@ -45,7 +46,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider);
     final settingsNotifier = ref.watch(settingsProvider.notifier);
-
+    final t = Translations.of(context);
     return Center(
       child: Container(
         constraints: const BoxConstraints(maxWidth: 800),
@@ -54,54 +55,71 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
             Card(
               margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
               child: Column(children: [
-                const ListTile(
-                    title: Text('Interface',
-                        style: TextStyle(
+                ListTile(
+                    title: Text(t.settings.interfaceSettings.title,
+                        style: const TextStyle(
                             fontWeight: FontWeight.w600, fontSize: 18))),
                 ChangeThemeModeTile(
                     settings: settings, settingsNotifier: settingsNotifier),
                 ChangeThemeColorTile(
                     settings: settings, settingsNotifier: settingsNotifier),
+                ListTile(
+                  title: Text(t.settings.interfaceSettings.language),
+                  leading: Icon(
+                    Icons.language_rounded,
+                    color: settings.themeColor,
+                  ),
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LanguagePage())),
+                ),
                 Container(height: 10)
               ]),
             ),
             Card(
               margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
               child: Column(children: [
-                const ListTile(
-                    title: Text('Options',
-                        style: TextStyle(
+                ListTile(
+                    title: Text(t.settings.alistHelperSettings.title,
+                        style: const TextStyle(
                             fontWeight: FontWeight.w600, fontSize: 18))),
                 CustomToggleTile(
                   value: settings.saveWindowPlacement,
                   onToggled: (value) => ref
                       .read(settingsProvider.notifier)
                       .setSaveWindowPlacement(value),
-                  title: 'Save AlistHelper window placement',
-                  subtitle: 'This will allow AlistHelper save window placement',
+                  title:
+                      t.settings.alistHelperSettings.saveWindowPlacement.title,
+                  subtitle: t.settings.alistHelperSettings.saveWindowPlacement
+                      .description,
                 ),
                 CustomToggleTile(
                   value: settings.minimizeToTray,
                   onToggled: (value) => ref
                       .read(settingsProvider.notifier)
                       .setMinimizeToTray(value),
-                  title: 'Allow AlistHelper minimize to tray',
-                  subtitle: 'This will allow AlistHelper to minimize to tray',
+                  title: t.settings.alistHelperSettings.minimizeToTray.title,
+                  subtitle:
+                      t.settings.alistHelperSettings.minimizeToTray.description,
                 ),
                 CustomToggleTile(
                   value: settings.autoStart,
                   onToggled: (value) =>
                       ref.read(settingsProvider.notifier).setAutoStart(value),
-                  title: 'Allow auto start',
-                  subtitle: 'This will allow AlistHelper auto start',
+                  title: t.settings.alistHelperSettings.autoStart.title,
+                  subtitle:
+                      t.settings.alistHelperSettings.autoStart.description,
                 ),
                 CustomToggleTile(
                   value: settings.autoStartLaunchMinimized,
                   onToggled: (value) => ref
                       .read(settingsProvider.notifier)
                       .setAutoStartLaunchMinimized(value),
-                  title: 'Allow silent auto start',
-                  subtitle: 'This will allow AlistHelper auto start silently',
+                  title: t.settings.alistHelperSettings.autoStartLaunchMinimized
+                      .title,
+                  subtitle: t.settings.alistHelperSettings
+                      .autoStartLaunchMinimized.description,
                 ),
                 Container(height: 10)
               ]),
@@ -109,18 +127,18 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
             Card(
               margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
               child: Column(children: [
-                const ListTile(
-                    title: Text('Alist',
-                        style: TextStyle(
+                ListTile(
+                    title: Text(t.settings.alistSettings.title,
+                        style: const TextStyle(
                             fontWeight: FontWeight.w600, fontSize: 18))),
                 CustomToggleTile(
                   value: settings.autoStartAlist,
                   onToggled: (value) => ref
                       .read(settingsProvider.notifier)
                       .setAutoStartAList(value),
-                  title: 'Allow alist auto start',
+                  title: t.settings.alistSettings.autoStartAlist.title,
                   subtitle:
-                      'This will auto start alist when AlistHelper starts',
+                      t.settings.alistSettings.autoStartAlist.description,
                 ),
                 WorkingDirectoryTile(
                     settings: settings, settingsNotifier: settingsNotifier),
@@ -132,20 +150,22 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
             Card(
               margin: const EdgeInsets.fromLTRB(20, 10, 20, 20),
               child: Column(children: [
-                const ListTile(
-                  title: Text('Others',
+                ListTile(
+                  title: Text(t.settings.others.title,
                       style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
+                          const TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
                 ),
                 ListTile(
-                    title: const Text('Check for updates (NOT IMPLEMENTED)'),onTap: () {
+                  title: Text(t.settings.others.checkForUpdates),
+                  onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const UpgradePage()));
-                  },),
+                  },
+                ),
                 ListTile(
-                  title: const Text('About us'),
+                  title: Text(t.settings.others.about),
                   onTap: () {
                     Navigator.push(
                         context,

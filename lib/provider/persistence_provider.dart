@@ -1,7 +1,9 @@
 import 'package:alisthelper/provider/window_dimensions_provider.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:alisthelper/i18n/strings.g.dart';
 
 final persistenceProvider = Provider<PersistenceService>((ref) {
   throw Exception('persistenceProvider not initialized');
@@ -19,6 +21,7 @@ const _windowHeight = 'ah_window_height';
 const _saveWindowPlacement = 'ah_save_window_placement';
 
 // Settings
+const _localeKey = 'ah_locale';
 const _autoStartLaunchMinimized = 'ah_auto_start_launch_minimized';
 const _minimizeToTray = 'ah_minimize_to_tray';
 const _autoStart = 'ah_auto_start';
@@ -38,6 +41,12 @@ class PersistenceService {
     final prefs = await SharedPreferences.getInstance();
 
     // Locale configuration upon persistence initialisation to prevent unlocalised Alias generation
+    final persistedLocale = prefs.getString(_localeKey);
+    if (persistedLocale == null) {
+      LocaleSettings.useDeviceLocale();
+    } else {
+      LocaleSettings.setLocaleRaw(persistedLocale);
+    }
 
     if (prefs.getString(_version) == null) {
       await prefs.setString(_version, currentAlistHelperVersion);
@@ -139,6 +148,22 @@ class PersistenceService {
 
   Future<void> setThemeColor(Color themeColor) async {
     await _prefs.setInt(_themeColor, themeColor.value);
+  }
+
+    AppLocale? getLocale() {
+    final value = _prefs.getString(_localeKey);
+    if (value == null) {
+      return null;
+    }
+    return AppLocale.values.firstWhereOrNull((locale) => locale.languageTag == value);
+  }
+
+  Future<void> setLocale(AppLocale? locale) async {
+    if (locale == null) {
+      await _prefs.remove(_localeKey);
+    } else {
+      await _prefs.setString(_localeKey, locale.languageTag);
+    }
   }
 
   List<String> getAlistArgs() {

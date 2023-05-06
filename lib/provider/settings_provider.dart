@@ -1,3 +1,4 @@
+import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/utils/native/auto_start_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,6 +18,7 @@ class SettingsNotifier extends Notifier<SettingsState> {
   SettingsState build() {
     _persistenceService = ref.watch(persistenceProvider);
     return SettingsState(
+      locale: _persistenceService.getLocale(),
       autoStartAlist: _persistenceService.isAutoStartAlist(),
       minimizeToTray: _persistenceService.isMinimizeToTray(),
       autoStartLaunchMinimized:
@@ -25,9 +27,14 @@ class SettingsNotifier extends Notifier<SettingsState> {
       workingDirectory: _persistenceService.getWorkingDirectory(),
       themeMode: _persistenceService.getThemeMode(),
       themeColor: _persistenceService.getThemeColor(),
-      saveWindowPlacement:  _persistenceService.getSaveWindowPlacement(),
+      saveWindowPlacement: _persistenceService.getSaveWindowPlacement(),
       alistArgs: _persistenceService.getAlistArgs(),
     );
+  }
+
+  Future<void> setLocale(AppLocale? locale) async {
+    await _persistenceService.setLocale(locale);
+    state = state.copyWith(locale: locale);
   }
 
   Future<void> setAutoStartAList(bool value) async {

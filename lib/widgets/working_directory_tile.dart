@@ -1,11 +1,12 @@
-
 import 'dart:io';
 
+import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/model/settings_state.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:file_picker/file_picker.dart';
+
 class WorkingDirectoryTile extends StatelessWidget {
   const WorkingDirectoryTile({
     Key? key,
@@ -21,12 +22,12 @@ class WorkingDirectoryTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextEditingController workingDirectoryController =
         TextEditingController(text: settings.workingDirectory);
-
+    final t = Translations.of(context);
     return ListTile(
       contentPadding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-      title: const Text(
-        'Working Directory',
-        style: TextStyle(fontWeight: FontWeight.w500),
+      title: Text(
+        t.settings.alistSettings.workingDirectory.title,
+        style: const TextStyle(fontWeight: FontWeight.w500),
       ),
       subtitle: Text(settings.workingDirectory),
       trailing: ElevatedButton(
@@ -36,16 +37,16 @@ class WorkingDirectoryTile extends StatelessWidget {
             builder: (BuildContext context) {
               // use the new context variable here
               return AlertDialog(
-                title: const Text('Set Working Directory'),
+                title: Text(t.settings.alistSettings.workingDirectory.title),
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const Text('It\'s a Directory, not a File!'),
+                    Text(t.settings.alistSettings.workingDirectory.hint),
                     TextField(
                       controller: workingDirectoryController,
-                      decoration: const InputDecoration(
-                        labelText: 'Directory',
+                      decoration: InputDecoration(
+                        labelText: t.settings.alistSettings.workingDirectory.description,
                       ),
                     ),
                     Container(
@@ -59,14 +60,14 @@ class WorkingDirectoryTile extends StatelessWidget {
                           workingDirectoryController.text = selectedDirectory;
                         }
                       },
-                      child: const Text('Select from...'),
+                      child: Text(t.settings.alistSettings.workingDirectory.chooseFrom),
                     ),
                   ],
                 ),
                 actions: <Widget>[
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('CANCEL'),
+                    child: Text(t.button.cancel),
                   ),
                   ElevatedButton(
                     onPressed: () async {
@@ -81,8 +82,8 @@ class WorkingDirectoryTile extends StatelessWidget {
                             Navigator.of(context)
                                 .pop(workingDirectoryController.text);
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Found alist.exe'),
+                              SnackBar(
+                                content: Text(t.settings.alistSettings.workingDirectory.found),
                               ),
                             );
                           }
@@ -91,8 +92,8 @@ class WorkingDirectoryTile extends StatelessWidget {
                               settings.workingDirectory;
                           if (context.mounted) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('No alist found in directory.'),
+                              SnackBar(
+                                content: Text(t.settings.alistSettings.workingDirectory.notFound),
                               ),
                             );
                           }
@@ -105,7 +106,7 @@ class WorkingDirectoryTile extends StatelessWidget {
                         );
                       }
                     },
-                    child: const Text('OK'),
+                    child: Text(t.button.ok),
                   ),
                 ],
               );
@@ -115,9 +116,8 @@ class WorkingDirectoryTile extends StatelessWidget {
             await settingsNotifier.setWorkingDirectory(path);
           }
         },
-        child: const Text('Select'),
+        child: Text(t.button.select),
       ),
     );
   }
 }
-

@@ -1,3 +1,4 @@
+import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
 import 'package:alisthelper/widgets/button_card.dart';
 import 'package:alisthelper/widgets/pages/first_launch_page.dart';
@@ -14,6 +15,7 @@ class AlistHelperPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = Translations.of(context);
     if (ref.watch(
             settingsProvider.select((settings) => settings.workingDirectory)) ==
         '') {
@@ -29,16 +31,16 @@ class AlistHelperPage extends ConsumerWidget {
         body: Center(
           child: Column(
             children: [
-              const ListTile(
-                title: Text('Options',
+              ListTile(
+                title: Text(t.home.options,
                     style:
-                        TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
+                        const TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
               ),
               const MultiButtonCard(),
-              const ListTile(
-                title: Text('Logs',
+              ListTile(
+                title: Text(t.home.logs,
                     style:
-                        TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
+                        const TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
               ),
               Expanded(
                 child: Card(
