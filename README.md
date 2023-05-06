@@ -7,8 +7,7 @@ Alist Helper is a software application developed using Flutter, designed to simp
 
 |   |  |
 |---|---|
-| ![image](https://user-images.githubusercontent.com/16839488/235718140-0572c7ae-b3d5-46a8-b092-65a3dff7d92f.png) | ![image](https://user-images.githubusercontent.com/16839488/235718717-e7fae230-284e-4ad8-9e8e-5f9a7d6a22dd.png)
- |
+| ![image](https://user-images.githubusercontent.com/16839488/235718140-0572c7ae-b3d5-46a8-b092-65a3dff7d92f.png) | ![image](https://user-images.githubusercontent.com/16839488/235718717-e7fae230-284e-4ad8-9e8e-5f9a7d6a22dd.png)|
 
 
 
