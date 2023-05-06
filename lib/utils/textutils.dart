@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fast_gbk/fast_gbk.dart';
 
 class TextUtils {
@@ -16,8 +18,11 @@ class TextUtils {
     return input;
   }
 
-  static String stdDecode(List<int> input) {
-    return removeEscapeSequences(gbk.decode(removeExtraBreaks(input)));
+  static String stdDecode(List<int> input,bool isGBK) {
+    if (isGBK) {
+      return removeEscapeSequences(gbk.decode(removeExtraBreaks(input)));
+    }
+    return removeEscapeSequences(utf8.decode(removeExtraBreaks(input)));
   }
 
   static bool isNewVersion(String currentVersion, String latestVersion) {

@@ -44,11 +44,11 @@ class AlistNotifier extends StateNotifier<AlistState> {
     var process = await Process.start('$workingDirectory\\alist.exe', alistArgs,
         workingDirectory: workingDirectory);
     process.stdout.listen((data) {
-      String text = TextUtils.stdDecode(data);
+      String text = TextUtils.stdDecode(data,false);
       addOutput(text);
     });
     process.stderr.listen((data) {
-      String text = TextUtils.stdDecode(data);
+      String text = TextUtils.stdDecode(data,false);
       addOutput(text);
     });
   }
@@ -57,7 +57,7 @@ class AlistNotifier extends StateNotifier<AlistState> {
     state = state.copyWith(isRunning: false);
     var process = await Process.start('taskkill', ['/f', '/im', 'alist.exe']);
     process.stdout.listen((data) {
-      String text = TextUtils.stdDecode(data);
+      String text = TextUtils.stdDecode(data,true);
       addOutput(text);
     });
   }
@@ -72,7 +72,7 @@ class AlistNotifier extends StateNotifier<AlistState> {
         '$workingDirectory\\alist.exe', ['admin'],
         workingDirectory: workingDirectory);
     alistAdmin.stderr.listen((data) {
-      String text = TextUtils.stdDecode(data);
+      String text = TextUtils.stdDecode(data,false);
       addOutput(text);
     });
   }
@@ -83,7 +83,7 @@ class AlistNotifier extends StateNotifier<AlistState> {
         '$workingDirectory\\alist.exe', ['version'],
         workingDirectory: workingDirectory);
     alistVersion.stdout.listen((data) {
-      String text = TextUtils.stdDecode(data);
+      String text = TextUtils.stdDecode(data,false);
       if (text.contains('Version')) {
         String versionInfo = text
             .split('Go Version:')[1]
@@ -105,7 +105,7 @@ class AlistNotifier extends StateNotifier<AlistState> {
       final json = jsonDecode(response.body) as Map<String, dynamic>;
       final latest = json['tag_name'] as String;
       state = state.copyWith(latestVersion: latest);
-      print('Latest release: $latest');
+      //print('Latest release: $latest');
   }
 
   Future<void> isAlistRunning() async {
