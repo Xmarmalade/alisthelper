@@ -10,7 +10,7 @@ final persistenceProvider = Provider<PersistenceService>((ref) {
 });
 
 // Version of the storage
-const currentAlistHelperVersion = 'v0.0.1';
+const currentAlistHelperVersion = 'v0.0.2';
 const _version = 'ah_current_version';
 
 // App Window Offset and Size info
@@ -48,7 +48,7 @@ class PersistenceService {
       LocaleSettings.setLocaleRaw(persistedLocale);
     }
 
-    if (prefs.getString(_version) == null) {
+    if (prefs.getString(_version) == null || prefs.getString(_version) != currentAlistHelperVersion) {
       await prefs.setString(_version, currentAlistHelperVersion);
     }
     return PersistenceService._(prefs);
