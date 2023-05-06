@@ -15,10 +15,14 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
   @override
   void initState() {
     super.initState();
-    final alistNotifier = ref.read(alistProvider.notifier);
-    alistNotifier.getAlistCurrentVersion(addToOutput: false);
-    final alistHelperNotifier = ref.read(alistHelperProvider.notifier);
-    alistHelperNotifier.getAlistHelperCurrentVersion();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        final alistNotifier = ref.read(alistProvider.notifier);
+        alistNotifier.getAlistCurrentVersion(addToOutput: false);
+        final alistHelperNotifier = ref.read(alistHelperProvider.notifier);
+        alistHelperNotifier.getAlistHelperCurrentVersion();
+      },
+    );
   }
 
   @override
@@ -127,7 +131,7 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
                       },
                     ),
                     ListTile(
-                      title: const Text('Upgrade Alist'),
+                      title: const Text('Upgrade Alist Helper'),
                       subtitle: Text(
                         (alistHelperState.latestVersion == 'v0.0.0'
                             ? 'Check first'
@@ -135,7 +139,7 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
                                     alistHelperState.currentVersion,
                                     alistHelperState.latestVersion)
                                 ? 'You can upgrade now'
-                                : 'You are using the latest alist')),
+                                : 'You are using the latest alist helper')),
                       ),
                       trailing: ElevatedButton(
                         onPressed: () async {

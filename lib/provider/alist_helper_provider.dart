@@ -22,8 +22,7 @@ class AlistHelperNotifier extends StateNotifier<AlistHelperState> {
 
   //get alist version
   Future<void> getAlistHelperCurrentVersion() async {
-    Future(() => state = state.copyWith(currentVersion: currentAlistHelperVersion));
-    
+    state = state.copyWith(currentVersion: currentAlistHelperVersion);
   }
 
   Future<void> fetchAlistHelperLatestVersion() async {
@@ -32,7 +31,7 @@ class AlistHelperNotifier extends StateNotifier<AlistHelperState> {
     final json = jsonDecode(response.body) as Map<String, dynamic>;
     final latest = json['tag_name'] as String;
     state = state.copyWith(latestVersion: latest);
-    print('Latest release: $latest');
+    //print('Latest release: $latest');
   }
 }
 
