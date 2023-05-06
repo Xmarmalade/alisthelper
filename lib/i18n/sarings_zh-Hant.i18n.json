@@ -4,7 +4,7 @@
         "startAlist": "啟動",
         "endAlist": "關閉",
         "openGUI": "打開 GUI",
-        "getAdmin": "獲取管理員權限",
+        "getAdmin": "管理員信息",
         "getVersion": "版本信息"
     },
     "firstLaunch": {

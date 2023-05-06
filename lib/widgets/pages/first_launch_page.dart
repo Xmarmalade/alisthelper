@@ -91,7 +91,7 @@ class _IntroTabState extends ConsumerState<IntroTab> {
               child: Column(children: [
                 ListTile(
                     title: Text(
-                        t.firstLaunch.getAlist,
+                        t.firstLaunch.chooseDirectory,
                         style: const TextStyle(
                             fontWeight: FontWeight.w600, fontSize: 18))),
                 ListTile(
