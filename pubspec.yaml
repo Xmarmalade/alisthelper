@@ -29,7 +29,7 @@ dependencies:
   # launch_at_startup is a package that provides launch at startup
   launch_at_startup: ^0.2.2
   # package_info_plus is a package that provides package info
-  package_info_plus: ^3.1.2
+  package_info_plus: ^4.0.0
   # file_picker is used to choose working dir
   file_picker: ^5.2.11
   # http is used to check upgrade
