@@ -5,7 +5,7 @@
         "endAlist": "End",
         "openGUI": "Open GUI",
         "getAdmin": "Admin",
-        "getVersion": "Version",
+        "getVersion": "Version"
     },
     "firstLaunch": {
         "intro": "Welcome to use Alist Helper, let's get started!",
@@ -18,9 +18,9 @@
         "home": "Home",
         "settings": "Settings"
     },
-    "home":{
-        "options":"Options",
-        "logs":"Logs"
+    "home": {
+        "options": "Options",
+        "logs": "Logs"
     },
     "languageSettings": {
         "language": "Language"
@@ -85,7 +85,7 @@
                 "editArguments": "Edit Arguments",
                 "addArgument": "Add Argument"
             },
-            "proxy":{
+            "proxy": {
                 "title": "Http Proxy",
                 "description": "Set your http proxy",
                 "hint": "If left blank, it will not be enabled",
