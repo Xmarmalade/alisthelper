@@ -12,15 +12,20 @@ final alistProvider = StateNotifierProvider<AlistNotifier, AlistState>((ref) {
       .watch(settingsProvider.select((settings) => settings.workingDirectory));
   List<String> alistArgs =
       ref.watch(settingsProvider.select((settings) => settings.alistArgs));
-  return AlistNotifier(workingDirectory, alistArgs);
+  String proxy =
+      ref.watch(settingsProvider.select((settings) => settings.proxy ?? ''));
+
+  
+  return AlistNotifier(workingDirectory, alistArgs,proxy);
 });
 
 class AlistNotifier extends StateNotifier<AlistState> {
   List<String> stdOut = [];
   String workingDirectory;
   List<String> alistArgs;
+  String proxy;
 
-  AlistNotifier(this.workingDirectory, this.alistArgs) : super(AlistState());
+  AlistNotifier(this.workingDirectory, this.alistArgs,this.proxy) : super(AlistState());
 
   void addOutput(String text) {
     checkState(text);
@@ -41,8 +46,18 @@ class AlistNotifier extends StateNotifier<AlistState> {
 
   Future<void> startAlist() async {
     state = state.copyWith(isRunning: true);
-    var process = await Process.start('$workingDirectory\\alist.exe', alistArgs,
-        workingDirectory: workingDirectory);
+    final Map<String, String> envVars = Map.from(Platform.environment);
+    if (proxy != '') {
+      envVars['http_proxy'] = proxy;
+      envVars['https_proxy'] = proxy;
+      addOutput('Proxy: $proxy');
+    }
+    Process process = await Process.start(
+      '$workingDirectory\\alist.exe',
+      alistArgs,
+      workingDirectory: workingDirectory,
+      environment: envVars,
+    );
     process.stdout.listen((data) {
       String text = TextUtils.stdDecode(data, false);
       addOutput(text);

@@ -18,9 +18,9 @@
         "home": "首页",
         "settings": "设置"
     },
-    "home":{
-        "options":"选项",
-        "logs":"日志"
+    "home": {
+        "options": "选项",
+        "logs": "日志"
     },
     "languageSettings": {
         "language": "语言"
@@ -84,6 +84,13 @@
                 "description": "编辑 alist.exe 的启动参数",
                 "editArguments": "编辑参数",
                 "addArgument": "添加参数"
+            },
+            "proxy": {
+                "title": "Http 代理",
+                "description": "设置 Http 代理",
+                "hint": "如果留空， 将不会启用 Http 代理",
+                "success": "Http 代理地址已设置",
+                "error": "非法的 Http 代理地址"
             }
         },
         "others": {

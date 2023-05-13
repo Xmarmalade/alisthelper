@@ -12,6 +12,7 @@ class SettingsState {
   final Color themeColor;
   final List<String> alistArgs;
   final AppLocale? locale;
+  final String? proxy;
 
   SettingsState({
     required this.minimizeToTray,
@@ -24,6 +25,7 @@ class SettingsState {
     required this.alistArgs,
     required this.autoStartAlist,
     required this.locale,
+    required this.proxy,
   });
 
   SettingsState copyWith({
@@ -37,6 +39,7 @@ class SettingsState {
     Color? themeColor,
     List<String>? alistArgs,
     AppLocale? locale,
+    String? proxy,
   }) {
     return SettingsState(
       autoStartAlist: autoStartAlist ?? this.autoStartAlist,
@@ -49,6 +52,7 @@ class SettingsState {
       saveWindowPlacement: saveWindowPlacement ?? this.saveWindowPlacement,
       alistArgs: alistArgs ?? this.alistArgs,
       locale: locale ?? this.locale,
+      proxy: proxy ?? this.proxy,
     );
   }
 }

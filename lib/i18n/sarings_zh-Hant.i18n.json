@@ -18,9 +18,9 @@
         "home": "首頁",
         "settings": "設置"
     },
-    "home":{
-        "options":"選項",
-        "logs":"日誌"
+    "home": {
+        "options": "選項",
+        "logs": "日誌"
     },
     "languageSettings": {
         "language": "語言"
@@ -84,6 +84,13 @@
                 "description": "編輯 alist.exe 的啟動引數",
                 "editArguments": "編輯引數",
                 "addArgument": "添加引數"
+            },
+            "proxy": {
+                "title": "HTTP 代理",
+                "description": "設置 HTTP 代理",
+                "hint": "若留空則不啟用 HTTP 代理",
+                "success": "已設置 HTTP 代理",
+                "error": "無效的 HTTP 代理"
             }
         },
         "others": {

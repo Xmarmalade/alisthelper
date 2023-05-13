@@ -30,6 +30,7 @@ const _themeMode = 'ah_theme_mode';
 const _themeColor = 'ah_theme_color';
 const _alistArgs = 'ah_alist_args';
 const _autoStartAlist = 'ah_auto_start_alist';
+const _proxy = 'ah_proxy';
 
 /// This service abstracts the persistence layer.
 class PersistenceService {
@@ -53,6 +54,8 @@ class PersistenceService {
     }
     return PersistenceService._(prefs);
   }
+
+
 
   String getAlistHelperVersion() {
     return _prefs.getString(_version) ?? currentAlistHelperVersion;
@@ -180,5 +183,13 @@ class PersistenceService {
 
   Future<void> setAutoStartAlist(bool autoStart) async {
     await _prefs.setBool(_autoStartAlist, autoStart);
+  }
+
+  String getProxy() {
+    return _prefs.getString(_proxy) ?? '';
+  }
+
+  Future<void> setProxy(String? proxy) async {
+    await _prefs.setString(_proxy, proxy ?? '');
   }
 }

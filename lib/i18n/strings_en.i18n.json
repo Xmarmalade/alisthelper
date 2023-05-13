@@ -5,7 +5,7 @@
         "endAlist": "End",
         "openGUI": "Open GUI",
         "getAdmin": "Admin",
-        "getVersion": "Version"
+        "getVersion": "Version",
     },
     "firstLaunch": {
         "intro": "Welcome to use Alist Helper, let's get started!",
@@ -84,6 +84,13 @@
                 "description": "Edit startup arguments for alist.exe",
                 "editArguments": "Edit Arguments",
                 "addArgument": "Add Argument"
+            },
+            "proxy":{
+                "title": "Http Proxy",
+                "description": "Set your http proxy",
+                "hint": "If left blank, it will not be enabled",
+                "success": "Proxy address set successfully",
+                "error": "Invalid proxy address"
             }
         },
         "others": {

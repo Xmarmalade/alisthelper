@@ -29,7 +29,13 @@ class SettingsNotifier extends Notifier<SettingsState> {
       themeColor: _persistenceService.getThemeColor(),
       saveWindowPlacement: _persistenceService.getSaveWindowPlacement(),
       alistArgs: _persistenceService.getAlistArgs(),
+      proxy: _persistenceService.getProxy(),
     );
+  }
+
+    Future<void> setProxy(String? proxy) async {
+    await _persistenceService.setProxy(proxy);
+    state = state.copyWith(proxy: proxy);
   }
 
   Future<void> setLocale(AppLocale? locale) async {

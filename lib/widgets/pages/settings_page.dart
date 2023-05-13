@@ -4,6 +4,7 @@ import 'package:alisthelper/widgets/alist_args_tile.dart';
 import 'package:alisthelper/widgets/pages/about_page.dart';
 import 'package:alisthelper/widgets/pages/language_page.dart';
 import 'package:alisthelper/widgets/pages/upgrade_page.dart';
+import 'package:alisthelper/widgets/proxy_tile.dart';
 import 'package:alisthelper/widgets/responsive_builder.dart';
 import 'package:alisthelper/widgets/theme_tile.dart';
 import 'package:alisthelper/widgets/toggle_tile.dart';
@@ -141,6 +142,8 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                       t.settings.alistSettings.autoStartAlist.description,
                 ),
                 WorkingDirectoryTile(
+                    settings: settings, settingsNotifier: settingsNotifier),
+                ProxyTile(
                     settings: settings, settingsNotifier: settingsNotifier),
                 AlistArgsTile(
                     settings: settings, settingsNotifier: settingsNotifier),
