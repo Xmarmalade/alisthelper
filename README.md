@@ -44,5 +44,6 @@ Please note that this program does not include the binary files for alist. You w
 | GUI                 | ❌ Not supported              | ✅ Supported | ✅ Supported     |
 | System tray         | ❌ Not supported              | ✅ Supported | ✅ Supported     |
 | Startup parameters  | 🛠️ Needs manual configuration | ✅ Supported | ❌ Not supported |
+| Http proxy          | 🛠️ Needs manual configuration | ✅ Supported | ❌ Not supported |
 
 
