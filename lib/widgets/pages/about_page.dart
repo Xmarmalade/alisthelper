@@ -43,7 +43,7 @@ class AboutPage extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           Text(
-            '© ${DateTime.now().year} iiijam',
+            '© ${DateTime.now().year} Xmarmalade',
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 10),
@@ -54,7 +54,7 @@ class AboutPage extends StatelessWidget {
                 TextButton(
                   onPressed: () async {
                     await launchUrl(
-                        Uri.parse('https://github.com/iiijam/alisthelper'),
+                        Uri.parse('https://github.com/Xmarmalade/alisthelper'),
                         mode: LaunchMode.externalApplication);
                   },
                   child: const Text('Source Code (Github)'),
