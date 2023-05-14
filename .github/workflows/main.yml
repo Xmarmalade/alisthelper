@@ -21,12 +21,13 @@ jobs:
 
     env:
       # The name of the installer
-      WINDOWS_INSTALLER_NAME: AlistHelper_${{ github.ref_name }}_windows-x86_64
+      WINDOWS_INSTALLER_NAME: AlistHelper_installer_${{ github.ref_name }}_windows-x86_64
+      WINDOWS_PORTABLE_NAME: AlistHelper_portable_${{ github.ref_name }}_windows-x86_64
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
           channel: "master"
@@ -37,13 +38,6 @@ jobs:
           flutter pub get
           dart run slang
           flutter build windows
-
-      - name: Archive Release
-        uses: thedoctor0/zip-release@master
-        with:
-          type: "zip"
-          filename: alisthelper-${{github.ref_name}}-windows.zip
-          directory: build/windows/runner/Release
 
       - name: Copy innosetup.iss
         # copy assets/alisthelper.ico to build/windows/runner/
@@ -57,6 +51,13 @@ jobs:
         run: |
           iscc /F${{ env.WINDOWS_INSTALLER_NAME }} innosetup.iss /DAppVersion=${{ github.ref_name }}
 
+      - name: Archive Portable Release
+        uses: thedoctor0/zip-release@master
+        with:
+          type: "zip"
+          filename: ${{env.WINDOWS_PORTABLE_NAME}}.zip
+          directory: build/windows/runner/Release
+
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
@@ -66,7 +67,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
             build/windows/runner/Output/${{env.WINDOWS_INSTALLER_NAME}}.exe
-            build/windows/runner/Release/alisthelper-${{github.ref_name}}-windows.zip
+            build/windows/runner/Release/${{env.WINDOWS_PORTABLE_NAME}}.zip
 
       - name: Upload Release Asset
         uses: actions/upload-artifact@v3

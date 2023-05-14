@@ -2,6 +2,7 @@
 AppName=AlistHelper
 AppVersion={#AppVersion}
 AppPublisher=Xmarmalade
+AppCopyright=Copyright (C) 2023 Xmarmalade
 WizardStyle=modern
 Compression=lzma2
 SolidCompression=yes
@@ -12,6 +13,7 @@ UninstallDisplayIcon={app}\alisthelper.exe
 UninstallDisplayName=AlistHelper
 UsePreviousAppDir=no
 PrivilegesRequiredOverridesAllowed=dialog
+CloseApplications=yes
 
 [Files]
 Source: "Release\alisthelper.exe";DestDir: "{app}";DestName: "alisthelper.exe"
