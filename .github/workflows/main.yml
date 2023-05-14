@@ -8,8 +8,7 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-  
-  
+
 env:
   # APP name
   APP_NAME: alisthelper
@@ -20,28 +19,45 @@ jobs:
     # The type of runner that the job will run on
     runs-on: windows-latest
 
+    env:
+      # The name of the installer
+      WINDOWS_INSTALLER_NAME: AlistHelper_installer_${{ github.ref_name }}_windows-x86_64
+      WINDOWS_PORTABLE_NAME: AlistHelper_portable_${{ github.ref_name }}_windows-x86_64
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
-          channel: 'master'
-          
+          channel: "master"
+
       - name: Build
         run: |
           flutter config --enable-windows-desktop
           flutter pub get
           dart run slang
           flutter build windows
-    
-      - name: Archive Release
+
+      - name: Copy innosetup.iss
+        # copy assets/alisthelper.ico to build/windows/runner/
+        # copy build/windows/runner/Release/innosetup.iss to build/windows/runner/
+        run: |
+          cp windows/scripts/innosetup.iss build/windows/runner/
+          cp assets/alisthelper.ico build/windows/runner/
+
+      - name: Build installer executable
+        working-directory: build/windows/runner/
+        run: |
+          iscc /F${{ env.WINDOWS_INSTALLER_NAME }} innosetup.iss /DAppVersion=${{ github.ref_name }}
+
+      - name: Archive Portable Release
         uses: thedoctor0/zip-release@master
         with:
-          type: 'zip'
-          filename: alisthelper-${{github.ref_name}}-windows.zip
+          type: "zip"
+          filename: ${{env.WINDOWS_PORTABLE_NAME}}.zip
           directory: build/windows/runner/Release
-      
+
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
@@ -50,7 +66,8 @@ jobs:
           prerelease: true
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
-            build/windows/runner/Release/alisthelper-${{github.ref_name}}-windows.zip
+            build/windows/runner/Output/${{env.WINDOWS_INSTALLER_NAME}}.exe
+            build/windows/runner/Release/${{env.WINDOWS_PORTABLE_NAME}}.zip
 
       - name: Upload Release Asset
         uses: actions/upload-artifact@v3
