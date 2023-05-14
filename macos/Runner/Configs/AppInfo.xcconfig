@@ -8,7 +8,7 @@
 PRODUCT_NAME = alisthelper
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.iiijam.alisthelper.alisthelper
+PRODUCT_BUNDLE_IDENTIFIER = com.Xmarmalade.alisthelper.alisthelper
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2023 com.iiijam.alisthelper. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2023 com.Xmarmalade.alisthelper. All rights reserved.

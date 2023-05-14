@@ -89,11 +89,11 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.iiijam.alisthelper" "\0"
+            VALUE "CompanyName", "com.Xmarmalade.alisthelper" "\0"
             VALUE "FileDescription", "alisthelper" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "alisthelper" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2023 com.iiijam.alisthelper. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2023 com.Xmarmalade.alisthelper. All rights reserved." "\0"
             VALUE "OriginalFilename", "alisthelper.exe" "\0"
             VALUE "ProductName", "alisthelper" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
