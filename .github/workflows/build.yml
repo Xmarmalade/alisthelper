@@ -55,7 +55,7 @@ jobs:
       - name: Build installer executable
         working-directory: build/windows/runner/
         run: |
-          iscc /F${{ env.WINDOWS_INSTALLER_NAME }} inno_setup_config.iss /DAppVersion=${{ github.ref_name }}
+          iscc /F${{ env.WINDOWS_INSTALLER_NAME }} innosetup.iss /DAppVersion=${{ github.ref_name }}
 
       - name: Release
         uses: softprops/action-gh-release@v1
