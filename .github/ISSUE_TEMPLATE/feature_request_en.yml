@@ -7,7 +7,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Please ensure the feature requested is not listed in [documentation](https://github.com/Xmarmalade/alisthelper/blob/master/README.md or [issue](https://github.com/Xmarmalade/alisthelper/issues), and provide all the information required by this template.
+        Please ensure the feature requested is not listed in [documentation](https://github.com/Xmarmalade/alisthelper/blob/master/README.md) or [issue](https://github.com/Xmarmalade/alisthelper/issues), and provide all the information required by this template.
         Otherwise the issue will be closed immediately.
 
   - type: textarea
