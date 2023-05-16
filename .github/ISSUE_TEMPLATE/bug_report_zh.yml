@@ -1,0 +1,58 @@
+name: 错误报告
+description: 提交发现的错误
+labels: ['bug']
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢您花时间填写此错误报告！
+        请确保您已阅读[文档](https://github.com/Xmarmalade/alisthelper/blob/master/README.md)，并提供此模板所需的所有信息，否则问题将被关闭。
+  - type: textarea
+    id: what-expected
+    attributes:
+      label: 软件期望的结果是什么？
+      placeholder: 告诉我们您认为的结果！
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-happened
+    attributes:
+      label: 实际发生了什么？
+      placeholder: 告诉我们你看到了什么！
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: 您运行的是我们的哪个版本的软件？
+    validations:
+      required: true
+
+  - type: input
+    id: platform-info
+    attributes:
+      label: 平台信息
+      description: 请提供您的平台信息。
+      placeholder: 'Windows 10 Home (Build 22621)'
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 附加信息
+      description: logs, errors, etc.
+      render: shell
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: 这不是重复的问题
+      options:
+        - label: 我搜索了[现有问题](https://github.com/Xmarmalade/alisthelper/issues) 以确保此错误不是重复的。
+          required: true
