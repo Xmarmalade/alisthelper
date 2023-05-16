@@ -25,7 +25,7 @@ body:
     validations:
       required: true
 
-  - type: textarea
+  - type: input
     id: version
     attributes:
       label: What version of our software are you running?
@@ -35,9 +35,11 @@ body:
   - type: input
     id: platform-info
     attributes:
-      label: Platform information (for self-hosted)
+      label: Platform information
       description: Please provide your platform information.
       placeholder: 'Windows 10 Home (Build 22621)'
+    validations:
+      required: true
 
   - type: textarea
     id: logs
