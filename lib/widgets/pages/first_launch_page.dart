@@ -1,6 +1,7 @@
 import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
 import 'package:alisthelper/widgets/pages/about_page.dart';
+import 'package:alisthelper/widgets/pages/language_page.dart';
 import 'package:alisthelper/widgets/responsive_builder.dart';
 
 import 'package:alisthelper/widgets/theme_tile.dart';
@@ -19,27 +20,21 @@ class FirstLaunchPage extends StatelessWidget {
         appBar: (sizingInformation.isDesktop
             ? null
             : AppBar(
-                title: const Text('Hi!',
+                title: const Text('Welcome to Alist Helper!',
                     style: TextStyle(fontWeight: FontWeight.bold)),
               )),
-        body: const IntroTab());
+        body: const FirstLaunchBody());
   }
 }
 
-class IntroTab extends ConsumerStatefulWidget {
-  const IntroTab({super.key});
+class FirstLaunchBody extends ConsumerStatefulWidget {
+  const FirstLaunchBody({super.key});
 
   @override
-  ConsumerState<IntroTab> createState() => _IntroTabState();
+  ConsumerState<FirstLaunchBody> createState() => _FirstLaunchBodyState();
 }
 
-class _IntroTabState extends ConsumerState<IntroTab> {
-  @override
-  void initState() {
-    super.initState();
-    //final settings = ref.read(settingsProvider);
-  }
-
+class _FirstLaunchBodyState extends ConsumerState<FirstLaunchBody> {
   @override
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider);
@@ -75,14 +70,24 @@ class _IntroTabState extends ConsumerState<IntroTab> {
               margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
               child: Column(children: [
                 ListTile(
-                    title: Text(
-                        t.firstLaunch.chooseTheme,
+                    title: Text(t.firstLaunch.chooseTheme,
                         style: const TextStyle(
                             fontWeight: FontWeight.w600, fontSize: 18))),
                 ChangeThemeModeTile(
                     settings: settings, settingsNotifier: settingsNotifier),
                 ChangeThemeColorTile(
                     settings: settings, settingsNotifier: settingsNotifier),
+                ListTile(
+                  title: Text(t.settings.interfaceSettings.language),
+                  leading: Icon(
+                    Icons.language_rounded,
+                    color: settings.themeColor,
+                  ),
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LanguagePage())),
+                ),
                 Container(height: 10)
               ]),
             ),
@@ -90,14 +95,12 @@ class _IntroTabState extends ConsumerState<IntroTab> {
               margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
               child: Column(children: [
                 ListTile(
-                    title: Text(
-                        t.firstLaunch.chooseDirectory,
+                    title: Text(t.firstLaunch.chooseDirectory,
                         style: const TextStyle(
                             fontWeight: FontWeight.w600, fontSize: 18))),
                 ListTile(
                   leading: const Icon(Icons.info_outline),
-                  title:
-                      Text(t.firstLaunch.getAlist),
+                  title: Text(t.firstLaunch.getAlist),
                   onTap: () async {
                     await launchUrl(
                         Uri.parse(
