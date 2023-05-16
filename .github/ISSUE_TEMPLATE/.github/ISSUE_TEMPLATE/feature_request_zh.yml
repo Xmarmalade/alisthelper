@@ -1,0 +1,48 @@
+name: 功能需求
+description: 提交新的功能需求
+labels: ['enhancement']
+
+body:
+
+  - type: markdown
+    attributes:
+      value: |
+        请确保 [文档](https://github.com/Xmarmalade/alisthelper/blob/master/README.md) 和 [issue](https://github.com/Xmarmalade/alisthelper/issue 中没有相关内容，并按照模版提供信息，
+        否则 issue 将被立即关闭。
+
+  - type: textarea
+    id: feature
+    attributes:
+      label: 这是一个什么样的功能？
+      placeholder: 请描述你想看到的功能。
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 这个功能可以解决什么问题？
+      placeholder: 请描述该功能解决的问题。
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 额外描述
+      placeholder: 任何补充说明。
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: 这不是重复的功能请求或与 Alist Helper 本身无关的功能请求。
+      options:
+        - label: 我已经搜索了[现有问题](https://github.com/Xmarmalade/alisthelper/issues)，以确保这不是一个重复的功能请求或与Alist Helper本身无关的功能请求。
+          required: true
+          
+  - type: checkboxes
+    id: sponsor
+    attributes:
+      label: 我想支持 Alist Helper，我已经捐赠/赞助了 Alist Helper
+      options:
+        - label: 我想支持 Alist Helper，我已经捐赠/赞助了 Alist Helper
