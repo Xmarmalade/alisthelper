@@ -41,7 +41,6 @@ Future<PersistenceService> preInit(List<String> args) async {
     );
   }
 
-
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     // Check if this app is already open and let it "show up".
     // If this is the case, then exit the current instance.

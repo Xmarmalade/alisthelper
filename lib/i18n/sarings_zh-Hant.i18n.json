@@ -35,6 +35,15 @@
         "save": "保存",
         "upgrade": "升級"
     },
+    "tray": {
+        "open": "開啟",
+        "hide": "隱藏",
+        "quit": "退出",
+        "startAlist": "啟動 Alist 服務",
+        "endAlist": "關閉 Alist 服務",
+        "tooltip": "Alist Helper",
+        "workingTooltip": "Alist Helper (Alist 執行中)"
+        },
     "settings": {
         "interfaceSettings": {
             "title": "介面",

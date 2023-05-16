@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:alisthelper/utils/native/tray_helper.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:alisthelper/provider/settings_provider.dart';
@@ -15,8 +16,7 @@ final alistProvider = StateNotifierProvider<AlistNotifier, AlistState>((ref) {
   String proxy =
       ref.watch(settingsProvider.select((settings) => settings.proxy ?? ''));
 
-  
-  return AlistNotifier(workingDirectory, alistArgs,proxy);
+  return AlistNotifier(workingDirectory, alistArgs, proxy);
 });
 
 class AlistNotifier extends StateNotifier<AlistState> {
@@ -25,7 +25,8 @@ class AlistNotifier extends StateNotifier<AlistState> {
   List<String> alistArgs;
   String proxy;
 
-  AlistNotifier(this.workingDirectory, this.alistArgs,this.proxy) : super(AlistState());
+  AlistNotifier(this.workingDirectory, this.alistArgs, this.proxy)
+      : super(AlistState());
 
   void addOutput(String text) {
     checkState(text);
@@ -52,6 +53,7 @@ class AlistNotifier extends StateNotifier<AlistState> {
       envVars['https_proxy'] = proxy;
       addOutput('Proxy: $proxy');
     }
+    changeTray(true);
     Process process = await Process.start(
       '$workingDirectory\\alist.exe',
       alistArgs,
@@ -71,6 +73,7 @@ class AlistNotifier extends StateNotifier<AlistState> {
   Future<void> endAlist() async {
     state = state.copyWith(isRunning: false);
     var process = await Process.start('taskkill', ['/f', '/im', 'alist.exe']);
+    changeTray(false);
     process.stdout.listen((data) {
       String text = TextUtils.stdDecode(data, true);
       addOutput(text);

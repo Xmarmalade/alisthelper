@@ -35,6 +35,15 @@
         "save": "Save",
         "upgrade": "Upgrade"
     },
+    "tray": {
+        "open": "Open",
+        "hide": "Hide",
+        "quit": "Quit",
+        "startAlist": "Start Alist",
+        "endAlist": "End Alist",
+        "tooltip": "Alist Helper",
+        "workingTooltip": "Alist Helper (Alist Working)"
+    },
     "settings": {
         "interfaceSettings": {
             "title": "Interface",

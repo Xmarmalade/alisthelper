@@ -3,19 +3,20 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:alisthelper/provider/alist_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'tray_helper.dart';
 
-class TrayWatcher extends StatefulWidget {
+class TrayWatcher extends ConsumerStatefulWidget {
   final Widget child;
 
   const TrayWatcher({required this.child, super.key});
 
   @override
-  State<TrayWatcher> createState() => _TrayWatcherState();
+  ConsumerState<TrayWatcher> createState() => _TrayWatcherState();
 }
 
-class _TrayWatcherState extends State<TrayWatcher> with TrayListener {
+class _TrayWatcherState extends ConsumerState<TrayWatcher> with TrayListener {
   @override
   Widget build(BuildContext context) {
     return widget.child;
@@ -55,9 +56,15 @@ class _TrayWatcherState extends State<TrayWatcher> with TrayListener {
       case TrayEntry.open:
         await showFromTray();
         break;
-      case TrayEntry.close:
+      case TrayEntry.quit:
         await AlistNotifier.endAlistProcess();
         exit(0);
+      case TrayEntry.startAlist:
+        await startAlist(ref);
+        break;
+      case TrayEntry.endAlist:
+        await endAlist(ref);
+        break;
       case TrayEntry.hide:
         await hideToTray();
         break;
