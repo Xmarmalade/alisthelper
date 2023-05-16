@@ -1,0 +1,57 @@
+name: Bug Report
+description: Submit discovered bugs
+labels: ['bug']
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+        Please ensure you have read [documentation](https://github.com/Xmarmalade/alisthelper/blob/master/README.md), and provide all the information required by this template, otherwise the issue will be closed.
+
+  - type: textarea
+    id: what-expected
+    attributes:
+      label: What is expected?
+      placeholder: Tell us what you expect!
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-happened
+    attributes:
+      label: What is actually happening?
+      placeholder: Tell us what you see!
+    validations:
+      required: true
+
+  - type: textarea
+    id: version
+    attributes:
+      label: What version of our software are you running?
+    validations:
+      required: true
+
+  - type: input
+    id: platform-info
+    attributes:
+      label: Platform information (for self-hosted)
+      description: Please provide your platform information.
+      placeholder: 'Windows 10 Home (Build 22621)'
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Additional info
+      description: logs, errors, etc.
+      render: shell
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: This is not a duplicated issue
+      options:
+        - label: I have searched [existing issues](https://github.com/Xmarmalade/alisthelper/issues) to ensure this bug has not already been reported.
+          required: true
