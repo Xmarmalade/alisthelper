@@ -39,7 +39,7 @@ class MyApp extends ConsumerWidget {
             if (ref.read(settingsProvider).minimizeToTray) {
               await hideToTray();
             } else {
-              alistNotifier.endAlist();
+              await alistNotifier.endAlist();
               exit(0);
             }
           } catch (e) {

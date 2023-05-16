@@ -53,7 +53,7 @@ class AlistNotifier extends StateNotifier<AlistState> {
       envVars['https_proxy'] = proxy;
       addOutput('Proxy: $proxy');
     }
-    changeTray(true);
+    await changeTray(true);
     Process process = await Process.start(
       '$workingDirectory\\alist.exe',
       alistArgs,
@@ -73,7 +73,7 @@ class AlistNotifier extends StateNotifier<AlistState> {
   Future<void> endAlist() async {
     state = state.copyWith(isRunning: false);
     var process = await Process.start('taskkill', ['/f', '/im', 'alist.exe']);
-    changeTray(false);
+    await changeTray(false);
     process.stdout.listen((data) {
       String text = TextUtils.stdDecode(data, true);
       addOutput(text);
