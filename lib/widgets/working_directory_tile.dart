@@ -46,7 +46,8 @@ class WorkingDirectoryTile extends StatelessWidget {
                     TextField(
                       controller: workingDirectoryController,
                       decoration: InputDecoration(
-                        labelText: t.settings.alistSettings.workingDirectory.description,
+                        labelText: t.settings.alistSettings.workingDirectory
+                            .description,
                       ),
                     ),
                     Container(
@@ -60,7 +61,8 @@ class WorkingDirectoryTile extends StatelessWidget {
                           workingDirectoryController.text = selectedDirectory;
                         }
                       },
-                      child: Text(t.settings.alistSettings.workingDirectory.chooseFrom),
+                      child: Text(
+                          t.settings.alistSettings.workingDirectory.chooseFrom),
                     ),
                   ],
                 ),
@@ -73,17 +75,20 @@ class WorkingDirectoryTile extends StatelessWidget {
                     onPressed: () async {
                       final directory =
                           Directory(workingDirectoryController.text);
+                      final String programName =
+                          Platform.isWindows ? "alist.exe" : "alist";
                       try {
                         final List<FileSystemEntity> files =
                             await directory.list().toList();
                         if (files.any(
-                            (element) => element.path.endsWith('alist.exe'))) {
+                            (element) => element.path.endsWith(programName))) {
                           if (context.mounted) {
                             Navigator.of(context)
                                 .pop(workingDirectoryController.text);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text(t.settings.alistSettings.workingDirectory.found),
+                                content: Text(t.settings.alistSettings
+                                    .workingDirectory.found),
                               ),
                             );
                           }
@@ -93,7 +98,8 @@ class WorkingDirectoryTile extends StatelessWidget {
                           if (context.mounted) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text(t.settings.alistSettings.workingDirectory.notFound),
+                                content: Text(t.settings.alistSettings
+                                    .workingDirectory.notFound),
                               ),
                             );
                           }

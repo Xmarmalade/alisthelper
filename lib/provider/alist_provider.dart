@@ -54,12 +54,24 @@ class AlistNotifier extends StateNotifier<AlistState> {
       addOutput('Proxy: $proxy');
     }
     await changeTray(true);
-    Process process = await Process.start(
-      '$workingDirectory\\alist.exe',
-      alistArgs,
-      workingDirectory: workingDirectory,
-      environment: envVars,
-    );
+    Process process;
+
+    if (Platform.isWindows) {
+      process = await Process.start(
+        '$workingDirectory\\alist.exe',
+        alistArgs,
+        workingDirectory: workingDirectory,
+        environment: envVars,
+      );
+    } else {
+      process = await Process.start(
+        '$workingDirectory\\alist',
+        alistArgs,
+        workingDirectory: workingDirectory,
+        environment: envVars,
+      );
+    }
+
     process.stdout.listen((data) {
       String text = TextUtils.stdDecode(data, false);
       addOutput(text);
@@ -72,7 +84,12 @@ class AlistNotifier extends StateNotifier<AlistState> {
 
   Future<void> endAlist() async {
     state = state.copyWith(isRunning: false);
-    var process = await Process.start('taskkill', ['/f', '/im', 'alist.exe']);
+    Process process;
+    if (Platform.isWindows) {
+      process = await Process.start('taskkill', ['/f', '/im', 'alist.exe']);
+    } else {
+      process = await Process.start('pkill', ['alist']);
+    }
     await changeTray(false);
     process.stdout.listen((data) {
       String text = TextUtils.stdDecode(data, true);
@@ -86,9 +103,15 @@ class AlistNotifier extends StateNotifier<AlistState> {
 
   //get alist admin
   Future<void> getAlistAdmin() async {
-    var alistAdmin = await Process.start(
-        '$workingDirectory\\alist.exe', ['admin'],
-        workingDirectory: workingDirectory);
+    Process alistAdmin;
+    if (Platform.isWindows) {
+      alistAdmin = await Process.start(
+          '$workingDirectory\\alist.exe', ['admin'],
+          workingDirectory: workingDirectory);
+    } else {
+      alistAdmin = await Process.start('$workingDirectory\\alist', ['admin'],
+          workingDirectory: workingDirectory);
+    }
     alistAdmin.stderr.listen((data) {
       String text = TextUtils.stdDecode(data, false);
       String password = text.split('password:')[1].trim();
@@ -99,9 +122,15 @@ class AlistNotifier extends StateNotifier<AlistState> {
 
   //get alist version
   Future<void> getAlistCurrentVersion({required bool addToOutput}) async {
-    var alistVersion = await Process.start(
-        '$workingDirectory\\alist.exe', ['version'],
-        workingDirectory: workingDirectory);
+    Process alistVersion;
+    if (Platform.isWindows) {
+      alistVersion = await Process.start(
+          '$workingDirectory\\alist.exe', ['admin'],
+          workingDirectory: workingDirectory);
+    } else {
+      alistVersion = await Process.start('$workingDirectory\\alist', ['admin'],
+          workingDirectory: workingDirectory);
+    }
     alistVersion.stdout.listen((data) {
       String text = TextUtils.stdDecode(data, false);
       if (text.contains('Version')) {
