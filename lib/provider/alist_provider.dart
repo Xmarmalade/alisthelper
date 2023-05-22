@@ -65,7 +65,7 @@ class AlistNotifier extends StateNotifier<AlistState> {
       );
     } else {
       process = await Process.start(
-        '$workingDirectory\\alist',
+        '$workingDirectory/alist',
         alistArgs,
         workingDirectory: workingDirectory,
         environment: envVars,
@@ -98,7 +98,11 @@ class AlistNotifier extends StateNotifier<AlistState> {
   }
 
   static Future<void> endAlistProcess() async {
-    await Process.start('taskkill', ['/f', '/im', 'alist.exe']);
+    if (Platform.isWindows) {
+      await Process.start('taskkill', ['/f', '/im', 'alist.exe']);
+    } else {
+      await Process.start('pkill', ['alist']);
+    }
   }
 
   //get alist admin
@@ -109,7 +113,7 @@ class AlistNotifier extends StateNotifier<AlistState> {
           '$workingDirectory\\alist.exe', ['admin'],
           workingDirectory: workingDirectory);
     } else {
-      alistAdmin = await Process.start('$workingDirectory\\alist', ['admin'],
+      alistAdmin = await Process.start('$workingDirectory/alist', ['admin'],
           workingDirectory: workingDirectory);
     }
     alistAdmin.stderr.listen((data) {
@@ -125,10 +129,10 @@ class AlistNotifier extends StateNotifier<AlistState> {
     Process alistVersion;
     if (Platform.isWindows) {
       alistVersion = await Process.start(
-          '$workingDirectory\\alist.exe', ['admin'],
+          '$workingDirectory\\alist.exe', ['version'],
           workingDirectory: workingDirectory);
     } else {
-      alistVersion = await Process.start('$workingDirectory\\alist', ['admin'],
+      alistVersion = await Process.start('$workingDirectory/alist', ['version'],
           workingDirectory: workingDirectory);
     }
     alistVersion.stdout.listen((data) {
@@ -157,7 +161,7 @@ class AlistNotifier extends StateNotifier<AlistState> {
     //print('Latest release: $latest');
   }
 
-  Future<void> isAlistRunning() async {
+/*   Future<void> isAlistRunning() async {
     if (Platform.isWindows) {
       var tasklist =
           await Process.run('tasklist', ['/fi', 'imagename eq alist.exe']);
@@ -166,7 +170,7 @@ class AlistNotifier extends StateNotifier<AlistState> {
       }
     }
     state = state.copyWith(isRunning: false);
-  }
+  } */
 }
 
 class AlistState {
