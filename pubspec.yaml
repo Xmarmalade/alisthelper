@@ -17,7 +17,7 @@ dependencies:
   # tray_manager allows Flutter desktop apps to defines system tray
   tray_manager: ^0.2.0
   # window_manager allows Flutter desktop apps to control window
-  window_manager: ^0.3.2
+  window_manager: ^0.3.4
   # collection is a package that has some useful collection utils
   collection: ^1.17.1
   # flutter_riverpod is a package that provides state management
@@ -29,7 +29,7 @@ dependencies:
   # launch_at_startup is a package that provides launch at startup
   launch_at_startup: ^0.2.2
   # package_info_plus is a package that provides package info
-  package_info_plus: ^4.0.0
+  package_info_plus: ^4.0.1
   # file_picker is used to choose working dir
   file_picker: ^5.2.11
   # http is used to check upgrade
