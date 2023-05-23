@@ -31,7 +31,7 @@ Alist Helper includes several useful features:
 
 Free. No tracking. No ads.
 
-Currently, this app is available on Windows. Adaptation plans for more platforms are in progress.
+Currently, this app is available on Windows and macOS. Adaptation plans for more platforms are in progress.
 
 Please note that this program does not include the binary files for alist. You will need to download them manually.
 
