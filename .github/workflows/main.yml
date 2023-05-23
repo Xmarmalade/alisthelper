@@ -119,7 +119,7 @@ jobs:
             build/macos/Build/Products/Release/${{ env.MACOS_APP_NAME }}.tar.gz
 
       - name: Upload Release Asset
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: artifact-macos
           path: build/macos/Build/Products/Release/${{ env.MACOS_APP_NAME }}.tar.gz
