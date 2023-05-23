@@ -73,7 +73,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: artifact-windows
-          path: build/windows/runner/Release/alisthelper-${{github.ref_name}}-windows.zip
+          path: build/windows/runner/Release/${{env.WINDOWS_PORTABLE_NAME}}.zip
 
   build-macos:
     # The type of runner that the job will run on
@@ -81,7 +81,7 @@ jobs:
 
     env:
       # The name of the app
-      MACOS_APP_NAME: AlistHelper_${{ github.ref_name }}_macos-x86_64
+      MACOS_APP_NAME: AlistHelper_app_${{ github.ref_name }}_macos-x86_64
       DMG_NAME: AlistHelper_${{ github.ref_name }}_macos.dmg
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -100,10 +100,6 @@ jobs:
           flutter pub get
           dart run slang
           flutter build macos
-      
-      - name: List all directories 
-        run: ls -R
-      
 
       - name: Archive App
         run: |
