@@ -81,8 +81,8 @@ jobs:
 
     env:
       # The name of the app
-      MACOS_APP_NAME: ${{ env.APP_NAME }}_${{ github.ref_name }}_macos-x86_64
-      DMG_NAME: My-App_${{ github.ref_name }}_macos.dmg
+      MACOS_APP_NAME: AlistHelper_${{ github.ref_name }}_macos-x86_64
+      DMG_NAME: AlistHelper_${{ github.ref_name }}_macos.dmg
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -103,9 +103,9 @@ jobs:
 
       - name: Archive App
         run: |
-          cd ${{ env.APP_NAME }}/build/macos/Build/Products/Release/
-          tar -czf ${{ env.MACOS_APP_NAME }}.tar.gz ${{ env.APP_NAME }}.app
-          hdiutil create -volname "${{ env.APP_NAME }}" -srcfolder ${{ env.APP_NAME }}.app -ov -format UDZO ${{ env.DMG_NAME }}
+          cd /build/macos/Build/Products/Release/
+          tar -czf ${{ env.MACOS_APP_NAME }}.tar.gz AlistHelper.app
+          hdiutil create -volname "AlistHelper" -srcfolder AlistHelper.app -ov -format UDZO ${{ env.DMG_NAME }}
 
       - name: Release
         uses: softprops/action-gh-release@v1
@@ -115,11 +115,11 @@ jobs:
           prerelease: true
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
-            ${{ env.APP_NAME }}/build/macos/Build/Products/Release/${{ env.DMG_NAME }}
-            ${{ env.APP_NAME }}/build/macos/Build/Products/Release/${{ env.MACOS_APP_NAME }}.tar.gz
+            /build/macos/Build/Products/Release/${{ env.DMG_NAME }}
+            /build/macos/Build/Products/Release/${{ env.MACOS_APP_NAME }}.tar.gz
 
       - name: Upload Release Asset
         uses: actions/upload-artifact@v2
         with:
           name: artifact-macos
-          path: ${{ env.APP_NAME }}/build/macos/Build/Products/Release/${{ env.MACOS_APP_NAME }}.tar.gz
+          path: /build/macos/Build/Products/Release/${{ env.MACOS_APP_NAME }}.tar.gz
