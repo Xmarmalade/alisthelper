@@ -27,7 +27,7 @@ class AlistHelperNotifier extends StateNotifier<AlistHelperState> {
 
   Future<void> fetchAlistHelperLatestVersion() async {
     final response = await http.get(Uri.parse(
-        'https://api.github.com/repos/iiijam/alisthelper/releases/latest'));
+        'https://api.github.com/repos/Xmarmalade/alisthelper/releases/latest'));
     final json = jsonDecode(response.body) as Map<String, dynamic>;
     final latest = json['tag_name'] as String;
     state = state.copyWith(latestVersion: latest);

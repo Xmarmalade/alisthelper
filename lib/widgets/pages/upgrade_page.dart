@@ -146,7 +146,7 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
                       trailing: ElevatedButton(
                         onPressed: () async {
                           await launchUrl(Uri.parse(
-                              'https://github.com/iiijam/alisthelper/releases/latest'));
+                              'https://github.com/Xmarmalade/alisthelper/releases/latest'));
                         },
                         child: Text(t.button.upgrade),
                       ),

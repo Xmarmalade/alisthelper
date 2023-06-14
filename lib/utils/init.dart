@@ -64,6 +64,9 @@ Future<PersistenceService> preInit(List<String> args) async {
     if (!isAutoStart || !isAutoStartLaunchMinimized) {
       await WindowManager.instance.show();
     }
+    if (isAutoStartLaunchMinimized && Platform.isMacOS) {
+      await hideToTray();
+    }
   }
   return persistenceService;
 }
