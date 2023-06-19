@@ -35,12 +35,12 @@ class AlistNotifier extends StateNotifier<AlistState> {
   }
 
   void checkState(String text) {
-    if (text.contains('start server')) {
+    if (text.contains('start ') && text.contains('server')) {
       if (text.contains('FATA')) {
         text = text.split('FATA')[0].trim();
       }
-      String url = text.split('@')[1].trim().split(':')[1].trim();
-      url = 'http://localhost:$url';
+      String port = text.split('@')[1].trim().split(':')[1].trim();
+      String url = 'http://localhost:$port';
       state = state.copyWith(url: url);
     }
   }
