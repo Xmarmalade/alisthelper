@@ -1,7 +1,7 @@
 name: alisthelper
 description: A flutter app designed to provide more convenient management of alist operations.
 publish_to: 'none' 
-version: 0.1.0+4
+version: 0.1.1+5
 
 environment:
   sdk: '>=3.1.0-38.0.dev <4.0.0'
@@ -19,7 +19,7 @@ dependencies:
   # window_manager allows Flutter desktop apps to control window
   window_manager: ^0.3.4
   # collection is a package that has some useful collection utils
-  collection: ^1.17.1
+  collection: ^1.17.2
   # flutter_riverpod is a package that provides state management
   flutter_riverpod: ^2.3.6
   # shared_preferences is a package that provides persistent storage
@@ -33,7 +33,7 @@ dependencies:
   # file_picker is used to choose working dir
   file_picker: ^5.2.11
   # http is used to check upgrade
-  http: ^0.13.6
+  http: ^1.0.0
   #i18n
   slang: ^3.17.0
   slang_flutter: ^3.17.0
