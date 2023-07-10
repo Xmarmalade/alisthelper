@@ -1,7 +1,7 @@
 name: alisthelper
 description: A flutter app designed to provide more convenient management of alist operations.
 publish_to: 'none' 
-version: 0.1.1+5
+version: 0.1.2+6
 
 environment:
   sdk: '>=3.1.0-38.0.dev <4.0.0'
@@ -17,13 +17,13 @@ dependencies:
   # tray_manager allows Flutter desktop apps to defines system tray
   tray_manager: ^0.2.0
   # window_manager allows Flutter desktop apps to control window
-  window_manager: ^0.3.4
+  window_manager: ^0.3.5
   # collection is a package that has some useful collection utils
   collection: ^1.17.2
   # flutter_riverpod is a package that provides state management
   flutter_riverpod: ^2.3.6
   # shared_preferences is a package that provides persistent storage
-  shared_preferences: ^2.1.0
+  shared_preferences: ^2.2.0
   # screen_retriever is a package that provides screen info
   screen_retriever: ^0.1.6
   # launch_at_startup is a package that provides launch at startup
@@ -35,15 +35,15 @@ dependencies:
   # http is used to check upgrade
   http: ^1.0.0
   #i18n
-  slang: ^3.17.0
-  slang_flutter: ^3.17.0
+  slang: ^3.20.0
+  slang_flutter: ^3.20.0
   flutter_localizations:
     sdk: flutter
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^2.0.2
   flutter_launcher_icons: ^0.13.1
 
 flutter_launcher_icons:
