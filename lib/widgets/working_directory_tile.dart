@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/model/settings_state.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 
-import 'package:file_picker/file_picker.dart';
 
 class WorkingDirectoryTile extends StatelessWidget {
   const WorkingDirectoryTile({
@@ -55,8 +55,7 @@ class WorkingDirectoryTile extends StatelessWidget {
                     ),
                     ElevatedButton(
                       onPressed: () async {
-                        String? selectedDirectory =
-                            await FilePicker.platform.getDirectoryPath();
+                        final String? selectedDirectory = await getDirectoryPath();
                         if (selectedDirectory != null) {
                           workingDirectoryController.text = selectedDirectory;
                         }

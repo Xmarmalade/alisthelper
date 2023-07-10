@@ -85,8 +85,8 @@
                 "description": "設置工作目錄",
                 "hint": "這是一個目錄，不是文件！",
                 "chooseFrom": "從以下選擇...",
-                "notFound": "目錄中找不到 alist。",
-                "found": "找到 alist.exe"
+                "notFound": "目錄中找不到 alist 可执行程序",
+                "found": "找到 alist 可执行程序"
             },
             "argumentsList": {
                 "title": "啟動引數列表",

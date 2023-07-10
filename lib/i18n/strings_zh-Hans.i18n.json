@@ -84,13 +84,13 @@
                 "title": "工作目录",
                 "description": "设置工作目录",
                 "hint": "这是一个目录，不是文件！",
-                "chooseFrom": "从以下选择...",
-                "notFound": "目录中找不到 alist。",
-                "found": "找到 alist.exe"
+                "chooseFrom": "选择目录",
+                "notFound": "目录中找不到 alist 程序",
+                "found": "找到 alist 程序"
             },
             "argumentsList": {
                 "title": "启动参数列表",
-                "description": "编辑 alist.exe 的启动参数",
+                "description": "编辑 alist 的启动参数",
                 "editArguments": "编辑参数",
                 "addArgument": "添加参数"
             },

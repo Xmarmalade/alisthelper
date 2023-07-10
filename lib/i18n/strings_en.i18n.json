@@ -84,7 +84,7 @@
                 "title": "Working Directory",
                 "description": "Set Working Directory",
                 "hint": "It's a Directory, not a File!",
-                "chooseFrom": "Choose from...",
+                "chooseFrom": "Choose a directory",
                 "notFound": "No alist found in directory.",
                 "found": "Found alist.exe"
             },
