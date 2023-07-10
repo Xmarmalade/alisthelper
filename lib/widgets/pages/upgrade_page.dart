@@ -35,7 +35,7 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
     final t = Translations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title:Text(t.upgrade.upgrade,
+        title: Text(t.upgrade.upgrade,
             style: const TextStyle(fontWeight: FontWeight.bold)),
       ),
       body: Center(
@@ -68,11 +68,13 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
                         try {
                           await alistNotifier.fetchLatestVersion();
                         } catch (e) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(e.toString()),
-                            ),
-                          );
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(e.toString()),
+                              ),
+                            );
+                          }
                         }
                       },
                     ),
@@ -106,7 +108,8 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
                               fontWeight: FontWeight.w600, fontSize: 18)),
                     ),
                     ListTile(
-                        title: Text(t.upgrade.alistHelperVersion.currentVersion),
+                        title:
+                            Text(t.upgrade.alistHelperVersion.currentVersion),
                         subtitle: Consumer(
                           builder: (context, watch, child) {
                             //alistHelperNotifier.getAlistHelperCurrentVersion();
@@ -124,11 +127,13 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
                           await alistHelperNotifier
                               .fetchAlistHelperLatestVersion();
                         } catch (e) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(e.toString()),
-                            ),
-                          );
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(e.toString()),
+                              ),
+                            );
+                          }
                         }
                       },
                     ),
