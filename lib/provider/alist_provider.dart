@@ -42,11 +42,14 @@ class AlistNotifier extends StateNotifier<AlistState> {
       String port = text.split('@')[1].trim().split(':')[1].trim();
       String url = 'http://localhost:$port';
       state = state.copyWith(url: url);
+      state = state.copyWith(isRunning: true);
     }
   }
 
+  
+
   Future<void> startAlist() async {
-    state = state.copyWith(isRunning: true);
+    //state = state.copyWith(isRunning: true);
     final Map<String, String> envVars = Map.from(Platform.environment);
     if (proxy != '') {
       envVars['http_proxy'] = proxy;

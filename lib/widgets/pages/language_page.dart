@@ -9,10 +9,11 @@ class LanguagePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = Translations.of(context);
+
     final activeLocale = ref.watch(settingsProvider.select((s) => s.locale));
+
     return Scaffold(
       appBar: AppBar(
-          //title: Text(t.settings.lang),
           title: Text(t.languageSettings.language,
               style: const TextStyle(fontWeight: FontWeight.bold))),
       body: Center(
@@ -21,28 +22,33 @@ class LanguagePage extends ConsumerWidget {
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
             children: [
-              ...[
-                ...AppLocale.values,
-              ].map((locale) {
+              ...[null, ...AppLocale.values].map((locale) {
                 return ListTile(
                   onTap: () async {
-                    await ref.watch(settingsProvider.notifier).setLocale(locale);
+                    await ref.read(settingsProvider.notifier).setLocale(locale);
+                    if (locale == null) {
+                      LocaleSettings.useDeviceLocale();
+                    } else {
                       LocaleSettings.setLocale(locale);
+                    }
                   },
                   title: Row(
                     children: [
                       Flexible(
-                        child:
-                            Text(locale.humanName),
+                        child: Text(
+                            locale?.humanName ?? t.languageSettings.system),
                       ),
                       if (locale == activeLocale) ...[
                         const SizedBox(width: 10),
-                        const Icon(Icons.check_circle, color: Colors.green),
+                        const Icon(
+                          Icons.check_circle,
+                          color: Colors.green,
+                        ),
                       ],
                     ],
                   ),
                 );
-              }),
+              })
             ],
           ),
         ),

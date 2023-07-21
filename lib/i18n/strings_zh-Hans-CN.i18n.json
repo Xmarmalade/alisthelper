@@ -23,7 +23,8 @@
         "logs": "日志"
     },
     "languageSettings": {
-        "language": "语言"
+        "language": "语言",
+        "system":"跟随系统"
     },
     "button": {
         "ok": "确认",

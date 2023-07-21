@@ -23,7 +23,8 @@
         "logs": "Logs"
     },
     "languageSettings": {
-        "language": "Language"
+        "language": "Language",
+        "system":"System"
     },
     "button": {
         "ok": "OK",

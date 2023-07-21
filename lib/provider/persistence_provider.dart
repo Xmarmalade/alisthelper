@@ -49,13 +49,12 @@ class PersistenceService {
       LocaleSettings.setLocaleRaw(persistedLocale);
     }
 
-    if (prefs.getString(_version) == null || prefs.getString(_version) != currentAlistHelperVersion) {
+    if (prefs.getString(_version) == null ||
+        prefs.getString(_version) != currentAlistHelperVersion) {
       await prefs.setString(_version, currentAlistHelperVersion);
     }
     return PersistenceService._(prefs);
   }
-
-
 
   String getAlistHelperVersion() {
     return _prefs.getString(_version) ?? currentAlistHelperVersion;
@@ -153,12 +152,13 @@ class PersistenceService {
     await _prefs.setInt(_themeColor, themeColor.value);
   }
 
-    AppLocale? getLocale() {
+  AppLocale? getLocale() {
     final value = _prefs.getString(_localeKey);
     if (value == null) {
       return null;
     }
-    return AppLocale.values.firstWhereOrNull((locale) => locale.languageTag == value);
+    return AppLocale.values
+        .firstWhereOrNull((locale) => locale.languageTag == value);
   }
 
   Future<void> setLocale(AppLocale? locale) async {

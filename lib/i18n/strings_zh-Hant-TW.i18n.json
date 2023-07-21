@@ -3,27 +3,28 @@
     "alistOperation": {
         "startAlist": "啟動",
         "endAlist": "關閉",
-        "openGUI": "打開 GUI",
-        "getAdmin": "管理員信息",
-        "getVersion": "版本信息"
+        "openGUI": "開啟 GUI",
+        "getAdmin": "管理員資訊",
+        "getVersion": "版本資訊"
     },
     "firstLaunch": {
-        "intro": "歡迎使用 Alist Helper，讓我們開始吧！",
-        "about": "點擊此處了解更多關於 Alist Helper 的信息！",
-        "chooseTheme": "首先，讓我們在這裡選擇您喜歡的主題！",
-        "chooseDirectory": "第二步，您需要一個 alist 並告訴 alist helper 它在哪裡！",
-        "getAlist": "如果您還沒有 alist，請在這裡獲取！"
+        "intro": "歡迎使用 Alist Helper,讓我們開始吧!",
+        "about": "點擊此處瞭解更多關於 Alist Helper 的資訊!",
+        "chooseTheme": "首先,讓我們在這裡選擇您喜歡的主題!",
+        "chooseDirectory": "第二步,您需要一個 alist 並告訴 alist helper 它在哪裡!",
+        "getAlist": "如果您還沒有 alist,請在這裡獲取!"
     },
     "tabs": {
         "home": "首頁",
-        "settings": "設置"
+        "settings": "設定"
     },
     "home": {
         "options": "選項",
-        "logs": "日誌"
+        "logs": "日志"
     },
     "languageSettings": {
-        "language": "語言"
+        "language": "語言",
+        "system": "跟隨系統"
     },
     "button": {
         "ok": "確認",
@@ -32,18 +33,18 @@
         "no": "否",
         "select": "選擇",
         "edit": "編輯",
-        "save": "保存",
+        "save": "儲存",
         "upgrade": "升級"
     },
     "tray": {
         "open": "開啟",
         "hide": "隱藏",
-        "quit": "退出",
+        "quit": "結束",
         "startAlist": "啟動 Alist 服務",
         "endAlist": "關閉 Alist 服務",
         "tooltip": "Alist Helper",
         "workingTooltip": "Alist Helper (Alist 執行中)"
-        },
+    },
     "settings": {
         "interfaceSettings": {
             "title": "介面",
@@ -54,20 +55,20 @@
         "alistHelperSettings": {
             "title": "Alist Helper 選項",
             "saveWindowPlacement": {
-                "title": "保存 Alist Helper 窗口位置",
-                "description": "這將允許 Alist Helper 保存窗口位置。"
+                "title": "儲存 Alist Helper 視窗位置",
+                "description": "這將允許 Alist Helper 儲存視窗位置。"
             },
             "minimizeToTray": {
-                "title": "允許 Alist Helper 最小化到托盤",
-                "description": "這將允許 Alist Helper 最小化到托盤。"
+                "title": "允許 Alist Helper 最小化到託盤",
+                "description": "這將允許 Alist Helper 最小化到託盤。"
             },
             "autoStart": {
                 "title": "允許自動啟動",
                 "description": "這將允許 Alist Helper 自動啟動。"
             },
             "autoStartLaunchMinimized": {
-                "title": "允許靜音自動啟動",
-                "description": "這將允許 Alist Helper 靜音自動啟動。"
+                "title": "允許靜默自動啟動",
+                "description": "這將允許 Alist Helper 靜默自動啟動。"
             }
         },
         "alistSettings": {
@@ -77,29 +78,29 @@
                 "description": "這將在 Alist Helper 啟動時自動啟動 alist。"
             },
             "autoStartLaunchMinimized": {
-                "title": "允許靜音自動啟動",
-                "description": "這將允許 Alist Helper 靜音自動啟動。"
+                "title": "允許靜默自動啟動",
+                "description": "這將允許 Alist Helper 靜默自動啟動。"
             },
             "workingDirectory": {
                 "title": "工作目錄",
-                "description": "設置工作目錄",
-                "hint": "這是一個目錄，不是文件！",
-                "chooseFrom": "從以下選擇...",
-                "notFound": "目錄中找不到 alist 可执行程序",
-                "found": "找到 alist 可执行程序"
+                "description": "設定工作目錄",
+                "hint": "這是一個目錄,不是檔案!",
+                "chooseFrom": "選擇目錄",
+                "notFound": "目錄中找不到 alist 程式",
+                "found": "找到 alist 程式"
             },
             "argumentsList": {
-                "title": "啟動引數列表",
-                "description": "編輯 alist.exe 的啟動引數",
-                "editArguments": "編輯引數",
-                "addArgument": "添加引數"
+                "title": "啟動參數列表",
+                "description": "編輯 alist 的啟動參數",
+                "editArguments": "編輯參數",
+                "addArgument": "新增參數"
             },
             "proxy": {
-                "title": "HTTP 代理",
-                "description": "設置 HTTP 代理",
-                "hint": "若留空則不啟用 HTTP 代理",
-                "success": "已設置 HTTP 代理",
-                "error": "無效的 HTTP 代理"
+                "title": "Http 代理",
+                "description": "設定 Http 代理",
+                "hint": "如果留空, 將不會啟用 Http 代理",
+                "success": "Http 代理位址已設定",
+                "error": "非法的 Http 代理位址"
             }
         },
         "others": {
@@ -111,17 +112,17 @@
     "upgrade": {
         "clickToCheck": "點擊檢查更新",
         "checkFirst": "請先檢查更新",
-        "canUpgrade": "發現新版本，您想升級嗎？",
+        "canUpgrade": "發現新版本,您想升級嗎?",
         "noUpgrade": "您正在使用最新版本。",
         "upgrade": "升級",
         "alistVersion": {
             "title": "Alist 版本",
-            "currentVersion": "當前 Alist 版本",
+            "currentVersion": "目前 Alist 版本",
             "latestVersion": "最新 Alist 版本"
         },
         "alistHelperVersion": {
             "title": "Alist Helper 版本",
-            "currentVersion": "當前 Alist Helper 版本",
+            "currentVersion": "目前 Alist Helper 版本",
             "latestVersion": "最新 Alist Helper 版本"
         }
     }

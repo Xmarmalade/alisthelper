@@ -6,13 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+
 class DebugPage extends ConsumerWidget {
   const DebugPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appArguments = ref.watch(appArgumentsProvider);
-    //DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Debug'),
@@ -20,26 +21,15 @@ class DebugPage extends ConsumerWidget {
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
+          DebugEntry(name: 'Debug Mode', value: kDebugMode.toString()),
           DebugEntry(
-            name: 'Debug Mode',
-            value: kDebugMode.toString(),
-          ),
+              name: 'App Arguments',
+              value: appArguments.isEmpty ? null : appArguments.join(' ')),
+          DebugEntry(name: 'Dart SDK Version', value: Platform.version),
+          DebugEntry(name: 'Platform', value: Platform.operatingSystem),
           DebugEntry(
-            name: 'App Arguments',
-            value: appArguments.isEmpty ? null : appArguments.join(' '),
-          ),
-          DebugEntry(
-            name: 'Dart SDK Version',
-            value: Platform.version,
-          ),
-          DebugEntry(
-            name: 'Platform',
-            value: Platform.operatingSystem,
-          ),
-          DebugEntry(
-            name: 'Platform Version',
-            value: Platform.operatingSystemVersion,
-          ),
+              name: 'Platform Version', value: Platform.operatingSystemVersion),
+          
         ],
       ),
     );
