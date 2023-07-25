@@ -110,7 +110,7 @@
         }
     },
     "upgrade": {
-        "clickToCheck": "點擊檢查更新",
+        "clickToCheck": "單擊旁邊的按鈕以檢查更新",
         "checkFirst": "請先檢查更新",
         "canUpgrade": "發現新版本,您想升級嗎?",
         "noUpgrade": "您正在使用最新版本。",

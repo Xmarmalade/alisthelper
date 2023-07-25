@@ -110,7 +110,7 @@
         }
     },
     "upgrade": {
-        "clickToCheck": "点击检查更新",
+        "clickToCheck": "单击旁边的按钮以检查更新",
         "checkFirst": "请先检查更新",
         "canUpgrade": "发现新版本，您想升级吗？",
         "noUpgrade": "您正在使用最新版本。",

@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:alisthelper/utils/native/tray_helper.dart';
+import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
+import 'package:archive/archive_io.dart';
 
 import 'package:alisthelper/provider/settings_provider.dart';
 import 'package:alisthelper/utils/textutils.dart';
@@ -45,8 +47,6 @@ class AlistNotifier extends StateNotifier<AlistState> {
       state = state.copyWith(isRunning: true);
     }
   }
-
-  
 
   Future<void> startAlist() async {
     //state = state.copyWith(isRunning: true);
@@ -159,21 +159,65 @@ class AlistNotifier extends StateNotifier<AlistState> {
     final response = await http.get(Uri.parse(
         'https://api.github.com/repos/alist-org/alist/releases/latest'));
     final json = jsonDecode(response.body) as Map<String, dynamic>;
-    final latest = json['tag_name'] as String;
-    state = state.copyWith(latestVersion: latest);
-    //print('Latest release: $latest');
+    try {
+      String latest = json['tag_name'];
+      List assets = json['assets'];
+      String platformKey = Platform.isWindows
+          ? 'windows'
+          : (Platform.isMacOS ? 'darwin' : 'linux');
+      List<Map> assetsForSpecificPlatform = [];
+      for (Map asset in assets) {
+        if (asset['name'].contains(platformKey)) {
+          //remove the asset if it's not for the current platform
+          assetsForSpecificPlatform.add(asset);
+        }
+      }
+/*       assetsForSpecificPlatform.forEach((element) {
+        print(element["name"]);
+      }); */
+      state = state.copyWith(
+          latestVersion: latest, newReleaseAssets: assetsForSpecificPlatform);
+    } catch (e) {
+      throw Exception(
+          'Failed to get latest version when fetching \n Error is: $e');
+    }
   }
 
-/*   Future<void> isAlistRunning() async {
-    if (Platform.isWindows) {
-      var tasklist =
-          await Process.run('tasklist', ['/fi', 'imagename eq alist.exe']);
-      if (tasklist.stdout.toString().contains('alist')) {
-        state = state.copyWith(isRunning: true);
+  Future<void> upgradeAlist(String downloadLink) async {
+    state = state.copyWith(isUpgrading: true);
+    //fetch the latest version zip form downloadLink using dio to working directory
+    String destination = '$workingDirectory/alistnew.zip';
+    await Dio().download(downloadLink, destination);
+    //close alist
+    endAlist();
+    //Check if there is a .old subfolder in the working directory, if not, create it
+    String backupFolder = '$workingDirectory/.old';
+    if (!await Directory(backupFolder).exists()) {
+      await Directory(backupFolder).create();
+    }
+    //create a backup of the current alist: move alist/alist.exe to .old folder, and rename it to alist-$currentVersion.exe
+    String currentAlist = Platform.isWindows
+        ? '$workingDirectory/alist.exe'
+        : '$workingDirectory/alist';
+    String currentVersion = state.currentVersion;
+    await File(currentAlist).rename('$backupFolder/alist-$currentVersion.exe');
+    //unzip the zip file
+    final inputStream = InputFileStream(destination);
+    final archive = ZipDecoder().decodeBuffer(inputStream);
+    for (var file in archive.files) {
+      if (file.isFile) {
+        final outputStream = OutputFileStream('$workingDirectory/${file.name}');
+        file.writeContent(outputStream);
+        outputStream.close();
       }
     }
-    state = state.copyWith(isRunning: false);
-  } */
+    inputStream.close();
+    archive.clear();
+    await File(destination).delete();
+    getAlistCurrentVersion(addToOutput: false);
+    state = state.copyWith(isUpgrading: false);
+    startAlist();
+  }
 }
 
 class AlistState {
@@ -182,6 +226,8 @@ class AlistState {
   final String url;
   final String currentVersion;
   final String latestVersion;
+  final List<Map> newReleaseAssets;
+  final bool isUpgrading;
 
   AlistState({
     this.isRunning = false,
@@ -189,6 +235,8 @@ class AlistState {
     this.url = 'http://localhost:5244',
     this.currentVersion = 'v1.0.0',
     this.latestVersion = 'v1.0.0',
+    this.newReleaseAssets = const [],
+    this.isUpgrading = false,
   });
 
   AlistState copyWith({
@@ -197,6 +245,8 @@ class AlistState {
     String? url,
     String? currentVersion,
     String? latestVersion,
+    List<Map>? newReleaseAssets,
+    bool? isUpgrading,
   }) {
     return AlistState(
       isRunning: isRunning ?? this.isRunning,
@@ -204,6 +254,8 @@ class AlistState {
       url: url ?? this.url,
       currentVersion: currentVersion ?? this.currentVersion,
       latestVersion: latestVersion ?? this.latestVersion,
+      newReleaseAssets: newReleaseAssets ?? this.newReleaseAssets,
+      isUpgrading: isUpgrading ?? this.isUpgrading,
     );
   }
 }

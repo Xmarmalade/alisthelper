@@ -110,7 +110,7 @@
         }
     },
     "upgrade": {
-        "clickToCheck": "Click to check for updates",
+        "clickToCheck": "Click the button next to check for updates",
         "checkFirst": "Check for updates first",
         "canUpgrade": "A new version is available, do you want to upgrade?",
         "noUpgrade": "You are using the latest version.",

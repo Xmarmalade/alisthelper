@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:alisthelper/provider/persistence_provider.dart';
 import 'package:http/http.dart' as http;
@@ -29,8 +30,27 @@ class AlistHelperNotifier extends StateNotifier<AlistHelperState> {
     final response = await http.get(Uri.parse(
         'https://api.github.com/repos/Xmarmalade/alisthelper/releases/latest'));
     final json = jsonDecode(response.body) as Map<String, dynamic>;
-    final latest = json['tag_name'] as String;
-    state = state.copyWith(latestVersion: latest);
+    try {
+      String latest = json['tag_name'];
+      List assets = json['assets'];
+      String platformKey = Platform.isWindows
+          ? 'windows'
+          : (Platform.isMacOS ? 'macos' : 'linux');
+      List<Map> assetsForSpecificPlatform = [];
+      for (Map asset in assets) {
+        if (asset['name'].contains(platformKey)) {
+          //remove the asset if it's not for the current platform
+          assetsForSpecificPlatform.add(asset);
+        }
+      }
+/*       assetsForSpecificPlatform.forEach((element) {
+        print(element["name"]);
+      }); */
+      state = state.copyWith(latestVersion: latest,newReleaseAssets: assetsForSpecificPlatform);
+    } catch (e) {
+      throw Exception(
+          'Failed to get latest version when fetching: $json \n Error is: $e');
+    }
     //print('Latest release: $latest');
   }
 }
@@ -38,13 +58,23 @@ class AlistHelperNotifier extends StateNotifier<AlistHelperState> {
 class AlistHelperState {
   final String currentVersion;
   final String latestVersion;
+  final List<Map> newReleaseAssets;
 
-  AlistHelperState(
-      {this.currentVersion = 'v0.0.0', this.latestVersion = 'v0.0.0'});
+  AlistHelperState({
+    this.currentVersion = 'v0.0.0',
+    this.latestVersion = 'v0.0.0',
+    this.newReleaseAssets = const [],
+  });
 
-  AlistHelperState copyWith({String? currentVersion, String? latestVersion}) {
+  AlistHelperState copyWith({
+    String? currentVersion,
+    String? latestVersion,
+    List<Map>? newReleaseAssets,
+  }) {
     return AlistHelperState(
-        currentVersion: currentVersion ?? this.currentVersion,
-        latestVersion: latestVersion ?? this.latestVersion);
+      currentVersion: currentVersion ?? this.currentVersion,
+      latestVersion: latestVersion ?? this.latestVersion,
+      newReleaseAssets: newReleaseAssets ?? this.newReleaseAssets,
+    );
   }
 }
