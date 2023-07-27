@@ -39,19 +39,16 @@ class AlistHelperNotifier extends StateNotifier<AlistHelperState> {
       List<Map> assetsForSpecificPlatform = [];
       for (Map asset in assets) {
         if (asset['name'].contains(platformKey)) {
-          //remove the asset if it's not for the current platform
           assetsForSpecificPlatform.add(asset);
         }
       }
-/*       assetsForSpecificPlatform.forEach((element) {
-        print(element["name"]);
-      }); */
-      state = state.copyWith(latestVersion: latest,newReleaseAssets: assetsForSpecificPlatform);
+      state = state.copyWith(
+          latestVersion: latest, newReleaseAssets: assetsForSpecificPlatform);
     } catch (e) {
       throw Exception(
           'Failed to get latest version when fetching: $json \n Error is: $e');
     }
-    //print('Latest release: $latest');
+    //print('Latest release: ${state.newReleaseAssets}');
   }
 }
 

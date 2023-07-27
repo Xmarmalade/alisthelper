@@ -11,7 +11,8 @@
         "intro": "Welcome to use Alist Helper, let's get started!",
         "about": "Click here to learn more about Alist Helper!",
         "chooseTheme": "First, let's choose your preferred theme here!",
-        "chooseDirectory": "Second, you have to get an alist and tell the alist helper where it is!",
+        "chooseDirectory": "Second, you have to get an alist and tell the Alist Helper where it is!",
+        "autoInstall": "AlistHelper now supports automatic installation of alist, try it out!",  
         "getAlist": "If you don't have alist yet, get it here!"
     },
     "tabs": {
@@ -51,6 +52,11 @@
             "themeMode": "Theme mode",
             "themeColor": "Theme color",
             "language": "Choose Language"
+        },
+        "theme": {
+            "light": "Light",
+            "dark": "Dark",
+            "system": "Auto"
         },
         "alistHelperSettings": {
             "title": "Alist Helper Options",
@@ -115,6 +121,8 @@
         "canUpgrade": "A new version is available, do you want to upgrade?",
         "noUpgrade": "You are using the latest version.",
         "upgrade": "Upgrade",
+        "selectPackage": "Select the update package you want to download.",
+        "networkError": "Please check your network and try again.",
         "alistVersion": {
             "title": "Alist Version",
             "currentVersion": "Current Alist Version",

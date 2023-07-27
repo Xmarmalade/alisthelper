@@ -172,9 +172,6 @@ class AlistNotifier extends StateNotifier<AlistState> {
           assetsForSpecificPlatform.add(asset);
         }
       }
-/*       assetsForSpecificPlatform.forEach((element) {
-        print(element["name"]);
-      }); */
       state = state.copyWith(
           latestVersion: latest, newReleaseAssets: assetsForSpecificPlatform);
     } catch (e) {
@@ -183,25 +180,48 @@ class AlistNotifier extends StateNotifier<AlistState> {
     }
   }
 
-  Future<void> upgradeAlist(String downloadLink) async {
+  Future<void> installAlist(String downloadLink) async {
     state = state.copyWith(isUpgrading: true);
-    //fetch the latest version zip form downloadLink using dio to working directory
     String destination = '$workingDirectory/alistnew.zip';
     await Dio().download(downloadLink, destination);
-    //close alist
-    endAlist();
-    //Check if there is a .old subfolder in the working directory, if not, create it
     String backupFolder = '$workingDirectory/.old';
     if (!await Directory(backupFolder).exists()) {
       await Directory(backupFolder).create();
     }
-    //create a backup of the current alist: move alist/alist.exe to .old folder, and rename it to alist-$currentVersion.exe
+    final inputStream = InputFileStream(destination);
+    final archive = ZipDecoder().decodeBuffer(inputStream);
+    for (var file in archive.files) {
+      if (file.isFile) {
+        final outputStream = OutputFileStream('$workingDirectory/${file.name}');
+        file.writeContent(outputStream);
+        outputStream.close();
+      }
+    }
+    inputStream.close();
+    archive.clear();
+    await File(destination).delete();
+    getAlistCurrentVersion(addToOutput: false);
+    state = state.copyWith(isUpgrading: false);
+    startAlist();
+  }
+
+  Future<void> upgradeAlist(String downloadLink) async {
+    state = state.copyWith(isUpgrading: true);
+    String destination = '$workingDirectory/alistnew.zip';
+    await Dio().download(downloadLink, destination);
+    endAlist();
+    String backupFolder = '$workingDirectory/.old';
+    if (!await Directory(backupFolder).exists()) {
+      await Directory(backupFolder).create();
+    }
     String currentAlist = Platform.isWindows
         ? '$workingDirectory/alist.exe'
         : '$workingDirectory/alist';
     String currentVersion = state.currentVersion;
+    if (await File('$backupFolder/alist-$currentVersion.exe').exists()) {
+      await File('$backupFolder/alist-$currentVersion.exe').delete();
+    }
     await File(currentAlist).rename('$backupFolder/alist-$currentVersion.exe');
-    //unzip the zip file
     final inputStream = InputFileStream(destination);
     final archive = ZipDecoder().decodeBuffer(inputStream);
     for (var file in archive.files) {

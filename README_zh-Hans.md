@@ -62,7 +62,7 @@ Fork存储库并安装[Flutter](https://flutter.dev)。
 
 ```shell
 flutter pub get
-dart run slang
+dart run build_runner build
 flutter run
 ```
 
@@ -77,7 +77,7 @@ flutter run
    - 添加新语言：创建一个新文件，关于`locale`参见：[locale codes](https://saimana.com/list-of-country-locale-code/)。
 3. 可选项：重新运行该应用程序
    1. 确保你已经[运行](#run)过该应用程序。
-   2. 通过`dart run slang`更新翻译
+   2. 通过`dart run build_runner build`更新翻译
    3. 通过`flutter run`运行应用程序
 4. 提交拉取请求
 

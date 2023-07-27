@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:alisthelper/i18n/strings.g.dart';
+import 'package:alisthelper/provider/alist_helper_provider.dart';
 import 'package:alisthelper/provider/alist_provider.dart';
 import 'package:alisthelper/provider/persistence_provider.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
@@ -56,6 +57,8 @@ Future<PersistenceService> preInit(List<String> args) async {
     await WindowDimensionsController(persistenceService)
         .initDimensionsConfiguration();
 
+    //
+
     //If the app is launched with the autostart argument, it will not be minimized by default.
     //https://github.com/leanflutter/window_manager#hidden-at-launch
     bool isAutoStart = args.contains('autostart');
@@ -74,6 +77,11 @@ Future<PersistenceService> preInit(List<String> args) async {
 /// Post-initializes the app.
 /// Starts the Alist if the [Settings.autoStartAlist] is true.
 Future<void> postInit(WidgetRef ref) async {
+  final alistNotifier = ref.read(alistProvider.notifier);
+  alistNotifier.getAlistCurrentVersion(addToOutput: false);
+  final alistHelperNotifier = ref.read(alistHelperProvider.notifier);
+  alistHelperNotifier.getAlistHelperCurrentVersion();
+
   if (ref.read(settingsProvider).autoStartAlist &&
       !ref.watch(alistProvider).isRunning) {
     var alistNotifier = ref.read(alistProvider.notifier);

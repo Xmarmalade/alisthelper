@@ -11,7 +11,8 @@
         "intro": "欢迎使用 Alist Helper，让我们开始吧！",
         "about": "点击此处了解更多关于 Alist Helper 的信息！",
         "chooseTheme": "首先，让我们在这里选择您喜欢的主题！",
-        "chooseDirectory": "第二步，您需要一个 alist 并告诉 alist helper 它在哪里！",
+        "chooseDirectory": "第二步，您需要一个 alist 并告诉 Alist Helper 它在哪里！",
+        "autoInstall": "Alist Helper现已支持自动安装 alist，试试看！",  
         "getAlist": "如果您还没有 alist，请在这里获取！"
     },
     "tabs": {
@@ -51,6 +52,11 @@
             "themeMode": "主题模式",
             "themeColor": "主题颜色",
             "language": "选择语言"
+        },
+        "theme": {
+            "light": "亮色",
+            "dark": "暗色",
+            "system": "跟随系统"
         },
         "alistHelperSettings": {
             "title": "Alist Helper 选项",
@@ -115,6 +121,8 @@
         "canUpgrade": "发现新版本，您想升级吗？",
         "noUpgrade": "您正在使用最新版本。",
         "upgrade": "升级",
+        "selectPackage": "选择要下载的更新软件包。",
+        "networkError": "请检查网络并重试。",
         "alistVersion": {
             "title": "Alist 版本",
             "currentVersion": "当前 Alist 版本",

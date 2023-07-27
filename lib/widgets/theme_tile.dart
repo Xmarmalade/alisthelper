@@ -19,7 +19,7 @@ class ChangeThemeModeTile extends StatelessWidget {
     final t = Translations.of(context);
     return ListTile(
       leading: Icon(Icons.dark_mode, color: settings.themeColor),
-      title: Text(t.settings.interfaceSettings.themeMode  ),
+      title: Text(t.settings.interfaceSettings.themeMode),
       trailing: ElevatedButton(
         onPressed: () {
           showDialog(
@@ -30,7 +30,7 @@ class ChangeThemeModeTile extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   RadioListTile(
-                    title: const Text('System'),
+                    title: Text(t.settings.theme.system),
                     value: ThemeMode.system,
                     groupValue: settings.themeMode,
                     onChanged: (value) {
@@ -39,7 +39,7 @@ class ChangeThemeModeTile extends StatelessWidget {
                     },
                   ),
                   RadioListTile(
-                    title: const Text('Light'),
+                    title: Text(t.settings.theme.light),
                     value: ThemeMode.light,
                     groupValue: settings.themeMode,
                     onChanged: (value) {
@@ -48,7 +48,7 @@ class ChangeThemeModeTile extends StatelessWidget {
                     },
                   ),
                   RadioListTile(
-                    title: const Text('Dark'),
+                    title: Text(t.settings.theme.dark),
                     value: ThemeMode.dark,
                     groupValue: settings.themeMode,
                     onChanged: (value) {
@@ -61,7 +61,11 @@ class ChangeThemeModeTile extends StatelessWidget {
             ),
           );
         },
-        child: Text(settings.themeMode.toString().split('.')[1].toUpperCase()),
+        child: Text(settings.themeMode == ThemeMode.system
+            ? t.settings.theme.system
+            : settings.themeMode == ThemeMode.light
+                ? t.settings.theme.light
+                : t.settings.theme.dark),
       ),
     );
   }

@@ -1,6 +1,8 @@
 import 'package:alisthelper/i18n/strings.g.dart';
+import 'package:alisthelper/model/settings_state.dart';
 import 'package:alisthelper/provider/alist_helper_provider.dart';
 import 'package:alisthelper/provider/alist_provider.dart';
+import 'package:alisthelper/provider/settings_provider.dart';
 import 'package:alisthelper/utils/textutils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,19 +15,6 @@ class UpgradePage extends ConsumerStatefulWidget {
 }
 
 class _UpgradePageState extends ConsumerState<UpgradePage> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        final alistNotifier = ref.read(alistProvider.notifier);
-        alistNotifier.getAlistCurrentVersion(addToOutput: false);
-        final alistHelperNotifier = ref.read(alistHelperProvider.notifier);
-        alistHelperNotifier.getAlistHelperCurrentVersion();
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final alistNotifier = ref.read(alistProvider.notifier);
@@ -182,10 +171,7 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
 }
 
 class UpgradeAlistButton extends StatelessWidget {
-  const UpgradeAlistButton({
-    super.key,
-    required this.alistState,
-  });
+  const UpgradeAlistButton({super.key, required this.alistState});
 
   final AlistState alistState;
 
@@ -199,7 +185,7 @@ class UpgradeAlistButton extends StatelessWidget {
               ? () => showDialog(
                   context: context,
                   builder: (context) {
-                    return const ChoosePackage();
+                    return const ChoosePackage(isUpgrade: true);
                   })
               : null)),
       child: const Icon(Icons.file_download_outlined),
@@ -208,7 +194,8 @@ class UpgradeAlistButton extends StatelessWidget {
 }
 
 class ChoosePackage extends ConsumerStatefulWidget {
-  const ChoosePackage({super.key});
+  final bool isUpgrade;
+  const ChoosePackage({super.key, required this.isUpgrade});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ChoosePackageState();
@@ -219,40 +206,59 @@ class _ChoosePackageState extends ConsumerState<ChoosePackage> {
   Widget build(BuildContext context) {
     final alistState = ref.watch(alistProvider);
     final AlistNotifier alistNotifier = ref.read(alistProvider.notifier);
+    final SettingsState settingsState = ref.watch(settingsProvider);
     return AlertDialog(
-        title: const Text("Select the update package you want to download"),
+        title: Text(t.upgrade.selectPackage),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            Center(
+              child: ListTile(
+                title: widget.isUpgrade
+                    ? Text(
+                        'Will be upgrade from: ${settingsState.workingDirectory}')
+                    : Text(
+                        'Will be installed to: ${settingsState.workingDirectory}'),
+              ),
+            ),
             Center(
               child: alistState.isUpgrading
                   ? const LinearProgressIndicator()
                   : Container(),
             ),
             Column(
-              children: alistState.newReleaseAssets.map((asset) {
-                return ListTile(
-                  title: Text(asset['name']),
-                  subtitle: Text(
-                      '${(asset['size'] / 1000000).toStringAsFixed(2)} MB'),
-                  trailing: IconButton(
-                    onPressed: () async {
-                      try {
-                        alistNotifier
-                            .upgradeAlist(asset['browser_download_url']);
-                      } catch (e) {
-                        if (context.mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(e.toString())));
-                        }
-                      }
-                    },
-                    icon: const Icon(Icons.file_download_outlined),
-                  ),
-                );
-              }).toList(),
+              children: (alistState.newReleaseAssets.isEmpty)
+                  ? [Text(t.upgrade.networkError)]
+                  : alistState.newReleaseAssets.map((asset) {
+                      return ListTile(
+                        title: Text(asset['name']),
+                        subtitle: Text(
+                            '${(asset['size'] / 1000000).toStringAsFixed(2)} MB'),
+                        trailing: IconButton(
+                          onPressed: () async {
+                            try {
+                              if (widget.isUpgrade) {
+                                alistNotifier.upgradeAlist(
+                                    asset['browser_download_url']);
+                              } else {
+                                alistNotifier.installAlist(
+                                    asset['browser_download_url']);
+                              }
+                            } catch (e) {
+                              if (context.mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(e.toString())));
+                              }
+                            }
+                          },
+                          icon: const Icon(Icons.file_download_outlined),
+                        ),
+                      );
+                    }).toList(),
             ),
           ],
         ));
   }
 }
+
+enum UpgradeState { idle, installing, done }

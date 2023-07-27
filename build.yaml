@@ -1,0 +1,7 @@
+# build.yaml
+targets:
+  $default:
+    builders:
+      slang_build_runner:
+        options:
+          base_locale: en

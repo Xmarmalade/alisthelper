@@ -41,12 +41,18 @@ dependencies:
   slang_flutter: ^3.20.0
   flutter_localizations:
     sdk: flutter
+  freezed_annotation: ^2.4.1
+  path_provider: ^2.0.15
+  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.2
   flutter_launcher_icons: ^0.13.1
+  build_runner: ^2.1.5
+  freezed: ^2.4.1
+  slang_build_runner: ^3.21.0
 
 flutter_launcher_icons:
   image_path: "assets\\alisthelper.png"

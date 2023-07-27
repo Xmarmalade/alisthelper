@@ -47,7 +47,13 @@ class TextUtils {
   }
 
   static List<int> versionNumbersFromString(String versionString) {
+    // if version String like v1.2.3-debug, remove -debug
+    if (versionString.contains('-')) {
+      versionString = versionString.split('-')[0];
+    }
+
     // Remove the leading "v" character and split the version string into components
+
     List<String> versionComponents = versionString.substring(1).split('.');
 
     // Convert each component to an integer and return the list of numbers

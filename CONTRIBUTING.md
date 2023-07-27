@@ -10,7 +10,7 @@ After you have installed [Flutter](https://flutter.dev), then you can start this
 
 ```shell
 flutter pub get
-dart run slang
+dart run build_runner build
 flutter run
 ```
 
@@ -25,7 +25,7 @@ You can help translating this app to other languages!
    - Add new languages: Create a new file, see also: [locale codes](https://saimana.com/list-of-country-locale-code/).
 3. Optional: Re-run this app
    1. Make sure you have [run](#run) this app once.
-   2. Update translations via `dart run slang`
+   2. Update translations via `dart run build_runner build`
    3. Run app via `flutter run`
 4. Open a pull request
 

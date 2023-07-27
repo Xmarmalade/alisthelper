@@ -11,7 +11,8 @@
         "intro": "歡迎使用 Alist Helper,讓我們開始吧!",
         "about": "點擊此處瞭解更多關於 Alist Helper 的資訊!",
         "chooseTheme": "首先,讓我們在這裡選擇您喜歡的主題!",
-        "chooseDirectory": "第二步,您需要一個 alist 並告訴 alist helper 它在哪裡!",
+        "chooseDirectory": "第二步,您需要一個 alist 並告訴 Alist Helper 它在哪裡!",
+        "autoInstall": "Alist Helper現已支持自動安裝 alist，試試看！",
         "getAlist": "如果您還沒有 alist,請在這裡獲取!"
     },
     "tabs": {
@@ -51,6 +52,11 @@
             "themeMode": "主題模式",
             "themeColor": "主題顏色",
             "language": "選擇語言"
+        },
+        "theme": {
+            "light": "亮色",
+            "dark": "暗色",
+            "system": "跟隨系統"
         },
         "alistHelperSettings": {
             "title": "Alist Helper 選項",
@@ -115,6 +121,8 @@
         "canUpgrade": "發現新版本,您想升級嗎?",
         "noUpgrade": "您正在使用最新版本。",
         "upgrade": "升級",
+        "selectPackage": "選擇您要下載的更新包。",
+        "networkError": "請檢查您的網絡並重試。",
         "alistVersion": {
             "title": "Alist 版本",
             "currentVersion": "目前 Alist 版本",

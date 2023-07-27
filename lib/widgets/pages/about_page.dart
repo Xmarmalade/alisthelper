@@ -7,7 +7,7 @@ final _body = '''
       
           Free. No tracking*. No ads.
 
-          Currently, this app is available on Windows. 
+          Currently, this app is available on Windows and macOS. 
           
           Adaptation plans for more platforms are in progress, if you need faster development speed, please consider donating to me.
 

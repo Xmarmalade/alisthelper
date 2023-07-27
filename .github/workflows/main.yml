@@ -36,7 +36,7 @@ jobs:
         run: |
           flutter config --enable-windows-desktop
           flutter pub get
-          dart run slang
+          dart run build_runner build
           flutter build windows
 
       - name: Copy innosetup.iss
@@ -98,7 +98,7 @@ jobs:
         run: |
           flutter config --enable-macos-desktop
           flutter pub get
-          dart run slang
+          dart run build_runner build
           flutter build macos
 
       - name: Archive App

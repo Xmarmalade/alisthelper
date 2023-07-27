@@ -10,7 +10,7 @@ final persistenceProvider = Provider<PersistenceService>((ref) {
 });
 
 // Version of the storage
-const currentAlistHelperVersion = 'v0.1.2';
+const currentAlistHelperVersion = 'v0.1.3-alpha.1';
 const _version = 'ah_current_version';
 
 // App Window Offset and Size info
@@ -31,6 +31,8 @@ const _themeColor = 'ah_theme_color';
 const _alistArgs = 'ah_alist_args';
 const _autoStartAlist = 'ah_auto_start_alist';
 const _proxy = 'ah_proxy';
+const _rcloneWorkingDirectory = 'ah_rclone_working_directory';
+const _rcloneArgs = 'ah_rclone_args';
 
 /// This service abstracts the persistence layer.
 class PersistenceService {
@@ -120,6 +122,22 @@ class PersistenceService {
 
   Future<void> setWorkingDirectory(String path) async {
     await _prefs.setString(_workingDirectory, path);
+  }
+
+  String getRcloneWorkingDirectory() {
+    return _prefs.getString(_rcloneWorkingDirectory) ?? r'';
+  }
+
+  Future<void> setRcloneWorkingDirectory(String path) async {
+    await _prefs.setString(_rcloneWorkingDirectory, path);
+  }
+
+  Future<void> setRcloneArgs(List<String> args) async {
+    await _prefs.setStringList(_rcloneArgs, args);
+  }
+
+  List<String> getRcloneArgs() {
+    return _prefs.getStringList(_rcloneArgs) ?? ['rcd','--rc-web-gui'];
   }
 
   bool isAutoStart() {

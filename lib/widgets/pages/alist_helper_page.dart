@@ -1,4 +1,5 @@
 import 'package:alisthelper/i18n/strings.g.dart';
+import 'package:alisthelper/provider/alist_provider.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
 import 'package:alisthelper/widgets/button_card.dart';
 import 'package:alisthelper/widgets/pages/first_launch_page.dart';
@@ -29,26 +30,28 @@ class AlistHelperPage extends ConsumerWidget {
                     style: TextStyle(fontWeight: FontWeight.bold)),
               )),
         body: Center(
+            child: Container(
+          constraints: const BoxConstraints(maxWidth: 800),
           child: Column(
             children: [
               ListTile(
                 title: Text(t.home.options,
-                    style:
-                        const TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w600, fontSize: 18)),
               ),
               const MultiButtonCard(),
               ListTile(
                 title: Text(t.home.logs,
-                    style:
-                        const TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w600, fontSize: 18)),
               ),
               Expanded(
                 child: Card(
                     margin: const EdgeInsets.fromLTRB(20, 10, 20, 20),
-                    child: LogsViewer()),
+                    child: LogsViewer(output: ref.watch(alistProvider).output,)),
               ),
             ],
           ),
-        ));
+        )));
   }
 }
