@@ -4,6 +4,7 @@ import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/provider/alist_provider.dart';
 import 'package:alisthelper/provider/app_arguments_provider.dart';
 import 'package:alisthelper/provider/persistence_provider.dart';
+import 'package:alisthelper/provider/rclone_provider.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
 import 'package:alisthelper/theme.dart';
 import 'package:alisthelper/utils/init.dart';
@@ -32,6 +33,7 @@ class MyApp extends ConsumerWidget {
     final alistNotifier = ref.read(alistProvider.notifier);
     Color color =
         ref.watch(settingsProvider.select((settings) => settings.themeColor));
+    final rcloneNotifier = ref.read(rcloneProvider.notifier);
     return TrayWatcher(
       child: WindowWatcher(
         onClose: () async {
@@ -40,6 +42,7 @@ class MyApp extends ConsumerWidget {
               await hideToTray();
             } else {
               await alistNotifier.endAlist();
+              await rcloneNotifier.endRclone();
               exit(0);
             }
           } catch (e) {
