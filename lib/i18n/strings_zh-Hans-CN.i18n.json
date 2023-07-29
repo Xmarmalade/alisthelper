@@ -7,16 +7,22 @@
         "getAdmin": "管理员信息",
         "getVersion": "版本信息"
     },
+    "rcloneOperation": {
+        "startRclone": "启动",
+        "endRclone": "关闭"
+    },
     "firstLaunch": {
-        "intro": "欢迎使用 Alist Helper，让我们开始吧！",
-        "about": "点击此处了解更多关于 Alist Helper 的信息！",
-        "chooseTheme": "首先，让我们在这里选择您喜欢的主题！",
-        "chooseDirectory": "第二步，您需要一个 alist 并告诉 Alist Helper 它在哪里！",
-        "autoInstall": "Alist Helper现已支持自动安装 alist，试试看！",  
-        "getAlist": "如果您还没有 alist，请在这里获取！"
+        "intro": "欢迎使用 Alist Helper,让我们开始吧!",
+        "about": "点击此处了解更多关于 Alist Helper 的信息!",
+        "chooseTheme": "首先,让我们在这里选择您喜欢的主题!",
+        "chooseDirectory": "第二步,您需要一个 alist 并告诉 Alist Helper 它在哪里!",
+        "autoInstall": "Alist Helper现已支持自动安装 alist,试试看!",
+        "getAlist": "想要使用特定版本的alist或是手动安装?点击这里!",
+        "finish": "完成!您可以在设置中更改这些设置!"
     },
     "tabs": {
         "home": "首页",
+        "mount": "挂载",
         "settings": "设置"
     },
     "home": {
@@ -25,7 +31,7 @@
     },
     "languageSettings": {
         "language": "语言",
-        "system":"跟随系统"
+        "system": "跟随系统"
     },
     "button": {
         "ok": "确认",
@@ -61,11 +67,11 @@
         "alistHelperSettings": {
             "title": "Alist Helper 选项",
             "saveWindowPlacement": {
-                "title": "保存 Alist Helper 窗口位置",
+                "title": "保存窗口位置",
                 "description": "这将允许 Alist Helper 保存窗口位置。"
             },
             "minimizeToTray": {
-                "title": "允许 Alist Helper 最小化到托盘",
+                "title": "允许最小化到托盘",
                 "description": "这将允许 Alist Helper 最小化到托盘。"
             },
             "autoStart": {
@@ -90,7 +96,7 @@
             "workingDirectory": {
                 "title": "工作目录",
                 "description": "设置工作目录",
-                "hint": "这是一个目录，不是文件！",
+                "hint": "这是一个目录,不是文件!",
                 "chooseFrom": "选择目录",
                 "notFound": "目录中找不到 alist 程序",
                 "found": "找到 alist 程序"
@@ -98,15 +104,28 @@
             "argumentsList": {
                 "title": "启动参数列表",
                 "description": "编辑 alist 的启动参数",
+                "descriptionForRclone": "编辑 rclone 的启动参数。你也可以粘贴整行，Alist Helper 会帮你解析。",
                 "editArguments": "编辑参数",
-                "addArgument": "添加参数"
+                "addArgument": "添加参数",
+                "removeAll": "移除所有参数"
             },
             "proxy": {
                 "title": "Http 代理",
                 "description": "设置 Http 代理",
-                "hint": "如果留空， 将不会启用 Http 代理",
+                "hint": "如果留空, 将不会启用 Http 代理",
                 "success": "Http 代理地址已设置",
                 "error": "非法的 Http 代理地址"
+            }
+        },
+        "rcloneSettings": {
+            "title": "Rclone 选项",
+            "autoStartAlist": {
+                "title": "允许 rclone 自动启动",
+                "description": "这将在 Alist Helper 启动时自动启动 rclone。"
+            },
+            "startAfterAlist": {
+                "title": "允许在alist启动后启动",
+                "description": "这将允许 rclone 在 alist 启动后启动。"
             }
         },
         "others": {
@@ -118,11 +137,11 @@
     "upgrade": {
         "clickToCheck": "单击旁边的按钮以检查更新",
         "checkFirst": "请先检查更新",
-        "canUpgrade": "发现新版本，您想升级吗？",
+        "canUpgrade": "发现新版本,您想升级吗?",
         "noUpgrade": "您正在使用最新版本。",
         "upgrade": "升级",
         "selectPackage": "选择要下载的更新软件包。",
-        "networkError": "请检查网络并重试。",
+        "networkError": "正在加载中...若长时间未加载请检查网络并重试。",
         "alistVersion": {
             "title": "Alist 版本",
             "currentVersion": "当前 Alist 版本",

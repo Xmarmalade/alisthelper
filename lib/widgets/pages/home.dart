@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:alisthelper/utils/init.dart';
 import 'package:alisthelper/widgets/pages/alist_helper_page.dart';
+import 'package:alisthelper/widgets/pages/rclone_page.dart';
 import 'package:alisthelper/widgets/responsive_builder.dart';
 import 'package:alisthelper/widgets/pages/settings_page.dart';
 import 'package:flutter/material.dart';
@@ -28,9 +29,7 @@ class AlistHelperIcon extends StatelessWidget {
 }
 
 class Home extends ConsumerStatefulWidget {
-
-  const Home(
-      {super.key});
+  const Home({super.key});
 
   @override
   ConsumerState<Home> createState() => _HomeState();
@@ -38,17 +37,19 @@ class Home extends ConsumerStatefulWidget {
 
 enum HomeTab {
   home(Icons.home_filled),
+  rclone(Icons.storage_outlined),
   settings(Icons.settings);
 
   final IconData icon;
 
   const HomeTab(this.icon);
-  
 
   String get label {
     switch (this) {
       case HomeTab.home:
         return t.tabs.home;
+      case HomeTab.rclone:
+        return t.tabs.mount;
       case HomeTab.settings:
         return t.tabs.settings;
     }
@@ -57,11 +58,11 @@ enum HomeTab {
 
 class _HomeState extends ConsumerState<Home> {
   late PageController _pageController;
+
   HomeTab _currentTab = HomeTab.home;
 
   @override
   Widget build(BuildContext context) {
-
     return ResponsiveBuilder(
       builder: (sizingInformation) {
         return Scaffold(
@@ -70,19 +71,18 @@ class _HomeState extends ConsumerState<Home> {
               children: [
                 if (!sizingInformation.isMobile)
                   NavigationRail(
-                    selectedIndex: _currentTab.index,
-                    onDestinationSelected: _goToPage,
-                    extended: sizingInformation.isDesktop,
-                    leading: sizingInformation.isDesktop
-                        ? const AlistHelperIcon()
-                        : null,
-                    destinations: HomeTab.values.map((tab) {
-                      return NavigationRailDestination(
-                        icon: Icon(tab.icon),
-                        label: Text(tab.label),
-                      );
-                    }).toList(),
-                  ),
+                      selectedIndex: _currentTab.index,
+                      onDestinationSelected: _goToPage,
+                      extended: sizingInformation.isDesktop,
+                      leading: sizingInformation.isDesktop
+                          ? const AlistHelperIcon()
+                          : null,
+                      destinations: HomeTab.values.map((tab) {
+                        return NavigationRailDestination(
+                          icon: Icon(tab.icon),
+                          label: Text(tab.label),
+                        );
+                      }).toList()),
                 Expanded(
                   child: Stack(
                     children: [
@@ -91,6 +91,7 @@ class _HomeState extends ConsumerState<Home> {
                         physics: const NeverScrollableScrollPhysics(),
                         children: [
                           AlistHelperPage(sizingInformation: sizingInformation),
+                          RclonePage(sizingInformation: sizingInformation),
                           SettingsPage(sizingInformation: sizingInformation),
                         ],
                       ),

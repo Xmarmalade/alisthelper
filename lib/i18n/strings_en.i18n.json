@@ -7,16 +7,22 @@
         "getAdmin": "Admin",
         "getVersion": "Version"
     },
+    "rcloneOperation": {
+        "startRclone": "Start",
+        "endRclone": "End"
+    },
     "firstLaunch": {
         "intro": "Welcome to use Alist Helper, let's get started!",
         "about": "Click here to learn more about Alist Helper!",
         "chooseTheme": "First, let's choose your preferred theme here!",
         "chooseDirectory": "Second, you have to get an alist and tell the Alist Helper where it is!",
         "autoInstall": "AlistHelper now supports automatic installation of alist, try it out!",  
-        "getAlist": "If you don't have alist yet, get it here!"
+        "getAlist": "Want to use a specific version of alist or install it manually? Click here!",
+        "finish":"Finish! You can change these settings in settings!"
     },
     "tabs": {
         "home": "Home",
+        "mount":"Mount",
         "settings": "Settings"
     },
     "home": {
@@ -61,11 +67,11 @@
         "alistHelperSettings": {
             "title": "Alist Helper Options",
             "saveWindowPlacement": {
-                "title": "Save Alist Helper window placement",
+                "title": "Save window placement",
                 "description": "This will allow Alist Helper save window placement."
             },
             "minimizeToTray": {
-                "title": "Allow Alist Helper minimize to tray",
+                "title": "Allow minimize to tray",
                 "description": "This will allow Alist Helper to minimize to tray."
             },
             "autoStart": {
@@ -97,9 +103,11 @@
             },
             "argumentsList": {
                 "title": "Arguments List",
-                "description": "Edit startup arguments for alist.exe",
+                "description": "Edit startup arguments for alist",
+                "descriptionForRclone": "Edit startup arguments for rclone. You can also paste a full line, Alist Helper will help you parse it.",
                 "editArguments": "Edit Arguments",
-                "addArgument": "Add Argument"
+                "addArgument": "Add Argument",
+                "removeAll":"Remove all"
             },
             "proxy": {
                 "title": "Http Proxy",
@@ -107,6 +115,17 @@
                 "hint": "If left blank, it will not be enabled",
                 "success": "Proxy address set successfully",
                 "error": "Invalid proxy address"
+            }
+        },
+        "rcloneSettings":{
+            "title": "Rclone Options",
+            "autoStartAlist": {
+                "title": "Allow rclone auto start",
+                "description": "This will auto start rclone when Alist Helper starts."
+            },
+            "startAfterAlist": {
+                "title": "Allow starting after alist",
+                "description": "This will allow rclone to start after alist."
             }
         },
         "others": {
@@ -122,7 +141,7 @@
         "noUpgrade": "You are using the latest version.",
         "upgrade": "Upgrade",
         "selectPackage": "Select the update package you want to download.",
-        "networkError": "Please check your network and try again.",
+        "networkError": "Loading... If it hasn't loaded for a long time, please check your network and try again.",
         "alistVersion": {
             "title": "Alist Version",
             "currentVersion": "Current Alist Version",

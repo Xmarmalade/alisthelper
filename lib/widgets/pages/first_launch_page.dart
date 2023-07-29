@@ -1,11 +1,12 @@
 import 'dart:io';
 
 import 'package:alisthelper/i18n/strings.g.dart';
+import 'package:alisthelper/model/alist_state.dart';
 import 'package:alisthelper/provider/alist_provider.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
+import 'package:alisthelper/widgets/choose_package.dart';
 import 'package:alisthelper/widgets/pages/about_page.dart';
 import 'package:alisthelper/widgets/pages/language_page.dart';
-import 'package:alisthelper/widgets/pages/upgrade_page.dart';
 import 'package:alisthelper/widgets/responsive_builder.dart';
 
 import 'package:alisthelper/widgets/theme_tile.dart';
@@ -44,7 +45,6 @@ class _FirstLaunchBodyState extends ConsumerState<FirstLaunchBody> {
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider);
     final settingsNotifier = ref.watch(settingsProvider.notifier);
-    final alistNotifier = ref.watch(alistProvider.notifier);
     final alistState = ref.watch(alistProvider);
     final t = Translations.of(context);
     return Center(
@@ -86,10 +86,8 @@ class _FirstLaunchBodyState extends ConsumerState<FirstLaunchBody> {
                     settings: settings, settingsNotifier: settingsNotifier),
                 ListTile(
                   title: Text(t.settings.interfaceSettings.language),
-                  leading: Icon(
-                    Icons.language_rounded,
-                    color: settings.themeColor,
-                  ),
+                  leading:
+                      Icon(Icons.language_rounded, color: settings.themeColor),
                   onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -107,14 +105,12 @@ class _FirstLaunchBodyState extends ConsumerState<FirstLaunchBody> {
                             fontWeight: FontWeight.w600, fontSize: 18))),
                 ListTile(
                   leading: const Icon(Icons.info_outline),
-                  title: Text(
-                      t.firstLaunch.autoInstall),
-                  trailing: alistState.isUpgrading
+                  title: Text(t.firstLaunch.autoInstall),
+                  trailing: alistState.upgradeStatus == UpgradeStatus.installing
                       ? const CircularProgressIndicator()
                       : const Icon(Icons.arrow_forward_ios_rounded),
                   onTap: () async {
                     try {
-                      await alistNotifier.fetchLatestVersion();
                       Directory dir = await getApplicationSupportDirectory();
                       if (Platform.isWindows) {
                         await settingsNotifier
@@ -149,12 +145,23 @@ class _FirstLaunchBodyState extends ConsumerState<FirstLaunchBody> {
                         mode: LaunchMode.externalApplication);
                   },
                 ),
-
                 WorkingDirectoryTile(
                     settings: settings, settingsNotifier: settingsNotifier),
-                //Container(height: 10)
               ]),
             ),
+            Center(
+                child: Container(
+              margin: const EdgeInsets.all(10),
+              child: ElevatedButton(
+                onPressed: settings.workingDirectory.isNotEmpty
+                    ? (() {
+                        settingsNotifier.setFirstRun(false);
+                      })
+                    : null,
+                child: Text(t.firstLaunch.finish,
+                    style: const TextStyle(fontSize: 18)),
+              ),
+            ))
           ],
         ),
       ),

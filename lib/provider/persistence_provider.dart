@@ -33,6 +33,9 @@ const _autoStartAlist = 'ah_auto_start_alist';
 const _proxy = 'ah_proxy';
 const _rcloneWorkingDirectory = 'ah_rclone_working_directory';
 const _rcloneArgs = 'ah_rclone_args';
+const _isFirstRun = 'ah_is_first_run';
+const _autoStartRclone = 'ah_enable_rclone';
+const _startAfterAlist = 'ah_start_after_alist';
 
 /// This service abstracts the persistence layer.
 class PersistenceService {
@@ -56,6 +59,23 @@ class PersistenceService {
       await prefs.setString(_version, currentAlistHelperVersion);
     }
     return PersistenceService._(prefs);
+  }
+
+  //startAfterAlist
+  bool isStartAfterAlist() {
+    return _prefs.getBool(_startAfterAlist) ?? false;
+  }
+
+  Future<void> setStartAfterAlist(bool value) async {
+    await _prefs.setBool(_startAfterAlist, value);
+  }
+
+  Future<void> setFirstRun(bool value) async {
+    await _prefs.setBool(_isFirstRun, value);
+  }
+
+  bool isFirstRun() {
+    return _prefs.getBool(_isFirstRun) ?? true;
   }
 
   String getAlistHelperVersion() {
@@ -132,12 +152,20 @@ class PersistenceService {
     await _prefs.setString(_rcloneWorkingDirectory, path);
   }
 
-  Future<void> setRcloneArgs(List<String> args) async {
-    await _prefs.setStringList(_rcloneArgs, args);
+  Future<void> setRcloneArgs(List<String> value) async {
+    await _prefs.setStringList(_rcloneArgs, value);
   }
 
   List<String> getRcloneArgs() {
     return _prefs.getStringList(_rcloneArgs) ?? ['rcd','--rc-web-gui'];
+  }
+
+  Future<void> setAutoStartRclone(bool value) async {
+    await _prefs.setBool(_autoStartRclone, value);
+  }
+
+  bool isAutoStartRclone() {
+    return _prefs.getBool(_autoStartRclone) ?? false;
   }
 
   bool isAutoStart() {

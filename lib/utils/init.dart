@@ -4,6 +4,7 @@ import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/provider/alist_helper_provider.dart';
 import 'package:alisthelper/provider/alist_provider.dart';
 import 'package:alisthelper/provider/persistence_provider.dart';
+import 'package:alisthelper/provider/rclone_provider.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
 import 'package:alisthelper/provider/window_dimensions_provider.dart';
 import 'package:alisthelper/utils/native/tray_helper.dart';
@@ -78,7 +79,9 @@ Future<PersistenceService> preInit(List<String> args) async {
 /// Starts the Alist if the [Settings.autoStartAlist] is true.
 Future<void> postInit(WidgetRef ref) async {
   final alistNotifier = ref.read(alistProvider.notifier);
-  alistNotifier.getAlistCurrentVersion(addToOutput: false);
+  if (!ref.read(settingsProvider).isFirstRun) {
+    alistNotifier.getAlistCurrentVersion(addToOutput: false);
+  }
   final alistHelperNotifier = ref.read(alistHelperProvider.notifier);
   alistHelperNotifier.getAlistHelperCurrentVersion();
 
@@ -86,5 +89,19 @@ Future<void> postInit(WidgetRef ref) async {
       !ref.watch(alistProvider).isRunning) {
     var alistNotifier = ref.read(alistProvider.notifier);
     alistNotifier.startAlist();
+  }
+
+  if (ref.read(settingsProvider).autoStartRclone) {
+    if (ref.read(settingsProvider).startAfterAlist) {
+      //wait 3 second
+      await Future.delayed(const Duration(seconds: 3));
+      if (ref.watch(alistProvider).isRunning) {
+        var rcloneNotifier = ref.read(rcloneProvider.notifier);
+        rcloneNotifier.startRclone();
+      }
+    } else {
+      var rcloneNotifier = ref.read(rcloneProvider.notifier);
+      rcloneNotifier.startRclone();
+    }
   }
 }

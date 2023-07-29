@@ -1,5 +1,5 @@
 {
-    "locale": "繁體中文",
+    "locale": "正體中文",
     "alistOperation": {
         "startAlist": "啟動",
         "endAlist": "關閉",
@@ -7,21 +7,27 @@
         "getAdmin": "管理員資訊",
         "getVersion": "版本資訊"
     },
+    "rcloneOperation": {
+        "startRclone": "啟動",
+        "endRclone": "關閉"
+    },
     "firstLaunch": {
         "intro": "歡迎使用 Alist Helper,讓我們開始吧!",
         "about": "點擊此處瞭解更多關於 Alist Helper 的資訊!",
         "chooseTheme": "首先,讓我們在這裡選擇您喜歡的主題!",
         "chooseDirectory": "第二步,您需要一個 alist 並告訴 Alist Helper 它在哪裡!",
-        "autoInstall": "Alist Helper現已支持自動安裝 alist，試試看！",
-        "getAlist": "如果您還沒有 alist,請在這裡獲取!"
+        "autoInstall": "Alist Helper現已支持自動安裝 alist,試試看!",
+        "getAlist": "想要使用特定版本的alist或是手動安裝?點擊這裡!",
+        "finish": "完成!您可以在設定中更改這些設定!"
     },
     "tabs": {
         "home": "首頁",
+        "mount": "掛載",
         "settings": "設定"
     },
     "home": {
         "options": "選項",
-        "logs": "日志"
+        "logs": "日誌"
     },
     "languageSettings": {
         "language": "語言",
@@ -40,11 +46,11 @@
     "tray": {
         "open": "開啟",
         "hide": "隱藏",
-        "quit": "結束",
+        "quit": "退出",
         "startAlist": "啟動 Alist 服務",
         "endAlist": "關閉 Alist 服務",
         "tooltip": "Alist Helper",
-        "workingTooltip": "Alist Helper (Alist 執行中)"
+        "workingTooltip": "Alist Helper (Alist 運行中)"
     },
     "settings": {
         "interfaceSettings": {
@@ -61,12 +67,12 @@
         "alistHelperSettings": {
             "title": "Alist Helper 選項",
             "saveWindowPlacement": {
-                "title": "儲存 Alist Helper 視窗位置",
+                "title": "儲存視窗位置",
                 "description": "這將允許 Alist Helper 儲存視窗位置。"
             },
             "minimizeToTray": {
-                "title": "允許 Alist Helper 最小化到託盤",
-                "description": "這將允許 Alist Helper 最小化到託盤。"
+                "title": "允許最小化到托盤",
+                "description": "這將允許 Alist Helper 最小化到托盤。"
             },
             "autoStart": {
                 "title": "允許自動啟動",
@@ -98,8 +104,10 @@
             "argumentsList": {
                 "title": "啟動參數列表",
                 "description": "編輯 alist 的啟動參數",
+                "descriptionForRclone": "編輯 rclone 的啟動參數。你也可以粘貼整行,Alist Helper 會幫你解析。",
                 "editArguments": "編輯參數",
-                "addArgument": "新增參數"
+                "addArgument": "新增參數",
+                "removeAll": "移除所有參數"
             },
             "proxy": {
                 "title": "Http 代理",
@@ -109,6 +117,17 @@
                 "error": "非法的 Http 代理位址"
             }
         },
+        "rcloneSettings": {
+            "title": "Rclone 選項",
+            "autoStartAlist": {
+                "title": "允許 rclone 自動啟動",
+                "description": "這將在 Alist Helper 啟動時自動啟動 rclone。"
+            },
+            "startAfterAlist": {
+                "title": "允許在 alist 啟動後啟動",
+                "description": "這將允許 rclone 在 alist 啟動後啟動。"
+            }
+        },
         "others": {
             "title": "其他",
             "checkForUpdates": "檢查更新",
@@ -116,13 +135,13 @@
         }
     },
     "upgrade": {
-        "clickToCheck": "單擊旁邊的按鈕以檢查更新",
+        "clickToCheck": "點擊旁邊的按鈕以檢查更新",
         "checkFirst": "請先檢查更新",
         "canUpgrade": "發現新版本,您想升級嗎?",
         "noUpgrade": "您正在使用最新版本。",
         "upgrade": "升級",
-        "selectPackage": "選擇您要下載的更新包。",
-        "networkError": "請檢查您的網絡並重試。",
+        "selectPackage": "選擇要下載的更新軟體包。",
+        "networkError": "正在載入中...若長時間未載入請檢查網路並重試。",
         "alistVersion": {
             "title": "Alist 版本",
             "currentVersion": "目前 Alist 版本",

@@ -25,7 +25,9 @@ class ProxyTile extends StatelessWidget {
         t.settings.alistSettings.proxy.title,
         style: const TextStyle(fontWeight: FontWeight.w500),
       ),
-      subtitle: Text(settings.proxy.toString()),
+      subtitle: Text((settings.proxy.toString() != '')
+          ? settings.proxy.toString()
+          : t.settings.alistSettings.proxy.hint),
       trailing: ElevatedButton(
         onPressed: () async {
           final String? proxy = await showDialog<String>(

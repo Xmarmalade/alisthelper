@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:alisthelper/model/alist_state.dart';
 import 'package:alisthelper/utils/native/tray_helper.dart';
+import 'package:alisthelper/utils/native/file_helper.dart';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
-import 'package:archive/archive_io.dart';
 
 import 'package:alisthelper/provider/settings_provider.dart';
 import 'package:alisthelper/utils/textutils.dart';
@@ -28,7 +29,7 @@ class AlistNotifier extends StateNotifier<AlistState> {
   String proxy;
 
   AlistNotifier(this.workingDirectory, this.alistArgs, this.proxy)
-      : super(AlistState());
+      : super(const AlistState());
 
   void addOutput(String text) {
     checkState(text);
@@ -173,7 +174,9 @@ class AlistNotifier extends StateNotifier<AlistState> {
         }
       }
       state = state.copyWith(
-          latestVersion: latest, newReleaseAssets: assetsForSpecificPlatform);
+          latestVersion: latest,
+          newReleaseAssets: assetsForSpecificPlatform,
+          upgradeStatus: UpgradeStatus.idle);
     } catch (e) {
       throw Exception(
           'Failed to get latest version when fetching \n Error is: $e');
@@ -181,101 +184,38 @@ class AlistNotifier extends StateNotifier<AlistState> {
   }
 
   Future<void> installAlist(String downloadLink) async {
-    state = state.copyWith(isUpgrading: true);
-    String destination = '$workingDirectory/alistnew.zip';
-    await Dio().download(downloadLink, destination);
-    String backupFolder = '$workingDirectory/.old';
-    if (!await Directory(backupFolder).exists()) {
-      await Directory(backupFolder).create();
-    }
-    final inputStream = InputFileStream(destination);
-    final archive = ZipDecoder().decodeBuffer(inputStream);
-    for (var file in archive.files) {
-      if (file.isFile) {
-        final outputStream = OutputFileStream('$workingDirectory/${file.name}');
-        file.writeContent(outputStream);
-        outputStream.close();
-      }
-    }
-    inputStream.close();
-    archive.clear();
-    await File(destination).delete();
+    state = state.copyWith(upgradeStatus: UpgradeStatus.installing);
+    String targetArchiveFile = '$workingDirectory/alistnew.zip';
+    await Dio().download(downloadLink, targetArchiveFile);
+    FileHelper.unzipFile(targetArchiveFile, workingDirectory);
+    await File(targetArchiveFile).delete();
     getAlistCurrentVersion(addToOutput: false);
-    state = state.copyWith(isUpgrading: false);
-    startAlist();
+    state = state.copyWith(upgradeStatus: UpgradeStatus.complete);
+    //startAlist();
   }
 
   Future<void> upgradeAlist(String downloadLink) async {
-    state = state.copyWith(isUpgrading: true);
-    String destination = '$workingDirectory/alistnew.zip';
-    await Dio().download(downloadLink, destination);
-    endAlist();
+    state = state.copyWith(upgradeStatus: UpgradeStatus.installing);
+    String targetArchiveFile = '$workingDirectory/alistnew.zip';
     String backupFolder = '$workingDirectory/.old';
-    if (!await Directory(backupFolder).exists()) {
-      await Directory(backupFolder).create();
-    }
     String currentAlist = Platform.isWindows
         ? '$workingDirectory/alist.exe'
         : '$workingDirectory/alist';
-    String currentVersion = state.currentVersion;
-    if (await File('$backupFolder/alist-$currentVersion.exe').exists()) {
-      await File('$backupFolder/alist-$currentVersion.exe').delete();
+    await Dio().download(downloadLink, targetArchiveFile);
+    endAlist();
+    if (!await Directory(backupFolder).exists()) {
+      await Directory(backupFolder).create();
     }
-    await File(currentAlist).rename('$backupFolder/alist-$currentVersion.exe');
-    final inputStream = InputFileStream(destination);
-    final archive = ZipDecoder().decodeBuffer(inputStream);
-    for (var file in archive.files) {
-      if (file.isFile) {
-        final outputStream = OutputFileStream('$workingDirectory/${file.name}');
-        file.writeContent(outputStream);
-        outputStream.close();
-      }
+    if (await File('$backupFolder/alist-${state.currentVersion}.exe')
+        .exists()) {
+      await File('$backupFolder/alist-${state.currentVersion}.exe').delete();
     }
-    inputStream.close();
-    archive.clear();
-    await File(destination).delete();
+    await File(currentAlist)
+        .rename('$backupFolder/alist-${state.currentVersion}.exe');
+    FileHelper.unzipFile('$workingDirectory/alistnew.zip', workingDirectory);
+    await File(targetArchiveFile).delete();
     getAlistCurrentVersion(addToOutput: false);
-    state = state.copyWith(isUpgrading: false);
+    state = state.copyWith(upgradeStatus: UpgradeStatus.complete);
     startAlist();
-  }
-}
-
-class AlistState {
-  final bool isRunning;
-  final List<String> output;
-  final String url;
-  final String currentVersion;
-  final String latestVersion;
-  final List<Map> newReleaseAssets;
-  final bool isUpgrading;
-
-  AlistState({
-    this.isRunning = false,
-    this.output = const [],
-    this.url = 'http://localhost:5244',
-    this.currentVersion = 'v1.0.0',
-    this.latestVersion = 'v1.0.0',
-    this.newReleaseAssets = const [],
-    this.isUpgrading = false,
-  });
-
-  AlistState copyWith({
-    bool? isRunning,
-    List<String>? output,
-    String? url,
-    String? currentVersion,
-    String? latestVersion,
-    List<Map>? newReleaseAssets,
-    bool? isUpgrading,
-  }) {
-    return AlistState(
-      isRunning: isRunning ?? this.isRunning,
-      output: output ?? this.output,
-      url: url ?? this.url,
-      currentVersion: currentVersion ?? this.currentVersion,
-      latestVersion: latestVersion ?? this.latestVersion,
-      newReleaseAssets: newReleaseAssets ?? this.newReleaseAssets,
-      isUpgrading: isUpgrading ?? this.isUpgrading,
-    );
   }
 }

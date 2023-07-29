@@ -18,7 +18,9 @@ class SettingsState with _$SettingsState {
   required List<String> alistArgs,
   required AppLocale? locale,
   required String? proxy,
-  required String rcloneWorkingDirectory,
   required List<String> rcloneArgs,
+  required bool isFirstRun,
+  required bool autoStartRclone,
+  required bool startAfterAlist,
   }) = _SettingsState;
 }

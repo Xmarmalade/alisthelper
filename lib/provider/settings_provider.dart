@@ -30,10 +30,29 @@ class SettingsNotifier extends Notifier<SettingsState> {
       saveWindowPlacement: _persistenceService.getSaveWindowPlacement(),
       alistArgs: _persistenceService.getAlistArgs(),
       proxy: _persistenceService.getProxy(),
+      rcloneArgs: _persistenceService.getRcloneArgs(),
+      isFirstRun: _persistenceService.isFirstRun(),
+      autoStartRclone: _persistenceService.isAutoStartRclone(),
+      startAfterAlist: _persistenceService.isStartAfterAlist(),
     );
   }
 
-    Future<void> setProxy(String? proxy) async {
+  Future<void> setAutoStartRclone(bool value) async {
+    await _persistenceService.setAutoStartRclone(value);
+    state = state.copyWith(autoStartRclone: value);
+  }
+
+  Future<void> setStartAfterAlist(bool value) async {
+    await _persistenceService.setStartAfterAlist(value);
+    state = state.copyWith(startAfterAlist: value);
+  }
+
+  Future<void> setFirstRun(bool value) async {
+    await _persistenceService.setFirstRun(value);
+    state = state.copyWith(isFirstRun: value);
+  }
+
+  Future<void> setProxy(String? proxy) async {
     await _persistenceService.setProxy(proxy);
     state = state.copyWith(proxy: proxy);
   }
@@ -43,7 +62,7 @@ class SettingsNotifier extends Notifier<SettingsState> {
     state = state.copyWith(locale: locale);
   }
 
-  Future<void> setAutoStartAList(bool value) async {
+  Future<void> setAutoStartAlist(bool value) async {
     await _persistenceService.setAutoStartAlist(value);
     state = state.copyWith(autoStartAlist: value);
   }
@@ -87,5 +106,10 @@ class SettingsNotifier extends Notifier<SettingsState> {
   Future<void> setAlistArgs(List<String> value) async {
     await _persistenceService.setAlistArgs(value);
     state = state.copyWith(alistArgs: value);
+  }
+
+  Future<void> setRcloneArgs(List<String> value) async {
+    await _persistenceService.setRcloneArgs(value);
+    state = state.copyWith(rcloneArgs: value);
   }
 }

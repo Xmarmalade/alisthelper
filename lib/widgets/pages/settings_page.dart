@@ -87,9 +87,8 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                             fontWeight: FontWeight.w600, fontSize: 18))),
                 CustomToggleTile(
                   value: settings.saveWindowPlacement,
-                  onToggled: (value) => ref
-                      .read(settingsProvider.notifier)
-                      .setSaveWindowPlacement(value),
+                  onToggled: (value) =>
+                      settingsNotifier.setSaveWindowPlacement(value),
                   title:
                       t.settings.alistHelperSettings.saveWindowPlacement.title,
                   subtitle: t.settings.alistHelperSettings.saveWindowPlacement
@@ -97,9 +96,8 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                 ),
                 CustomToggleTile(
                   value: settings.minimizeToTray,
-                  onToggled: (value) => ref
-                      .read(settingsProvider.notifier)
-                      .setMinimizeToTray(value),
+                  onToggled: (value) =>
+                      settingsNotifier.setMinimizeToTray(value),
                   title: t.settings.alistHelperSettings.minimizeToTray.title,
                   subtitle:
                       t.settings.alistHelperSettings.minimizeToTray.description,
@@ -114,9 +112,8 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                 ),
                 CustomToggleTile(
                   value: settings.autoStartLaunchMinimized,
-                  onToggled: (value) => ref
-                      .read(settingsProvider.notifier)
-                      .setAutoStartLaunchMinimized(value),
+                  onToggled: (value) =>
+                      settingsNotifier.setAutoStartLaunchMinimized(value),
                   title: t.settings.alistHelperSettings.autoStartLaunchMinimized
                       .title,
                   subtitle: t.settings.alistHelperSettings
@@ -134,12 +131,10 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                             fontWeight: FontWeight.w600, fontSize: 18))),
                 CustomToggleTile(
                   value: settings.autoStartAlist,
-                  onToggled: (value) => ref
-                      .read(settingsProvider.notifier)
-                      .setAutoStartAList(value),
+                  onToggled: (value) =>
+                      settingsNotifier.setAutoStartAlist(value),
                   title: t.settings.alistSettings.autoStartAlist.title,
-                  subtitle:
-                      t.settings.alistSettings.autoStartAlist.description,
+                  subtitle: t.settings.alistSettings.autoStartAlist.description,
                 ),
                 WorkingDirectoryTile(
                     settings: settings, settingsNotifier: settingsNotifier),
@@ -151,12 +146,38 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
               ]),
             ),
             Card(
+              margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+              child: Column(children: [
+                ListTile(
+                    title: Text(t.settings.rcloneSettings.title,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 18))),
+                CustomToggleTile(
+                  value: settings.autoStartRclone,
+                  onToggled: (value) =>
+                      settingsNotifier.setAutoStartRclone(value),
+                  title: t.settings.rcloneSettings.autoStartAlist.title,
+                  subtitle: t.settings.rcloneSettings.autoStartAlist.description,
+                ),
+                CustomToggleTile(
+                  value: settings.startAfterAlist,
+                  onToggled: (value) =>
+                      settingsNotifier.setStartAfterAlist(value),
+                  title: t.settings.rcloneSettings.startAfterAlist.title,
+                  subtitle: t.settings.rcloneSettings.startAfterAlist.description,
+                ),
+                RcloneArgsTile(
+                    settings: settings, settingsNotifier: settingsNotifier),
+                Container(height: 10)
+              ]),
+            ),
+            Card(
               margin: const EdgeInsets.fromLTRB(20, 10, 20, 20),
               child: Column(children: [
                 ListTile(
                   title: Text(t.settings.others.title,
-                      style:
-                          const TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w600, fontSize: 18)),
                 ),
                 ListTile(
                   title: Text(t.settings.others.checkForUpdates),

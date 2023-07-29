@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:alisthelper/model/alist_helper_state.dart';
 import 'package:alisthelper/provider/persistence_provider.dart';
 import 'package:http/http.dart' as http;
 
@@ -17,7 +18,7 @@ final alistHelperProvider =
 
 class AlistHelperNotifier extends StateNotifier<AlistHelperState> {
   AlistHelperNotifier(this.currentAlistHelperVersion)
-      : super(AlistHelperState());
+      : super(const AlistHelperState());
 
   String currentAlistHelperVersion;
 
@@ -49,29 +50,5 @@ class AlistHelperNotifier extends StateNotifier<AlistHelperState> {
           'Failed to get latest version when fetching: $json \n Error is: $e');
     }
     //print('Latest release: ${state.newReleaseAssets}');
-  }
-}
-
-class AlistHelperState {
-  final String currentVersion;
-  final String latestVersion;
-  final List<Map> newReleaseAssets;
-
-  AlistHelperState({
-    this.currentVersion = 'v0.0.0',
-    this.latestVersion = 'v0.0.0',
-    this.newReleaseAssets = const [],
-  });
-
-  AlistHelperState copyWith({
-    String? currentVersion,
-    String? latestVersion,
-    List<Map>? newReleaseAssets,
-  }) {
-    return AlistHelperState(
-      currentVersion: currentVersion ?? this.currentVersion,
-      latestVersion: latestVersion ?? this.latestVersion,
-      newReleaseAssets: newReleaseAssets ?? this.newReleaseAssets,
-    );
   }
 }
