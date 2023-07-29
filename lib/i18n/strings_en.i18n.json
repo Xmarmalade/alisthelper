@@ -124,8 +124,8 @@
                 "description": "This will auto start rclone when Alist Helper starts."
             },
             "startAfterAlist": {
-                "title": "Allow starting after alist",
-                "description": "This will allow rclone to start after alist."
+                "title": "Requires to start after alist starts",
+                "description": "This will require rclone to start after alist starts."
             }
         },
         "others": {

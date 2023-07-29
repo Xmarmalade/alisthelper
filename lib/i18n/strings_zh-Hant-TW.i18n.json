@@ -124,8 +124,8 @@
                 "description": "這將在 Alist Helper 啟動時自動啟動 rclone。"
             },
             "startAfterAlist": {
-                "title": "允許在 alist 啟動後啟動",
-                "description": "這將允許 rclone 在 alist 啟動後啟動。"
+                "title": "要求在 alist 啟動後啟動",
+                "description": "這將要求 rclone 在 alist 啟動後啟動。"
             }
         },
         "others": {
