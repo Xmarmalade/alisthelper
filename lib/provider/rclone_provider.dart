@@ -67,7 +67,7 @@ class RcloneNotifier extends StateNotifier<RcloneState> {
     });
   }
 
-  static Future<void> endrcloneProcess() async {
+  static Future<void> endRcloneProcess() async {
     if (Platform.isWindows) {
       await Process.start('taskkill', ['/f', '/im', 'rclone.exe']);
     } else {

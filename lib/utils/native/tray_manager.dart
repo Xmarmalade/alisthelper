@@ -3,6 +3,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:alisthelper/provider/alist_provider.dart';
+import 'package:alisthelper/provider/rclone_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'tray_helper.dart';
@@ -58,6 +59,7 @@ class _TrayWatcherState extends ConsumerState<TrayWatcher> with TrayListener {
         break;
       case TrayEntry.quit:
         await AlistNotifier.endAlistProcess();
+        await RcloneNotifier.endRcloneProcess();
         exit(0);
       case TrayEntry.startAlist:
         await startAlist(ref);
