@@ -5,6 +5,7 @@ import 'package:alisthelper/model/settings_state.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class WorkingDirectoryTile extends StatelessWidget {
   const WorkingDirectoryTile({
@@ -16,7 +17,13 @@ class WorkingDirectoryTile extends StatelessWidget {
   final SettingsState settings;
   final SettingsNotifier settingsNotifier;
 
-  @override
+  Future<void> openDirectory() async {
+    final Uri url = Uri.parse('file:${settings.workingDirectory}');
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch the $url');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final TextEditingController workingDirectoryController =
@@ -125,6 +132,9 @@ class WorkingDirectoryTile extends StatelessWidget {
         },
         child: Text(t.button.select),
       ),
+      onLongPress: () {
+        openDirectory();
+      },
     );
   }
 }
