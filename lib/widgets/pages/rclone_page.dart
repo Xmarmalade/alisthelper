@@ -44,7 +44,7 @@ class RclonePage extends ConsumerWidget {
                     margin: const EdgeInsets.fromLTRB(20, 10, 20, 20),
                     child: LogsViewer(
                         output: ref.watch(
-                            rcloneProvider.select((rclone) => rclone.output)))),
+                            rcloneProvider).output)),
               ),
             ],
           ),

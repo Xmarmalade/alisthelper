@@ -67,6 +67,26 @@ class RcloneNotifier extends StateNotifier<RcloneState> {
     });
   }
 
+
+  void getRcloneInfo() async {
+    Process process;
+    if (Platform.isWindows) {
+      process = await Process.start('$workingDirectory\\rclone.exe', ['version'],
+          workingDirectory: workingDirectory);
+    } else {
+      process = await Process.start('$workingDirectory/rclone', ['version'],
+          workingDirectory: workingDirectory);
+    }
+    process.stdout.listen((data) {
+      String text = TextUtils.stdDecode(data, false);
+      addOutput(text);
+    });
+    process.stderr.listen((data) {
+      String text = TextUtils.stdDecode(data, false);
+      addOutput(text);
+    });
+  }
+
   static Future<void> endRcloneProcess() async {
     if (Platform.isWindows) {
       await Process.start('taskkill', ['/f', '/im', 'rclone.exe']);

@@ -3,8 +3,8 @@
     "alistOperation": {
         "startAlist": "Start",
         "endAlist": "End",
-        "openGUI": "Open GUI",
-        "getAdmin": "Admin",
+        "openGUI": "Open Web GUI",
+        "genRandomPwd": "Generate Random Pwd",
         "getVersion": "Version"
     },
     "rcloneOperation": {

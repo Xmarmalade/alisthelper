@@ -110,21 +110,23 @@ class AlistNotifier extends StateNotifier<AlistState> {
   }
 
   //get alist admin
-  Future<void> getAlistAdmin() async {
+  Future<void> genRandomPwd() async {
     Process alistAdmin;
     if (Platform.isWindows) {
       alistAdmin = await Process.start(
-          '$workingDirectory\\alist.exe', ['admin'],
+          '$workingDirectory\\alist.exe', ['admin', 'random'],
           workingDirectory: workingDirectory);
     } else {
-      alistAdmin = await Process.start('$workingDirectory/alist', ['admin'],
+      alistAdmin = await Process.start('$workingDirectory/alist', ['admin', 'random'],
           workingDirectory: workingDirectory);
     }
     alistAdmin.stderr.listen((data) {
       String text = TextUtils.stdDecode(data, false);
-      String password = text.split('password:')[1].trim();
+      if (text.contains('password:')) {
+        String password = text.split('password:')[1].trim();
+        addOutput(password);
+      }
       addOutput(text);
-      addOutput(password);
     });
   }
 

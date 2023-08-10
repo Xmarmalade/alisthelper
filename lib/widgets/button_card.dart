@@ -51,10 +51,11 @@ class AlistMultiButtonCard extends ConsumerWidget {
                     onPressed: alistState.isRunning ? openGUI : null,
                     child: Text(t.alistOperation.openGUI)),
                 ElevatedButton(
-                    onPressed: () => alistNotifier.getAlistAdmin(),
-                    child: Text(t.alistOperation.getAdmin)),
+                    onPressed: () => alistNotifier.genRandomPwd(),
+                    child: Text(t.alistOperation.genRandomPwd)),
                 ElevatedButton(
-                    onPressed: () => alistNotifier.getAlistCurrentVersion(addToOutput:true),
+                    onPressed: () =>
+                        alistNotifier.getAlistCurrentVersion(addToOutput: true),
                     child: Text(t.alistOperation.getVersion)),
               ],
             ),
@@ -98,6 +99,9 @@ class RcloneMultiButtonCard extends ConsumerWidget {
                         ? () => rcloneNotifier.endRclone()
                         : null,
                     child: Text(t.rcloneOperation.endRclone)),
+                ElevatedButton(
+                    onPressed: () => rcloneNotifier.getRcloneInfo(),
+                    child: Text("t.rcloneOperation.getRcloneInfo")),
               ],
             ),
           ),
@@ -107,4 +111,3 @@ class RcloneMultiButtonCard extends ConsumerWidget {
     );
   }
 }
-

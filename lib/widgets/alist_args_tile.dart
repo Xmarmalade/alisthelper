@@ -201,7 +201,6 @@ class __RcloneArgsDialogState extends State<_RcloneArgsDialog> {
                     onPressed: () {
                       setState(() {
                         args.removeAt(i);
-                        print(args);
                       });
                     },
                     icon: const Icon(Icons.delete_forever_rounded),

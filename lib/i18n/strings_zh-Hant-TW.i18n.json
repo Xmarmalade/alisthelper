@@ -3,8 +3,8 @@
     "alistOperation": {
         "startAlist": "啟動",
         "endAlist": "關閉",
-        "openGUI": "開啟 GUI",
-        "getAdmin": "管理員資訊",
+        "openGUI": "開啟 Web GUI",
+        "genRandomPwd": "生成隨機密碼",
         "getVersion": "版本資訊"
     },
     "rcloneOperation": {
