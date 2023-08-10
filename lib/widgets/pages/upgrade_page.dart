@@ -91,6 +91,7 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
                     Container(height: 10)
                   ]),
                 ),
+                //Alist Helper Version
                 Card(
                   margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                   child: Column(children: [
@@ -163,6 +164,7 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
                     Container(height: 10)
                   ]),
                 ),
+                //Rclone Version
               ],
             )),
       ),

@@ -34,22 +34,26 @@ class RcloneNotifier extends StateNotifier<RcloneState> {
   Future<void> startRclone() async {
     Process process;
 
-    if (Platform.isWindows) {
-      process = await Process.start('$workingDirectory\\rclone.exe', rcloneArgs,
-          workingDirectory: workingDirectory);
-    } else {
-      process = await Process.start('$workingDirectory/rclone', rcloneArgs,
-          workingDirectory: workingDirectory);
-    }
-    state = state.copyWith(isRunning: true);
-    process.stdout.listen((data) {
-      String text = TextUtils.stdDecode(data, false);
-      addOutput(text);
-    });
-    process.stderr.listen((data) {
-      String text = TextUtils.stdDecode(data, false);
-      addOutput(text);
-    });
+    try {
+  if (Platform.isWindows) {
+    process = await Process.start('$workingDirectory\\rclone.exe', rcloneArgs,
+        workingDirectory: workingDirectory);
+  } else {
+    process = await Process.start('$workingDirectory/rclone', rcloneArgs,
+        workingDirectory: workingDirectory);
+  }
+  state = state.copyWith(isRunning: true);
+  process.stdout.listen((data) {
+    String text = TextUtils.stdDecode(data, false);
+    addOutput(text);
+  });
+  process.stderr.listen((data) {
+    String text = TextUtils.stdDecode(data, false);
+    addOutput(text);
+  });
+} on Exception catch (e) {
+  addOutput(e.toString());
+}
   }
 
   Future<void> endRclone() async {

@@ -4,12 +4,14 @@
         "startAlist": "Start",
         "endAlist": "End",
         "openGUI": "Open Web GUI",
-        "genRandomPwd": "Generate Random Pwd",
-        "getVersion": "Version"
+        "genRandomPwd": "Gen Random Pwd",
+        "getVersion": "Version Info"
     },
     "rcloneOperation": {
         "startRclone": "Start",
-        "endRclone": "End"
+        "endRclone": "End",
+        "getRcloneInfo":"Version Info",
+        "help":"This feature is currently under construction. \nThere may be breaking changes in the future. \nQ&A: \nQ1: Where should I put Rclone? \nA1: At present, please put it in the same directory as the alist executable file. \n Q2: Can I run multiple Rclone? \nA2: Not currently, please wait for the next update. \n"
     },
     "firstLaunch": {
         "intro": "Welcome to use Alist Helper, let's get started!",

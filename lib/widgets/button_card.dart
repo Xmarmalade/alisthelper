@@ -101,7 +101,7 @@ class RcloneMultiButtonCard extends ConsumerWidget {
                     child: Text(t.rcloneOperation.endRclone)),
                 ElevatedButton(
                     onPressed: () => rcloneNotifier.getRcloneInfo(),
-                    child: Text("t.rcloneOperation.getRcloneInfo")),
+                    child: Text(t.rcloneOperation.getRcloneInfo)),
               ],
             ),
           ),

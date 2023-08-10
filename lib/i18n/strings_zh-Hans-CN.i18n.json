@@ -9,7 +9,10 @@
     },
     "rcloneOperation": {
         "startRclone": "启动",
-        "endRclone": "关闭"
+        "endRclone": "关闭",
+        "getRcloneInfo":"版本信息",
+        "help":"该功能目前正在建设中。 \n未来可能会发生重大变化或破坏性更改。 \nQ&A: \nQ1: Rclone 应该放在哪里？ \nA1: 目前请将其与alist可执行文件放在同一目录下。 \nQ2:我可以运行多个 Rclone 吗？ \nA2:目前还不支持 请等待后续更新。"
+    
     },
     "firstLaunch": {
         "intro": "欢迎使用 Alist Helper,让我们开始吧!",
