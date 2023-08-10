@@ -17,9 +17,9 @@
 Alist Helper是一款使用Flutter开发的应用程序，旨在简化桌面版alist的使用。它可以管理alist，让您更轻松地开启、关闭alist程序。
 
 ### 截图
-| ![image](https://user-images.githubusercontent.com/16839488/235718140-0572c7ae-b3d5-46a8-b092-65a3dff7d92f.png) | ![image](https://user-images.githubusercontent.com/16839488/235718717-e7fae230-284e-4ad8-9e8e-5f9a7d6a22dd.png) |
+| ![image](https://github.com/Xmarmalade/alisthelper/assets/16839488/26b3e59a-ab5c-49de-b590-1374f45fbc34) | ![image](https://github.com/Xmarmalade/alisthelper/assets/16839488/17d661cd-75df-470d-9ee0-afc8b4c6fa6e) |
 | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| ![image](https://user-images.githubusercontent.com/16839488/236637250-ec2b437f-0dcb-4c4e-b284-4db44dd06e19.png) | ![image](https://user-images.githubusercontent.com/16839488/236637200-5b9f2383-b29e-434d-a8e6-41187e00eb02.png) |
+| ![image](https://github.com/Xmarmalade/alisthelper/assets/16839488/5b65fd3c-e0b6-4135-bf3f-7ea10cd7d642) | ![image](https://github.com/Xmarmalade/alisthelper/assets/16839488/f780f2a7-6294-4849-be5b-822f10530796) |
 
 Alist Helper包括多个实用功能
 
