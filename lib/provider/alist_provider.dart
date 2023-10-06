@@ -117,7 +117,8 @@ class AlistNotifier extends StateNotifier<AlistState> {
           '$workingDirectory\\alist.exe', ['admin', 'random'],
           workingDirectory: workingDirectory);
     } else {
-      alistAdmin = await Process.start('$workingDirectory/alist', ['admin', 'random'],
+      alistAdmin = await Process.start(
+          '$workingDirectory/alist', ['admin', 'random'],
           workingDirectory: workingDirectory);
     }
     alistAdmin.stderr.listen((data) {
@@ -176,7 +177,7 @@ class AlistNotifier extends StateNotifier<AlistState> {
         }
       }
       // Preventing uninitialized version string
-      if ( state.currentVersion == "v1.0.0") {
+      if (state.currentVersion == "v1.0.0") {
         getAlistCurrentVersion(addToOutput: false);
       }
       state = state.copyWith(
