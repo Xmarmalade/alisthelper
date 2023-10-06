@@ -20,7 +20,6 @@ Future<void> initTray() async {
   String iconPath =
       Platform.isWindows ? 'assets/alisthelper.ico' : 'assets/alisthelper.png';
   await tm.trayManager.setIcon(iconPath);
-  alistProvider.notifier;
 
   final items = [
     tm.MenuItem(key: TrayEntry.open.name, label: t.tray.open),

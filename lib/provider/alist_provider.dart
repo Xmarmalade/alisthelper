@@ -175,6 +175,10 @@ class AlistNotifier extends StateNotifier<AlistState> {
           assetsForSpecificPlatform.add(asset);
         }
       }
+      // Preventing uninitialized version string
+      if ( state.currentVersion == "v1.0.0") {
+        getAlistCurrentVersion(addToOutput: false);
+      }
       state = state.copyWith(
           latestVersion: latest,
           newReleaseAssets: assetsForSpecificPlatform,
