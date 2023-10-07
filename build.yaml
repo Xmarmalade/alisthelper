@@ -6,3 +6,11 @@ targets:
         options:
           base_locale: en
           # fallback_strategy: base_locale
+        generate_for:
+          - lib/i18n/*.json
+      json_serializable:
+        generate_for:
+          - lib/model/*.dart
+      freezed|freezed:
+        generate_for:
+          - lib/model/*.dart
