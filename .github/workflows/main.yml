@@ -40,14 +40,14 @@ jobs:
           flutter build windows
 
       - name: Copy innosetup.iss
-        # copy assets/alisthelper.ico to build/windows/runner/
-        # copy build/windows/runner/Release/innosetup.iss to build/windows/runner/
+        # copy assets/alisthelper.ico to build/windows/x64/runner/
+        # copy build/windows/x64/runner/Release/innosetup.iss to build/windows/x64/runner/
         run: |
-          cp windows/scripts/innosetup.iss build/windows/runner/
-          cp assets/alisthelper.ico build/windows/runner/
+          cp windows/scripts/innosetup.iss build/windows/x64/runner/
+          cp assets/alisthelper.ico build/windows/x64/runner/
 
       - name: Build installer executable
-        working-directory: build/windows/runner/
+        working-directory: build/windows/x64/runner/
         run: |
           iscc /F${{ env.WINDOWS_INSTALLER_NAME }} innosetup.iss /DAppVersion=${{ github.ref_name }}
 
@@ -56,7 +56,7 @@ jobs:
         with:
           type: "zip"
           filename: ${{env.WINDOWS_PORTABLE_NAME}}.zip
-          directory: build/windows/runner/Release
+          directory: build/windows/x64/runner/Release
 
       - name: Release
         uses: softprops/action-gh-release@v1
@@ -66,14 +66,14 @@ jobs:
           prerelease: true
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
-            build/windows/runner/Output/${{env.WINDOWS_INSTALLER_NAME}}.exe
-            build/windows/runner/Release/${{env.WINDOWS_PORTABLE_NAME}}.zip
+            build/windows/x64/runner/Output/${{env.WINDOWS_INSTALLER_NAME}}.exe
+            build/windows/x64/runner/Release/${{env.WINDOWS_PORTABLE_NAME}}.zip
 
       - name: Upload Release Asset
         uses: actions/upload-artifact@v3
         with:
           name: artifact-windows
-          path: build/windows/runner/Release/${{env.WINDOWS_PORTABLE_NAME}}.zip
+          path: build/windows/x64/runner/Release/${{env.WINDOWS_PORTABLE_NAME}}.zip
 
   build-macos:
     # The type of runner that the job will run on
