@@ -33,6 +33,9 @@ class AlistArgsTile extends StatelessWidget {
             ),
           );
           if (args != null) {
+            if (args.isEmpty) {
+              args.add('');
+            }
             settingsNotifier.setAlistArgs(args);
           }
         },
@@ -87,6 +90,9 @@ class __AlistArgsDialogState extends State<_AlistArgsDialog> {
                     onPressed: () {
                       setState(() {
                         args.removeAt(i);
+                        if (args.isEmpty) {
+                          args.add('');
+                        }
                       });
                     },
                     tooltip: t.settings.alistSettings.argumentsList.remove,
@@ -149,6 +155,9 @@ class RcloneArgsTile extends StatelessWidget {
             ),
           );
           if (args != null) {
+            if (args.isEmpty) {
+              args.add('');
+            }
             settingsNotifier.setRcloneArgs(args);
           }
         },
@@ -196,6 +205,8 @@ class __RcloneArgsDialogState extends State<_RcloneArgsDialog> {
                 children: [
                   Expanded(
                     child: TextFormField(
+                      minLines: 1,
+                      maxLines: 4,
                       initialValue: args[i],
                       onChanged: (value) => args[i] = value,
                     ),
@@ -204,6 +215,9 @@ class __RcloneArgsDialogState extends State<_RcloneArgsDialog> {
                     onPressed: () {
                       setState(() {
                         args.removeAt(i);
+                        if (args.isEmpty) {
+                          args.add('');
+                        }
                       });
                     },
                     icon: const Icon(Icons.delete_forever_rounded),
@@ -229,7 +243,7 @@ class __RcloneArgsDialogState extends State<_RcloneArgsDialog> {
         TextButton(
           onPressed: () {
             setState(() {
-              args = [];
+              args = [''];
             });
           },
           child: Text(t.settings.alistSettings.argumentsList.removeAll),
