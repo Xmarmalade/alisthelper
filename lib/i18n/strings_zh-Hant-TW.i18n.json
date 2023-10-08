@@ -11,16 +11,15 @@
         "startRclone": "啟動",
         "endRclone": "關閉",
         "getRcloneInfo": "版本資訊",
-        "help":"該功能目前正在建設中。 \n未來可能會發生重大變化。 \nQ&A: \nQ1: Rclone 應該放在哪裡？ \nA1: 目前請將其與alist可執行文件放在同一目錄下。 \n Q2:我可以運行多個 Rclone 嗎？ \nA2:目前還沒有，請等待下次更新。 \n"
-    
+        "help": "Q&A: \nQ1: Rclone 應該放在哪裡？ \nA1: 目前請將其與alist可執行檔放在同一目錄下。 \nQ2: 如何使用Rclone？ \nA2: 1. 先執行一次WEB GUI新增存儲，在Rclone參數設定中輸入rclone rcd --rc-web-gui可以啟動。 \n 2. 之後修改參數為rclone mount remote: /path/to/mountpoint 部分網盤需要設定參數，請自行搜尋 \nQ3: 如何使用Rclone的其他功能？ \nA3: 請參考R​​clone官方文件或在社群中搜尋。"
     },
     "firstLaunch": {
         "intro": "歡迎使用 Alist Helper,讓我們開始吧!",
         "about": "點擊此處瞭解更多關於 Alist Helper 的資訊!",
         "chooseTheme": "首先,讓我們在這裡選擇您喜歡的主題!",
-        "chooseDirectory": "第二步,您需要一個 alist 並告訴 Alist Helper 它在哪裡!",
-        "autoInstall": "Alist Helper現已支持自動安裝 alist,試試看!",
-        "getAlist": "想要使用特定版本的alist或是手動安裝?點擊這裡!",
+        "chooseDirectory": "第二步,您需要安装 alist 並告訴 Alist Helper 它在哪裡。",
+        "autoInstall": "Alist Helper現已支持自動安裝 alist,點擊這裡以開始安裝。",
+        "getAlist": "想要使用特定版本的alist或是手動安裝?點擊這裡。",
         "finish": "完成!您可以在設定中更改這些設定!"
     },
     "tabs": {

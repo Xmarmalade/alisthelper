@@ -10,17 +10,16 @@
     "rcloneOperation": {
         "startRclone": "启动",
         "endRclone": "关闭",
-        "getRcloneInfo":"版本信息",
-        "help":"该功能目前正在建设中。 \n未来可能会发生重大变化或破坏性更改。 \nQ&A: \nQ1: Rclone 应该放在哪里？ \nA1: 目前请将其与alist可执行文件放在同一目录下。 \nQ2:我可以运行多个 Rclone 吗？ \nA2:目前还不支持 请等待后续更新。"
-    
+        "getRcloneInfo": "版本信息",
+        "help": "Q&A: \nQ1: Rclone 应该放在哪里？ \nA1: 目前请将其与alist可执行文件放在同一目录下。 \nQ2: 如何使用Rclone？ \nA2: 1. 首先运行一次WEB GUI添加存储，在Rclone参数设定中输入rclone rcd --rc-web-gui可以启动。\n 2. 之后修改参数为rclone mount remote: /path/to/mountpoint 部分网盘需要设置参数，请自行搜索 \nQ3: 如何使用Rclone的其他功能？ \nA3: 请参考Rclone官方文档或在社区中搜索。"
     },
     "firstLaunch": {
         "intro": "欢迎使用 Alist Helper,让我们开始吧!",
         "about": "点击此处了解更多关于 Alist Helper 的信息!",
         "chooseTheme": "首先,让我们在这里选择您喜欢的主题!",
-        "chooseDirectory": "第二步,您需要一个 alist 并告诉 Alist Helper 它在哪里!",
-        "autoInstall": "Alist Helper现已支持自动安装 alist,试试看!",
-        "getAlist": "想要使用特定版本的alist或是手动安装?点击这里!",
+        "chooseDirectory": "第二步,您需要安装 alist 并告诉 Alist Helper 它在哪里。",
+        "autoInstall": "Alist Helper现已支持自动安装 alist,点击这里安装。",
+        "getAlist": "想要使用特定版本的alist或是手动安装?点击这里了解。",
         "finish": "完成!您可以在设置中更改这些设置!"
     },
     "tabs": {
@@ -111,7 +110,7 @@
                 "editArguments": "编辑参数",
                 "addArgument": "添加参数",
                 "removeAll": "移除所有参数",
-                "remove":"移除参数"
+                "remove": "移除参数"
             },
             "proxy": {
                 "title": "Http 代理",
