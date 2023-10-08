@@ -110,7 +110,8 @@
                 "descriptionForRclone": "編輯 rclone 的啟動參數。你也可以粘貼整行,Alist Helper 會幫你解析。",
                 "editArguments": "編輯參數",
                 "addArgument": "新增參數",
-                "removeAll": "移除所有參數"
+                "removeAll": "移除所有參數",
+                "remove": "移除參數"
             },
             "proxy": {
                 "title": "Http 代理",

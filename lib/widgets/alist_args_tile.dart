@@ -75,6 +75,7 @@ class __AlistArgsDialogState extends State<_AlistArgsDialog> {
           children: [
             for (var i = 0; i < args.length; i++)
               Row(
+                key: UniqueKey(),
                 children: [
                   Expanded(
                     child: TextFormField(
@@ -88,19 +89,20 @@ class __AlistArgsDialogState extends State<_AlistArgsDialog> {
                         args.removeAt(i);
                       });
                     },
+                    tooltip: t.settings.alistSettings.argumentsList.remove,
                     icon: const Icon(Icons.delete_forever_rounded),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        args.insert(i + 1, '');
+                      });
+                    },
+                    tooltip: t.settings.alistSettings.argumentsList.addArgument,
+                    icon: const Icon(Icons.add_rounded),
                   ),
                 ],
               ),
-            Container(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  args.add('');
-                });
-              },
-              child: Text(t.settings.alistSettings.argumentsList.addArgument),
-            ),
           ],
         ),
       ),
@@ -190,6 +192,7 @@ class __RcloneArgsDialogState extends State<_RcloneArgsDialog> {
           children: [
             for (var i = 0; i < args.length; i++)
               Row(
+                key: UniqueKey(),
                 children: [
                   Expanded(
                     child: TextFormField(
@@ -205,31 +208,16 @@ class __RcloneArgsDialogState extends State<_RcloneArgsDialog> {
                     },
                     icon: const Icon(Icons.delete_forever_rounded),
                   ),
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        args.insert(i, '');
+                      });
+                    },
+                    icon: const Icon(Icons.add_rounded),
+                  ),
                 ],
               ),
-            Container(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      args = [];
-                    });
-                  },
-                  child: Text(t.settings.alistSettings.argumentsList.removeAll),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      args.add('');
-                    });
-                  },
-                  child:
-                      Text(t.settings.alistSettings.argumentsList.addArgument),
-                ),
-              ],
-            ),
           ],
         ),
       ),
@@ -237,6 +225,14 @@ class __RcloneArgsDialogState extends State<_RcloneArgsDialog> {
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
           child: Text(t.button.cancel),
+        ),
+        TextButton(
+          onPressed: () {
+            setState(() {
+              args = [];
+            });
+          },
+          child: Text(t.settings.alistSettings.argumentsList.removeAll),
         ),
         ElevatedButton(
           onPressed: () {

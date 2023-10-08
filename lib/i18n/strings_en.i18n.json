@@ -109,7 +109,8 @@
                 "descriptionForRclone": "Edit startup arguments for rclone. You can also paste a full line, Alist Helper will help you parse it.",
                 "editArguments": "Edit Arguments",
                 "addArgument": "Add Argument",
-                "removeAll":"Remove all"
+                "removeAll":"Remove all",
+                "remove":"Remove"
             },
             "proxy": {
                 "title": "Http Proxy",
