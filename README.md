@@ -40,7 +40,7 @@ Please note that this program does not include the binary files for alist. You w
 | Price               | 🆓 Free                       | 🆓 Free      | 💰8$/50￥         |
 | Startup at boot     | 🛠️ Needs manual configuration | ✅ Supported | ✅ Supported     |
 | Silent startup      | ❌ Not supported              | ✅ Supported | ✅ Supported     |
-| Accompanied startup | ❌ Not supported              | ✅ Supported | ❌ Not supported |
+| Accompanied startup | ❌ Not supported              | ✅ Supported | ✅ Supported     |
 | GUI                 | ❌ Not supported              | ✅ Supported | ✅ Supported     |
 | System tray         | ❌ Not supported              | ✅ Supported | ✅ Supported     |
 | Startup parameters  | 🛠️ Needs manual configuration | ✅ Supported | ❌ Not supported |
