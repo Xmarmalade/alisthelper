@@ -40,21 +40,24 @@ Please note that this program does not include the binary files for alist. You w
 | Price               | 🆓 Free                       | 🆓 Free      | 💰8$/50￥         |
 | Startup at boot     | 🛠️ Needs manual configuration | ✅ Supported | ✅ Supported     |
 | Silent startup      | ❌ Not supported              | ✅ Supported | ✅ Supported     |
-| Accompanied startup | ❌ Not supported              | ✅ Supported | ❌ Not supported |
+| Accompanied startup | ❌ Not supported              | ✅ Supported | ✅ Supported     |
 | GUI                 | ❌ Not supported              | ✅ Supported | ✅ Supported     |
 | System tray         | ❌ Not supported              | ✅ Supported | ✅ Supported     |
 | Startup parameters  | 🛠️ Needs manual configuration | ✅ Supported | ❌ Not supported |
 | Http proxy          | 🛠️ Needs manual configuration | ✅ Supported | ❌ Not supported |
 
-# Contributing to AlistHelper
+### Getting Started
+[Wiki (Simplified Chinese language)](https://github.com/Xmarmalade/alisthelper/wiki)
+
+## Contributing to AlistHelper
 
 AlistHelper is an open-source project, and we welcome contributions from anyone who is interested in helping improve the app. Whether you're a developer, a translator, or a documentation writer, there are many ways to get involved.
 
-## Getting Started
+### Getting Started
 
 If you're interested in contributing code to AlistHelper, you'll need to follow these steps:
 
-## Run
+### Run
 
 Fork the repository and install [Flutter](https://flutter.dev).
 
@@ -66,7 +69,7 @@ dart run build_runner build
 flutter run
 ```
 
-## Translation
+### Translation
 
 You can help translating this app to other languages!
 
@@ -83,7 +86,7 @@ You can help translating this app to other languages!
 
 #### _Take note:_ Fields decorated with `@` are not meant to be translated, they are not used in the app in any way, being merely informative text about the file or to give context to the translator.
 
-## Contributing Guidelines
+### Contributing Guidelines
 
 Before you submit a pull request to AlistHelper, please ensure that you have followed these guidelines:
 
@@ -92,6 +95,6 @@ Before you submit a pull request to AlistHelper, please ensure that you have fol
 - Commits should be well-written and descriptive, with a clear summary of the changes made and any relevant context.
 - Pull requests should target the `master` branch and include a clear summary of the changes made.
 
-## Bug Reports and Feature Requests
+### Bug Reports and Feature Requests
 
 If you encounter a bug in AlistHelper or have a feature request, please submit an issue to the [issue tracker](https://github.com/Xmarmalade/alisthelper/issues). Please be sure to provide a clear description of the problem or feature request, along with any relevant context or steps to reproduce the issue.
