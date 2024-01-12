@@ -4,7 +4,7 @@ import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
 
 class LanguagePage extends ConsumerWidget {
-  const LanguagePage({Key? key}) : super(key: key);
+  const LanguagePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

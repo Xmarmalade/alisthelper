@@ -73,10 +73,10 @@ class ChangeThemeModeTile extends StatelessWidget {
 
 class ChangeThemeColorTile extends StatelessWidget {
   const ChangeThemeColorTile({
-    Key? key,
+    super.key,
     required this.settings,
     required this.settingsNotifier,
-  }) : super(key: key);
+  });
 
   final SettingsState settings;
   final SettingsNotifier settingsNotifier;

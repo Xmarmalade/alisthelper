@@ -9,10 +9,10 @@ import 'package:url_launcher/url_launcher.dart';
 
 class WorkingDirectoryTile extends StatelessWidget {
   const WorkingDirectoryTile({
-    Key? key,
+    super.key,
     required this.settings,
     required this.settingsNotifier,
-  }) : super(key: key);
+  });
 
   final SettingsState settings;
   final SettingsNotifier settingsNotifier;

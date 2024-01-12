@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 
 class AlistArgsTile extends StatelessWidget {
   const AlistArgsTile({
-    Key? key,
+    super.key,
     required this.settings,
     required this.settingsNotifier,
-  }) : super(key: key);
+  });
 
   final SettingsState settings;
   final SettingsNotifier settingsNotifier;
@@ -46,8 +46,7 @@ class AlistArgsTile extends StatelessWidget {
 }
 
 class _AlistArgsDialog extends StatefulWidget {
-  const _AlistArgsDialog({Key? key, required this.initialArgs})
-      : super(key: key);
+  const _AlistArgsDialog({required this.initialArgs});
 
   final List<String> initialArgs;
 
@@ -128,10 +127,10 @@ class __AlistArgsDialogState extends State<_AlistArgsDialog> {
 
 class RcloneArgsTile extends StatelessWidget {
   const RcloneArgsTile({
-    Key? key,
+    super.key,
     required this.settings,
     required this.settingsNotifier,
-  }) : super(key: key);
+  });
 
   final SettingsState settings;
   final SettingsNotifier settingsNotifier;
@@ -168,8 +167,7 @@ class RcloneArgsTile extends StatelessWidget {
 }
 
 class _RcloneArgsDialog extends StatefulWidget {
-  const _RcloneArgsDialog({Key? key, required this.initialArgs})
-      : super(key: key);
+  const _RcloneArgsDialog({required this.initialArgs});
 
   final List<String> initialArgs;
 

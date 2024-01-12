@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 
 class ProxyTile extends StatelessWidget {
   const ProxyTile({
-    Key? key,
+    super.key,
     required this.settings,
     required this.settingsNotifier,
-  }) : super(key: key);
+  });
 
   final SettingsState settings;
   final SettingsNotifier settingsNotifier;
