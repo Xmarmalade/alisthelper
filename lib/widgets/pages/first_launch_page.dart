@@ -103,37 +103,37 @@ class _FirstLaunchBodyState extends ConsumerState<FirstLaunchBody> {
                     title: Text(t.firstLaunch.chooseDirectory,
                         style: const TextStyle(
                             fontWeight: FontWeight.w600, fontSize: 18))),
-                ListTile(
-                  leading: const Icon(Icons.info_outline),
-                  title: Text(t.firstLaunch.autoInstall),
-                  trailing: alistState.upgradeStatus == UpgradeStatus.installing
-                      ? const CircularProgressIndicator()
-                      : const Icon(Icons.arrow_forward_ios_rounded),
-                  onTap: () async {
-                    try {
-                      Directory dir = await getApplicationSupportDirectory();
-                      if (Platform.isWindows) {
-                        await settingsNotifier
-                            .setWorkingDirectory('${dir.path}\\bin');
-                      } else {
-                        await settingsNotifier
-                            .setWorkingDirectory('${dir.path}/bin');
-                      }
-                      if (context.mounted) {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return const ChoosePackage(isUpgrade: false);
-                            });
-                      }
-                    } catch (e) {
-                      if (context.mounted) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(e.toString())));
-                      }
-                    }
-                  },
-                ),
+                Platform.isWindows
+                    ? ListTile(
+                        leading: const Icon(Icons.info_outline),
+                        title: Text(t.firstLaunch.autoInstall),
+                        trailing:
+                            alistState.upgradeStatus == UpgradeStatus.installing
+                                ? const CircularProgressIndicator()
+                                : const Icon(Icons.arrow_forward_ios_rounded),
+                        onTap: () async {
+                          try {
+                            Directory dir =
+                                await getApplicationSupportDirectory();
+                            await settingsNotifier
+                                .setWorkingDirectory('${dir.path}\\bin');
+                            if (context.mounted) {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return const ChoosePackage(
+                                        isUpgrade: false);
+                                  });
+                            }
+                          } catch (e) {
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text(e.toString())));
+                            }
+                          }
+                        },
+                      )
+                    : Container(),
                 ListTile(
                   leading: const Icon(Icons.info_outline),
                   title: Text(t.firstLaunch.getAlist),
