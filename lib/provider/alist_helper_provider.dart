@@ -47,7 +47,7 @@ class AlistHelperNotifier extends StateNotifier<AlistHelperState> {
           latestVersion: latest, newReleaseAssets: assetsForSpecificPlatform);
     } catch (e) {
       throw Exception(
-          'Failed to get latest version when fetching: $json \n Error is: $e');
+          '$e\nFailed to get latest version when fetching: ${json.toString()}');
     }
     //print('Latest release: ${state.newReleaseAssets}');
   }

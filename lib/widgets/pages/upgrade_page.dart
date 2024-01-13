@@ -69,7 +69,19 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
                           } catch (e) {
                             if (context.mounted) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text(e.toString())));
+                                  SnackBar(
+                                      content: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: e
+                                              .toString()
+                                              .split('\n')
+                                              .map((message) => Text(
+                                                    message,
+                                                    maxLines: 5,
+                                                  ))
+                                              .toList())));
                             }
                           }
                         },
@@ -129,7 +141,19 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
                           } catch (e) {
                             if (context.mounted) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text(e.toString())));
+                                  SnackBar(
+                                      content: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: e
+                                              .toString()
+                                              .split('\n')
+                                              .map((message) => Text(
+                                                    message,
+                                                    maxLines: 5,
+                                                  ))
+                                              .toList())));
                             }
                           }
                         },

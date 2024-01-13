@@ -186,7 +186,7 @@ class AlistNotifier extends StateNotifier<AlistState> {
           upgradeStatus: UpgradeStatus.idle);
     } catch (e) {
       throw Exception(
-          'Failed to get latest version when fetching \n Error is: $e');
+          '$e\nFailed to get latest version when fetching: ${json.toString()}');
     }
   }
 
