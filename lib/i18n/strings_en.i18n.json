@@ -100,8 +100,8 @@
                 "description": "Set Working Directory",
                 "hint": "It's a Directory, not a File!",
                 "chooseFrom": "Choose a directory",
-                "notFound": "No alist found in directory.",
-                "found": "Found alist.exe"
+                "notFound": "No ${exec} found in directory.",
+                "found": "Found ${exec} in directory."
             },
             "argumentsList": {
                 "title": "Arguments List",
@@ -122,6 +122,7 @@
         },
         "rcloneSettings": {
             "title": "Rclone Options",
+            "rcloneDirNotSet": "The rclone directory is not set. Please set the rclone directory and startup parameters in the settings.",
             "autoStartAlist": {
                 "title": "Allow rclone auto start",
                 "description": "This will auto start rclone when Alist Helper starts."

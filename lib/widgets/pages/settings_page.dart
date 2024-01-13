@@ -166,6 +166,8 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                   title: t.settings.rcloneSettings.startAfterAlist.title,
                   subtitle: t.settings.rcloneSettings.startAfterAlist.description,
                 ),
+                RcloneDirectoryTile(
+                    settings: settings, settingsNotifier: settingsNotifier),
                 RcloneArgsTile(
                     settings: settings, settingsNotifier: settingsNotifier),
                 Container(height: 10)

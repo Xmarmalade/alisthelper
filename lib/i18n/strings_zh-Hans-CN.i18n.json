@@ -100,8 +100,8 @@
                 "description": "设置工作目录",
                 "hint": "这是一个目录,不是文件!",
                 "chooseFrom": "选择目录",
-                "notFound": "目录中找不到 alist 程序",
-                "found": "找到 alist 程序"
+                "notFound": "目录中找不到 ${exec} 程序",
+                "found": "找到 ${exec} 程序"
             },
             "argumentsList": {
                 "title": "启动参数列表",
@@ -122,6 +122,7 @@
         },
         "rcloneSettings": {
             "title": "Rclone 选项",
+            "rcloneDirNotSet": "Rclone 目录未设置，请在设置中设置 rclone 目录以及启动参数。",
             "autoStartAlist": {
                 "title": "允许 rclone 自动启动",
                 "description": "这将在 Alist Helper 启动时自动启动 rclone。"

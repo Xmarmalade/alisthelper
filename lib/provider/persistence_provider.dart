@@ -31,7 +31,7 @@ const _themeColor = 'ah_theme_color';
 const _alistArgs = 'ah_alist_args';
 const _autoStartAlist = 'ah_auto_start_alist';
 const _proxy = 'ah_proxy';
-const _rcloneWorkingDirectory = 'ah_rclone_working_directory';
+const _rcloneDirectory = 'ah_rclone_directory';
 const _rcloneArgs = 'ah_rclone_args';
 const _isFirstRun = 'ah_is_first_run';
 const _autoStartRclone = 'ah_enable_rclone';
@@ -144,12 +144,12 @@ class PersistenceService {
     await _prefs.setString(_workingDirectory, path);
   }
 
-  String getRcloneWorkingDirectory() {
-    return _prefs.getString(_rcloneWorkingDirectory) ?? r'';
+  String getRcloneDirectory() {
+    return _prefs.getString(_rcloneDirectory) ?? r'';
   }
 
-  Future<void> setRcloneWorkingDirectory(String path) async {
-    await _prefs.setString(_rcloneWorkingDirectory, path);
+  Future<void> setRcloneDirectory(String path) async {
+    await _prefs.setString(_rcloneDirectory, path);
   }
 
   Future<void> setRcloneArgs(List<String> value) async {

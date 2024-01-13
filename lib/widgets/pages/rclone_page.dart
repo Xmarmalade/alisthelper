@@ -1,5 +1,6 @@
 import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/provider/rclone_provider.dart';
+import 'package:alisthelper/provider/settings_provider.dart';
 
 import 'package:alisthelper/widgets/button_card.dart';
 import 'package:alisthelper/widgets/logs_viewer.dart';
@@ -15,7 +16,7 @@ class RclonePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = Translations.of(context);
-    //final settingsState = ref.watch(settingsProvider);
+    final settings = ref.watch(settingsProvider);
     return Scaffold(
         appBar: (sizingInformation.isDesktop
             ? null
@@ -23,41 +24,47 @@ class RclonePage extends ConsumerWidget {
                 title: const Text('Rclone',
                     style: TextStyle(fontWeight: FontWeight.bold)),
               )),
-        body: Center(
-            child: Container(
-          constraints: const BoxConstraints(maxWidth: 800),
-          child: Column(
-            children: [
-              ListTile(
-                  title: Text(t.home.options,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w600, fontSize: 18)),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.info_outline_rounded),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: const Text('Q&A'),
-                          content: Text(t.rcloneOperation.help),
-                        ),
-                      );
-                    },
-                  )),
-              const RcloneMultiButtonCard(),
-              ListTile(
-                title: Text(t.home.logs,
+        body: settings.rcloneDirectory == ''
+            ? Center(
+                child: Text(t.settings.rcloneSettings.rcloneDirNotSet,
                     style: const TextStyle(
                         fontWeight: FontWeight.w600, fontSize: 18)),
-              ),
-              Expanded(
-                child: Card(
-                    margin: const EdgeInsets.fromLTRB(20, 10, 20, 20),
-                    child:
-                        LogsViewer(output: ref.watch(rcloneProvider).output)),
-              ),
-            ],
-          ),
-        )));
+              )
+            : Center(
+                child: Container(
+                constraints: const BoxConstraints(maxWidth: 800),
+                child: Column(
+                  children: [
+                    ListTile(
+                        title: Text(t.home.options,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 18)),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.info_outline_rounded),
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: const Text('Q&A'),
+                                content: Text(t.rcloneOperation.help),
+                              ),
+                            );
+                          },
+                        )),
+                    const RcloneMultiButtonCard(),
+                    ListTile(
+                      title: Text(t.home.logs,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 18)),
+                    ),
+                    Expanded(
+                      child: Card(
+                          margin: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+                          child: LogsViewer(
+                              output: ref.watch(rcloneProvider).output)),
+                    ),
+                  ],
+                ),
+              )));
   }
 }

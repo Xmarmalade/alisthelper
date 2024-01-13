@@ -25,6 +25,7 @@ class SettingsNotifier extends Notifier<SettingsState> {
           _persistenceService.isAutoStartLaunchMinimized(),
       autoStart: _persistenceService.isAutoStart(),
       workingDirectory: _persistenceService.getWorkingDirectory(),
+      rcloneDirectory: _persistenceService.getRcloneDirectory(),
       themeMode: _persistenceService.getThemeMode(),
       themeColor: _persistenceService.getThemeColor(),
       saveWindowPlacement: _persistenceService.getSaveWindowPlacement(),
@@ -96,6 +97,11 @@ class SettingsNotifier extends Notifier<SettingsState> {
   Future<void> setWorkingDirectory(String value) async {
     await _persistenceService.setWorkingDirectory(value);
     state = state.copyWith(workingDirectory: value);
+  }
+
+  Future<void> setRcloneDirectory(String value) async {
+    await _persistenceService.setRcloneDirectory(value);
+    state = state.copyWith(rcloneDirectory: value);
   }
 
   Future<void> setSaveWindowPlacement(bool value) async {

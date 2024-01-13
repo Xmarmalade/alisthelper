@@ -13,6 +13,7 @@ class SettingsState with _$SettingsState {
   required bool autoStartAlist,
   required bool saveWindowPlacement,
   required String workingDirectory,
+  required String rcloneDirectory,
   required ThemeMode themeMode,
   required Color themeColor,
   required List<String> alistArgs,
