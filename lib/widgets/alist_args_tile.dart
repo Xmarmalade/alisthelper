@@ -223,7 +223,7 @@ class __RcloneArgsDialogState extends State<_RcloneArgsDialog> {
                   IconButton(
                     onPressed: () {
                       setState(() {
-                        args.insert(i, '');
+                        args.insert(i + 1, '');
                       });
                     },
                     icon: const Icon(Icons.add_rounded),
