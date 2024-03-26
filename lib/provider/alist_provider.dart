@@ -38,7 +38,7 @@ class AlistNotifier extends StateNotifier<AlistState> {
   }
 
   void checkState(String text) {
-    if (text.contains('start ') && text.contains('server')) {
+    if (text.contains('start HTTP server')) {
       if (text.contains('FATA')) {
         text = text.split('FATA')[0].trim();
       }

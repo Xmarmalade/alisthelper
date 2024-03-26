@@ -44,7 +44,7 @@ class AlistHelperTheme {
         brightness: Brightness.dark,
         primary: primaryColor,
         secondary: primaryColor,
-        background: const Color.fromARGB(255, 24, 24, 24),
+        surface: const Color.fromARGB(255, 24, 24, 24),
       ),
       useMaterial3: true,
       textTheme: TextTheme(
