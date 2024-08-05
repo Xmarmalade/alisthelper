@@ -122,7 +122,7 @@
         },
         "rcloneSettings": {
             "title": "Rclone Options",
-            "rcloneDirNotSet": "The rclone directory is not set. Please set the rclone directory and startup parameters in the settings.",
+            "rcloneDirNotSet": "The rclone directory is not set. \nPlease set the rclone directory and startup parameters in the settings.",
             "autoStartAlist": {
                 "title": "Allow rclone auto start",
                 "description": "This will auto start rclone when Alist Helper starts."
