@@ -4,7 +4,7 @@ publish_to: 'none'
 version: 0.1.5+9
 
 environment:
-  sdk: '>=3.1.0-38.0.dev <4.0.0'
+  sdk: '>=3.4.0 <4.0.0'
 
 dependencies:
   flutter:
@@ -23,17 +23,17 @@ dependencies:
   # flutter_riverpod is a package that provides state management
   flutter_riverpod: ^2.4.9
   # shared_preferences is a package that provides persistent storage
-  shared_preferences: ^2.2.2
+  shared_preferences: ^2.3.1
   # screen_retriever is a package that provides screen info
   screen_retriever: ^0.1.9
   # launch_at_startup is a package that provides launch at startup
-  launch_at_startup: ^0.2.2
+  launch_at_startup: ^0.3.1
   # package_info_plus is a package that provides package info
-  package_info_plus: ^5.0.1
+  package_info_plus: ^8.0.1
   # file_selector is used to choose working dir
   file_selector: ^1.0.2
   # http is used to check upgrade
-  http: ^1.0.2
+  http: ^1.2.2
   dio: ^5.4.0
   archive: ^3.4.5
   #i18n
@@ -49,10 +49,10 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.1
+  flutter_lints: ^4.0.0
   flutter_launcher_icons: ^0.13.1
-  build_runner: ^2.1.5
-  freezed: ^2.4.1
+  build_runner: ^2.4.11
+  freezed: ^2.5.2
   slang_build_runner: ^3.21.0
   json_serializable: ^6.7.1
 
