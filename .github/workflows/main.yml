@@ -22,7 +22,7 @@ jobs:
     env:
       # The name of the installer
       WINDOWS_INSTALLER_NAME: AlistHelper_installer_${{ github.ref_name }}_windows-x86_64
-      WINDOWS_PORTABLE_NAME: AlistHelper_portable_${{ github.ref_name }}_windows-x86_64
+      WINDOWS_PORTABLE_NAME: AlistHelper_${{ github.ref_name }}_windows-x86_64
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:

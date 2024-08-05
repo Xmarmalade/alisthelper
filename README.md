@@ -16,6 +16,8 @@ English | [简体中文](./README_zh-Hans.md) |  [CODE_OF_CONDUCT](./CODE_OF_CON
 
 Alist Helper is an application developed using Flutter, designed to simplify the use of the desktop version of alist. It can manage alist, allowing you to easily start and stop the alist program.
 
+*Maintainer needed for the macOS part of the code. No new macOS-related changes or updates will be accepted until volunteers.*
+
 ### Screenshots
 | ![image](https://github.com/Xmarmalade/alisthelper/assets/16839488/5b77df3a-8b07-40e4-adc5-9f0907f6a3f9) | ![image](https://github.com/Xmarmalade/alisthelper/assets/16839488/5a85db81-de92-4362-8c01-73e89482dcb7) |
 | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
