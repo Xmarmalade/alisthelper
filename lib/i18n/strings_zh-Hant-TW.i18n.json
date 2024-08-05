@@ -49,6 +49,7 @@
         "open": "開啟",
         "hide": "隱藏",
         "quit": "退出",
+        "openGUI": "開啟 Web GUI",
         "startAlist": "啟動 Alist 服務",
         "endAlist": "關閉 Alist 服務",
         "tooltip": "Alist Helper",

@@ -49,6 +49,7 @@
         "open": "Open",
         "hide": "Hide",
         "quit": "Quit",
+        "openGUI":"Open Web GUI",
         "startAlist": "Start Alist",
         "endAlist": "End Alist",
         "tooltip": "Alist Helper",

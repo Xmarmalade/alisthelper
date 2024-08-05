@@ -70,6 +70,9 @@ class _TrayWatcherState extends ConsumerState<TrayWatcher> with TrayListener {
       case TrayEntry.hide:
         await hideToTray();
         break;
+      case TrayEntry.openGUI:
+        await openGUI(ref);
+        break;
       default:
     }
   }
