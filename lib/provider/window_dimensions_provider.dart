@@ -4,15 +4,22 @@ import 'package:alisthelper/provider/persistence_provider.dart';
 import 'package:screen_retriever/screen_retriever.dart';
 import 'package:window_manager/window_manager.dart';
 
-// Records are a better alternative, but they are currently experimental
-typedef WindowDimensions = Map<String, OffsetBase?>;
+class WindowDimensions {
+  final Offset position;
+  final Size size;
+
+  WindowDimensions({
+    required this.position,
+    required this.size,
+  });
+}
 
 final windowDimensionProvider = Provider<WindowDimensionsController>((ref) {
-  return WindowDimensionsController(ref.watch(persistenceProvider));
+  return WindowDimensionsController(ref.read(persistenceProvider));
 });
 
-const Size _minimalSize = Size(400, 600);
-const Size _defaultSize = Size(1000, 600);
+const Size _minimalSize = Size(400, 500);
+const Size _defaultSize = Size(900, 600);
 
 class WindowDimensionsController {
   final PersistenceService _service;
@@ -22,50 +29,67 @@ class WindowDimensionsController {
   /// Sets window position & size according to saved settings.
   Future<void> initDimensionsConfiguration() async {
     await WindowManager.instance.setMinimumSize(_minimalSize);
-    final primaryDisplay = await ScreenRetriever.instance.getPrimaryDisplay();
-    final hasEnoughWidth = (primaryDisplay.visibleSize ?? primaryDisplay.size).width >= 1200;
 
     // load saved Window placement and preferences
     final useSavedPlacement = _service.getSaveWindowPlacement();
     final persistedDimensions = _service.getWindowLastDimensions();
 
-    // if [savePlacement is false], both values will be [set to null]
-    final Size? persistedSize = useSavedPlacement ? persistedDimensions["size"] as Size? : null;
-    final Offset? persistedOffset = useSavedPlacement ? persistedDimensions["position"] as Offset? : null;
-
-    // settings applied accordingly if [save option is enabled] and if [persisted values exist]
-    await WindowManager.instance.setSize(persistedSize ?? (hasEnoughWidth ? _defaultSize : _minimalSize));
-
-    if (persistedOffset == null) {
-      await WindowManager.instance.center();
+    if (useSavedPlacement &&
+        persistedDimensions != null &&
+        await isInScreenBounds(
+            persistedDimensions.position, persistedDimensions.size)) {
+      await WindowManager.instance.setSize(persistedDimensions.size);
+      await WindowManager.instance.setPosition(persistedDimensions.position);
     } else {
-      await WindowManager.instance.setPosition(persistedOffset);
+      final primaryDisplay = await ScreenRetriever.instance.getPrimaryDisplay();
+      final hasEnoughWidthForDefaultSize =
+          primaryDisplay.digestedSize.width >= 1200;
+      await WindowManager.instance
+          .setSize(hasEnoughWidthForDefaultSize ? _defaultSize : _minimalSize);
+      await WindowManager.instance.center();
     }
+  }
+
+  Future<bool> isInScreenBounds(Offset windowPosition,
+      [Size? windowSize]) async {
+    final displays = await ScreenRetriever.instance.getAllDisplays();
+    final sumWidth = displays.fold(0.0,
+        (previousValue, element) => previousValue + element.digestedSize.width);
+    final maxHeight = displays.fold(
+      0.0,
+      (previousValue, element) => previousValue > element.digestedSize.height
+          ? previousValue
+          : element.digestedSize.height,
+    );
+    return windowPosition.dx + (windowSize?.width ?? 0) < sumWidth &&
+        windowPosition.dy + (windowSize?.height ?? 0) < maxHeight;
   }
 
   Future<void> storeDimensions({
     required Offset windowOffset,
     required Size windowSize,
   }) async {
-    await Future.wait([
-      _service.setWindowOffsetX(windowOffset.dx),
-      _service.setWindowOffsetY(windowOffset.dy),
-      _service.setWindowHeight(windowSize.height),
-      _service.setWindowWidth(windowSize.width),
-    ]);
+    if (await isInScreenBounds(windowOffset)) {
+      await _service.setWindowOffsetX(windowOffset.dx);
+      await _service.setWindowOffsetY(windowOffset.dy);
+      await _service.setWindowHeight(windowSize.height);
+      await _service.setWindowWidth(windowSize.width);
+    }
   }
 
   Future<void> storePosition({required Offset windowOffset}) async {
-    await Future.wait([
-      _service.setWindowOffsetX(windowOffset.dx),
-      _service.setWindowOffsetY(windowOffset.dy),
-    ]);
+    if (await isInScreenBounds(windowOffset)) {
+      await _service.setWindowOffsetX(windowOffset.dx);
+      await _service.setWindowOffsetY(windowOffset.dy);
+    }
   }
 
   Future<void> storeSize({required Size windowSize}) async {
-    await Future.wait([
-      _service.setWindowHeight(windowSize.height),
-      _service.setWindowWidth(windowSize.width),
-    ]);
+    await _service.setWindowHeight(windowSize.height);
+    await _service.setWindowWidth(windowSize.width);
   }
+}
+
+extension on Display {
+  Size get digestedSize => visibleSize ?? size;
 }
