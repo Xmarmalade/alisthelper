@@ -17,8 +17,7 @@ class AlistHelperPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = Translations.of(context);
-    if (ref.watch(
-            settingsProvider.select((settings) => settings.isFirstRun)) ==
+    if (ref.watch(settingsProvider.select((settings) => settings.isFirstRun)) ==
         true) {
       return FirstLaunchPage(sizingInformation: sizingInformation);
     }
@@ -48,7 +47,9 @@ class AlistHelperPage extends ConsumerWidget {
               Expanded(
                 child: Card(
                     margin: const EdgeInsets.fromLTRB(20, 10, 20, 20),
-                    child: LogsViewer(output: ref.watch(alistProvider).output,)),
+                    child: LogsViewer(
+                      output: ref.watch(alistProvider).output,
+                    )),
               ),
             ],
           ),

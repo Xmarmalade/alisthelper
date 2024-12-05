@@ -82,7 +82,7 @@ Future<void> postInit(WidgetRef ref) async {
   if (!ref.read(settingsProvider).isFirstRun) {
     alistNotifier.getAlistCurrentVersion(addToOutput: false);
   }
-  final alistHelperNotifier = ref.read(alistHelperProvider.notifier);
+  final alistHelperNotifier = ref.read(ahProvider.notifier);
   alistHelperNotifier.getAlistHelperCurrentVersion();
 
   if (ref.read(settingsProvider).autoStartAlist &&

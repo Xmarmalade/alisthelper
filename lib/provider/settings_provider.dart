@@ -1,18 +1,15 @@
 import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/utils/native/auto_start_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:alisthelper/model/settings_state.dart';
 import 'package:alisthelper/provider/persistence_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final settingsProvider = NotifierProvider<SettingsNotifier, SettingsState>(() {
-  return SettingsNotifier();
-});
+final settingsProvider =
+    NotifierProvider<SettingsNotifier, SettingsState>(SettingsNotifier.new);
 
 class SettingsNotifier extends Notifier<SettingsState> {
   late PersistenceService _persistenceService;
-
-  SettingsNotifier();
 
   @override
   SettingsState build() {
@@ -35,7 +32,13 @@ class SettingsNotifier extends Notifier<SettingsState> {
       isFirstRun: _persistenceService.isFirstRun(),
       autoStartRclone: _persistenceService.isAutoStartRclone(),
       startAfterAlist: _persistenceService.isStartAfterAlist(),
+      webdavAccount: _persistenceService.getWebdavAccount(),
     );
+  }
+
+  Future<void> setWebdavAccount(String value) async {
+    await _persistenceService.setWebdavAccount(value);
+    state = state.copyWith(webdavAccount: value);
   }
 
   Future<void> setAutoStartRclone(bool value) async {

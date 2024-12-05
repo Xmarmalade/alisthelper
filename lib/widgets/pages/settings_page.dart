@@ -5,6 +5,7 @@ import 'package:alisthelper/widgets/pages/about_page.dart';
 import 'package:alisthelper/widgets/pages/language_page.dart';
 import 'package:alisthelper/widgets/pages/upgrade_page.dart';
 import 'package:alisthelper/widgets/proxy_tile.dart';
+import 'package:alisthelper/widgets/rclone_account.dart';
 import 'package:alisthelper/widgets/responsive_builder.dart';
 import 'package:alisthelper/widgets/theme_tile.dart';
 import 'package:alisthelper/widgets/toggle_tile.dart';
@@ -157,18 +158,22 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                   onToggled: (value) =>
                       settingsNotifier.setAutoStartRclone(value),
                   title: t.settings.rcloneSettings.autoStartAlist.title,
-                  subtitle: t.settings.rcloneSettings.autoStartAlist.description,
+                  subtitle:
+                      t.settings.rcloneSettings.autoStartAlist.description,
                 ),
                 CustomToggleTile(
                   value: settings.startAfterAlist,
                   onToggled: (value) =>
                       settingsNotifier.setStartAfterAlist(value),
                   title: t.settings.rcloneSettings.startAfterAlist.title,
-                  subtitle: t.settings.rcloneSettings.startAfterAlist.description,
+                  subtitle:
+                      t.settings.rcloneSettings.startAfterAlist.description,
                 ),
                 RcloneDirectoryTile(
                     settings: settings, settingsNotifier: settingsNotifier),
                 RcloneArgsTile(
+                    settings: settings, settingsNotifier: settingsNotifier),
+                RcloneMountAccountTile(
                     settings: settings, settingsNotifier: settingsNotifier),
                 Container(height: 10)
               ]),

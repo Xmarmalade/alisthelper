@@ -21,7 +21,7 @@ dependencies:
   # collection is a package that has some useful collection utils
   collection: 1.18.0
   # flutter_riverpod is a package that provides state management
-  flutter_riverpod: ^2.4.9
+  flutter_riverpod: ^2.6.1
   # shared_preferences is a package that provides persistent storage
   shared_preferences: ^2.3.1
   # screen_retriever is a package that provides screen info
@@ -55,6 +55,7 @@ dev_dependencies:
   freezed: ^2.5.2
   slang_build_runner: ^4.3.0
   json_serializable: ^6.7.1
+  riverpod_lint: ^2.6.1
 
 
 flutter_launcher_icons:

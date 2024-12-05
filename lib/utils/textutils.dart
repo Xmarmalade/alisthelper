@@ -18,7 +18,7 @@ class TextUtils {
     return input;
   }
 
-  static String stdDecode(List<int> input,bool isGBK) {
+  static String stdDecode(List<int> input, bool isGBK) {
     if (isGBK) {
       return removeEscapeSequences(gbk.decode(removeExtraBreaks(input)));
     }
@@ -58,5 +58,14 @@ class TextUtils {
 
     // Convert each component to an integer and return the list of numbers
     return versionComponents.map((component) => int.parse(component)).toList();
+  }
+
+  static List<String> accountParser(String text) {
+    return utf8.decode(base64.decode(text)).split('\n');
+  }
+
+  static String accountEncoder(List<String> account) {
+    // then base64 encode the account
+    return base64.encode(utf8.encode(account.join('\n')));
   }
 }

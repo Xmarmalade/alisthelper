@@ -11,25 +11,25 @@ import 'package:alisthelper/provider/settings_provider.dart';
 import 'package:alisthelper/utils/textutils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final alistProvider = StateNotifierProvider<AlistNotifier, AlistState>((ref) {
-  String workingDirectory = ref
-      .watch(settingsProvider.select((settings) => settings.workingDirectory));
-  List<String> alistArgs =
-      ref.watch(settingsProvider.select((settings) => settings.alistArgs));
-  String proxy =
-      ref.watch(settingsProvider.select((settings) => settings.proxy ?? ''));
+final alistProvider =
+    NotifierProvider<AlistNotifier, AlistState>(AlistNotifier.new);
 
-  return AlistNotifier(workingDirectory, alistArgs, proxy);
-});
-
-class AlistNotifier extends StateNotifier<AlistState> {
+class AlistNotifier extends Notifier<AlistState> {
+  late String workingDirectory;
+  late List<String> alistArgs;
+  late String proxy;
   List<String> stdOut = [];
-  String workingDirectory;
-  List<String> alistArgs;
-  String proxy;
 
-  AlistNotifier(this.workingDirectory, this.alistArgs, this.proxy)
-      : super(const AlistState());
+  @override
+  AlistState build() {
+    workingDirectory = ref.watch(
+        settingsProvider.select((settings) => settings.workingDirectory));
+    alistArgs =
+        ref.watch(settingsProvider.select((settings) => settings.alistArgs));
+    proxy =
+        ref.watch(settingsProvider.select((settings) => settings.proxy ?? ''));
+    return const AlistState();
+  }
 
   void addOutput(String text) {
     checkState(text);

@@ -36,6 +36,7 @@ const _rcloneArgs = 'ah_rclone_args';
 const _isFirstRun = 'ah_is_first_run';
 const _autoStartRclone = 'ah_enable_rclone';
 const _startAfterAlist = 'ah_start_after_alist';
+const _webdavAccount = 'ah_webdav_account';
 
 /// This service abstracts the persistence layer.
 class PersistenceService {
@@ -59,6 +60,14 @@ class PersistenceService {
       await prefs.setString(_version, currentAlistHelperVersion);
     }
     return PersistenceService._(prefs);
+  }
+
+  Future<void> setWebdavAccount(String? value) async {
+    await _prefs.setString(_webdavAccount, value ?? '');
+  }
+
+  String getWebdavAccount() {
+    return _prefs.getString(_webdavAccount) ?? '';
   }
 
   //startAfterAlist

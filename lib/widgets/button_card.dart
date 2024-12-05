@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/provider/alist_provider.dart';
 import 'package:alisthelper/provider/rclone_provider.dart';
+import 'package:alisthelper/widgets/logs_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -102,6 +103,26 @@ class RcloneMultiButtonCard extends ConsumerWidget {
                 ElevatedButton(
                     onPressed: () => rcloneNotifier.getRcloneInfo(),
                     child: Text(t.rcloneOperation.getRcloneInfo)),
+                ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                            title: Text("Logs"),
+                            content: SizedBox(
+                              height: 400,
+                              width: 800,
+                              child: Card(
+                                child: LogsViewer(
+                                    output: ref.watch(rcloneProvider).output),
+                              ),
+                            ));
+                      },
+                    );
+                  },
+                  child: Text("t.rcloneOperation.logs"),
+                ),
               ],
             ),
           ),

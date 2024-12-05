@@ -19,8 +19,8 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
   Widget build(BuildContext context) {
     final alistNotifier = ref.read(alistProvider.notifier);
     final alistState = ref.watch(alistProvider);
-    final alistHelperNotifier = ref.read(alistHelperProvider.notifier);
-    final alistHelperState = ref.watch(alistHelperProvider);
+    final alistHelperNotifier = ref.read(ahProvider.notifier);
+    final alistHelperState = ref.watch(ahProvider);
     final t = Translations.of(context);
     return Scaffold(
       appBar: AppBar(
