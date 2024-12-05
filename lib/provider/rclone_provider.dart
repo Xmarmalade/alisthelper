@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:alisthelper/model/settings_state.dart';
 import 'package:http/http.dart' as http;
 import 'package:alisthelper/model/rclone_state.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
