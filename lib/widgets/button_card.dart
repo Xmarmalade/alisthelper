@@ -15,7 +15,6 @@ class AlistMultiButtonCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final alistState = ref.watch(alistProvider);
     final alistNotifier = ref.read(alistProvider.notifier);
-    final t = Translations.of(context);
 
     Future<void> openGUI() async {
       final Uri url = Uri.parse(alistState.url);
@@ -75,7 +74,7 @@ class RcloneMultiButtonCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final rcloneState = ref.watch(rcloneProvider);
     final rcloneNotifier = ref.read(rcloneProvider.notifier);
-    final t = Translations.of(context);
+
     return Card(
       margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
       child: Column(

@@ -16,9 +16,8 @@ class AlistHelperPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = Translations.of(context);
-    if (ref.watch(settingsProvider.select((settings) => settings.isFirstRun)) ==
-        true) {
+    final settings = ref.watch(settingsProvider);
+    if (settings.isFirstRun == true) {
       return FirstLaunchPage(sizingInformation: sizingInformation);
     }
     return Scaffold(

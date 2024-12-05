@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:alisthelper/model/settings_state.dart';
 import 'package:http/http.dart' as http;
 import 'package:alisthelper/model/rclone_state.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
@@ -17,12 +18,10 @@ class RcloneNotifier extends Notifier<RcloneState> {
 
   @override
   RcloneState build() {
-    rcloneDirectory = ref
-        .watch(settingsProvider.select((settings) => settings.rcloneDirectory));
-    rcloneArgs =
-        ref.watch(settingsProvider.select((settings) => settings.rcloneArgs));
-    proxy =
-        ref.watch(settingsProvider.select((settings) => settings.proxy ?? ''));
+    final settings = ref.watch(settingsProvider);
+    rcloneDirectory = settings.rcloneDirectory;
+    rcloneArgs = settings.rcloneArgs;
+    proxy = settings.proxy ?? '';
     return const RcloneState();
   }
 

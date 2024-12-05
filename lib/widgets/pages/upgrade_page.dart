@@ -21,7 +21,7 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
     final alistState = ref.watch(alistProvider);
     final alistHelperNotifier = ref.read(ahProvider.notifier);
     final alistHelperState = ref.watch(ahProvider);
-    final t = Translations.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(t.upgrade.upgrade,

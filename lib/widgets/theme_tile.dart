@@ -16,7 +16,6 @@ class ChangeThemeModeTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = Translations.of(context);
     return ListTile(
       leading: Icon(Icons.dark_mode, color: settings.themeColor),
       title: Text(t.settings.interfaceSettings.themeMode),
@@ -98,7 +97,6 @@ class ChangeThemeColorTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = Translations.of(context);
     return ListTile(
         leading: Icon(Icons.color_lens_rounded, color: settings.themeColor),
         title: Text(t.settings.interfaceSettings.themeColor),

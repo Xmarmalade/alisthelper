@@ -18,7 +18,7 @@ class ProxyTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextEditingController proxyController =
         TextEditingController(text: settings.proxy);
-    final t = Translations.of(context);
+
     return ListTile(
       contentPadding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
       title: Text(

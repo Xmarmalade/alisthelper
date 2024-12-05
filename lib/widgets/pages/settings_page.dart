@@ -48,7 +48,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider);
     final settingsNotifier = ref.watch(settingsProvider.notifier);
-    final t = Translations.of(context);
+
     return Center(
       child: Container(
         constraints: const BoxConstraints(maxWidth: 800),

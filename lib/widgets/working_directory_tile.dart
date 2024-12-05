@@ -29,7 +29,7 @@ class WorkingDirectoryTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextEditingController workingDirectoryController =
         TextEditingController(text: settings.workingDirectory);
-    final t = Translations.of(context);
+
     return ListTile(
       contentPadding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
       title: Text(
@@ -94,8 +94,9 @@ class WorkingDirectoryTile extends StatelessWidget {
                                 .pop(workingDirectoryController.text);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text(t.settings.alistSettings
-                                    .workingDirectory.found(exec: programName)),
+                                content: Text(t
+                                    .settings.alistSettings.workingDirectory
+                                    .found(exec: programName)),
                               ),
                             );
                           }
@@ -105,8 +106,9 @@ class WorkingDirectoryTile extends StatelessWidget {
                           if (context.mounted) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text(t.settings.alistSettings
-                                    .workingDirectory.notFound(exec: programName)),
+                                content: Text(t
+                                    .settings.alistSettings.workingDirectory
+                                    .notFound(exec: programName)),
                               ),
                             );
                           }
@@ -140,8 +142,6 @@ class WorkingDirectoryTile extends StatelessWidget {
   }
 }
 
-
-
 class RcloneDirectoryTile extends ConsumerWidget {
   const RcloneDirectoryTile({
     super.key,
@@ -163,7 +163,7 @@ class RcloneDirectoryTile extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final TextEditingController rcloneDirectoryController =
         TextEditingController(text: settings.rcloneDirectory);
-    final t = Translations.of(context);
+
     return ListTile(
       contentPadding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
       title: Text(
@@ -228,8 +228,9 @@ class RcloneDirectoryTile extends ConsumerWidget {
                                 .pop(rcloneDirectoryController.text);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text(t.settings.alistSettings
-                                    .workingDirectory.found(exec: programName)),
+                                content: Text(t
+                                    .settings.alistSettings.workingDirectory
+                                    .found(exec: programName)),
                               ),
                             );
                           }
@@ -239,8 +240,9 @@ class RcloneDirectoryTile extends ConsumerWidget {
                           if (context.mounted) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text(t.settings.alistSettings
-                                    .workingDirectory.notFound(exec: programName)),
+                                content: Text(t
+                                    .settings.alistSettings.workingDirectory
+                                    .notFound(exec: programName)),
                               ),
                             );
                           }

@@ -22,12 +22,10 @@ class AlistNotifier extends Notifier<AlistState> {
 
   @override
   AlistState build() {
-    workingDirectory = ref.watch(
-        settingsProvider.select((settings) => settings.workingDirectory));
-    alistArgs =
-        ref.watch(settingsProvider.select((settings) => settings.alistArgs));
-    proxy =
-        ref.watch(settingsProvider.select((settings) => settings.proxy ?? ''));
+    final settings = ref.watch(settingsProvider);
+    workingDirectory = settings.workingDirectory;
+    alistArgs = settings.alistArgs;
+    proxy = settings.proxy ?? '';
     return const AlistState();
   }
 

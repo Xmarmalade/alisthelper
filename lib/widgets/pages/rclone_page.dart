@@ -13,7 +13,6 @@ class RclonePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = Translations.of(context);
     final settings = ref.watch(settingsProvider);
 
     const ls = [];

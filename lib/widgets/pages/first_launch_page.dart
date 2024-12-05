@@ -46,7 +46,7 @@ class _FirstLaunchBodyState extends ConsumerState<FirstLaunchBody> {
     final settings = ref.watch(settingsProvider);
     final settingsNotifier = ref.watch(settingsProvider.notifier);
     final alistState = ref.watch(alistProvider);
-    final t = Translations.of(context);
+
     return Center(
       child: Container(
         constraints: const BoxConstraints(maxWidth: 800),
