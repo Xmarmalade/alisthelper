@@ -30,21 +30,30 @@ class AlistNotifier extends Notifier<AlistState> {
   }
 
   void addOutput(String text) {
-    checkState(text);
-    stdOut.add(text);
+    if (text.contains('start HTTP server')) {
+      checkState(text);
+    }
+    if (text.contains('\n')) {
+      List<String> lines = text.split('\n');
+      for (String line in lines) {
+        if (line.isNotEmpty) {
+          stdOut.add(line);
+        }
+      }
+    } else {
+      stdOut.add(text);
+    }
     state = state.copyWith(output: stdOut);
   }
 
   void checkState(String text) {
-    if (text.contains('start HTTP server')) {
-      if (text.contains('FATA')) {
-        text = text.split('FATA')[0].trim();
-      }
-      String port = text.split('@')[1].trim().split(':')[1].trim();
-      String url = 'http://localhost:$port';
-      state = state.copyWith(url: url);
-      state = state.copyWith(isRunning: true);
+    if (text.contains('FATA')) {
+      text = text.split('FATA')[0].trim();
     }
+    String port = text.split('@')[1].trim().split(':')[1].trim();
+    String url = 'http://localhost:$port';
+    state = state.copyWith(url: url);
+    state = state.copyWith(isRunning: true);
   }
 
   Future<void> startAlist() async {
