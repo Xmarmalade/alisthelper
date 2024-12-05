@@ -181,7 +181,15 @@ class PersistenceService {
   }
 
   List<String> getRcloneArgs() {
-    return _prefs.getStringList(_rcloneArgs) ?? ['rcd', '--rc-web-gui'];
+    return _prefs.getStringList(_rcloneArgs) ??
+        [
+          'rcd',
+          '--rc-user',
+          'admin',
+          '--rc-pass',
+          'admin',
+          '--rc-web-gui-no-open-browser'
+        ];
   }
 
   Future<void> setAutoStartRclone(bool value) async {

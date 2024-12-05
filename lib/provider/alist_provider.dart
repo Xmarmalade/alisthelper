@@ -33,7 +33,7 @@ class AlistNotifier extends Notifier<AlistState> {
     if (text.contains('start HTTP server')) {
       checkState(text);
     }
-    if (text.contains('\n')) {
+    if (text.contains('\n') && text.contains('[')) {
       List<String> lines = text.split('\n');
       for (String line in lines) {
         if (line.isNotEmpty) {
@@ -52,8 +52,7 @@ class AlistNotifier extends Notifier<AlistState> {
     }
     String port = text.split('@')[1].trim().split(':')[1].trim();
     String url = 'http://localhost:$port';
-    state = state.copyWith(url: url);
-    state = state.copyWith(isRunning: true);
+    state = state.copyWith(isRunning: true, url: url);
   }
 
   Future<void> startAlist() async {
