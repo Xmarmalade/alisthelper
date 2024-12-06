@@ -4,7 +4,7 @@
         "startAlist": "Start",
         "endAlist": "End",
         "openGUI": "Open Web GUI",
-        "genRandomPwd": "Gen Random Pwd",
+        "genRandomPwd": "Reset Pwd",
         "getVersion": "Version Info"
     },
     "rcloneOperation": {

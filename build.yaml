@@ -14,7 +14,6 @@ targets:
       freezed|freezed:
         generate_for:
           - lib/model/*.dart
-
       riverpod_annotation:
         generate_for:
           - lib/provider/*.dart
