@@ -43,7 +43,7 @@ dependencies:
     sdk: flutter
   freezed_annotation: ^2.4.1
   path_provider: ^2.1.2
-  json_annotation: ^4.8.1
+  json_annotation: ^4.9.0
   
 
 dev_dependencies:
