@@ -14,7 +14,7 @@ class AlistMultiButtonCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final alistState = ref.watch(alistProvider);
-    final alistNotifier = ref.read(alistProvider.notifier);
+    final alistNotifier = ref.watch(alistProvider.notifier);
 
     Future<void> openGUI() async {
       final Uri url = Uri.parse(alistState.url);
@@ -73,7 +73,7 @@ class RcloneMultiButtonCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final rcloneState = ref.watch(rcloneProvider);
-    final rcloneNotifier = ref.read(rcloneProvider.notifier);
+    final rcloneNotifier = ref.watch(rcloneProvider.notifier);
 
     // Assuming rcloneState.output is a list of strings
     final unreadCount = rcloneState.output.length;

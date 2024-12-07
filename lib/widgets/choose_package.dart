@@ -18,7 +18,7 @@ class _ChoosePackageState extends ConsumerState<ChoosePackage> {
   @override
   Widget build(BuildContext context) {
     final alistState = ref.watch(alistProvider);
-    final AlistNotifier alistNotifier = ref.read(alistProvider.notifier);
+    final AlistNotifier alistNotifier = ref.watch(alistProvider.notifier);
     final SettingsState settingsState = ref.watch(settingsProvider);
     try {
       if (alistState.newReleaseAssets.isEmpty) {

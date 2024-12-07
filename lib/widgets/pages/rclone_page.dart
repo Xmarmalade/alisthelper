@@ -98,7 +98,7 @@ class RcloneVirtualDisk extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final rcloneNotifier = ref.read(rcloneProvider.notifier);
+    final rcloneNotifier = ref.watch(rcloneProvider.notifier);
 
     return Card(
         margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),

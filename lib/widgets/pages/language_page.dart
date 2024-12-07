@@ -23,7 +23,9 @@ class LanguagePage extends ConsumerWidget {
               ...[null, ...AppLocale.values].map((locale) {
                 return ListTile(
                   onTap: () async {
-                    await ref.read(settingsProvider.notifier).setLocale(locale);
+                    await ref
+                        .watch(settingsProvider.notifier)
+                        .setLocale(locale);
                     if (locale == null) {
                       LocaleSettings.useDeviceLocale();
                     } else {

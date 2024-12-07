@@ -80,10 +80,8 @@ class _FirstLaunchBodyState extends ConsumerState<FirstLaunchBody> {
                     title: Text(t.firstLaunch.chooseTheme,
                         style: const TextStyle(
                             fontWeight: FontWeight.w600, fontSize: 18))),
-                ChangeThemeModeTile(
-                    settings: settings, settingsNotifier: settingsNotifier),
-                ChangeThemeColorTile(
-                    settings: settings, settingsNotifier: settingsNotifier),
+                ChangeThemeModeTile(),
+                ChangeThemeColorTile(),
                 ListTile(
                   title: Text(t.settings.interfaceSettings.language),
                   leading:

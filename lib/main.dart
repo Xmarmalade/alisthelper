@@ -31,14 +31,13 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(settingsProvider);
-    final alistNotifier = ref.read(alistProvider.notifier);
-    Color color = settings.themeColor;
-    final rcloneNotifier = ref.read(rcloneProvider.notifier);
+    final alistNotifier = ref.watch(alistProvider.notifier);
+    final rcloneNotifier = ref.watch(rcloneProvider.notifier);
     return TrayWatcher(
       child: WindowWatcher(
         onClose: () async {
           try {
-            if (ref.read(settingsProvider).minimizeToTray) {
+            if (ref.watch(settingsProvider).minimizeToTray) {
               await hideToTray();
             } else {
               await alistNotifier.endAlist();
@@ -55,8 +54,8 @@ class MyApp extends ConsumerWidget {
           supportedLocales: AppLocaleUtils.supportedLocales,
           localizationsDelegates: GlobalMaterialLocalizations.delegates,
           themeMode: settings.themeMode,
-          theme: AlistHelperTheme(color).lightThemeData,
-          darkTheme: AlistHelperTheme(color).darkThemeData,
+          theme: AlistHelperTheme(settings.themeColor).lightThemeData,
+          darkTheme: AlistHelperTheme(settings.themeColor).darkThemeData,
           home: const Home(),
         ),
       ),

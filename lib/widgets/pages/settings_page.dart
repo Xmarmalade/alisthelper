@@ -41,7 +41,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
   @override
   void initState() {
     super.initState();
-    //final settings = ref.read(settingsProvider);
+    //final settings = ref.watch(settingsProvider);
   }
 
   @override
@@ -61,10 +61,8 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                     title: Text(t.settings.interfaceSettings.title,
                         style: const TextStyle(
                             fontWeight: FontWeight.w600, fontSize: 18))),
-                ChangeThemeModeTile(
-                    settings: settings, settingsNotifier: settingsNotifier),
-                ChangeThemeColorTile(
-                    settings: settings, settingsNotifier: settingsNotifier),
+                ChangeThemeModeTile(),
+                ChangeThemeColorTile(),
                 ListTile(
                   title: Text(t.settings.interfaceSettings.language),
                   leading: Icon(
@@ -106,7 +104,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                 CustomToggleTile(
                   value: settings.autoStart,
                   onToggled: (value) =>
-                      ref.read(settingsProvider.notifier).setAutoStart(value),
+                      ref.watch(settingsProvider.notifier).setAutoStart(value),
                   title: t.settings.alistHelperSettings.autoStart.title,
                   subtitle:
                       t.settings.alistHelperSettings.autoStart.description,

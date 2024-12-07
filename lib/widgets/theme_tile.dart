@@ -3,19 +3,18 @@ import 'package:alisthelper/model/settings_state.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ChangeThemeModeTile extends StatelessWidget {
+class ChangeThemeModeTile extends ConsumerWidget {
   const ChangeThemeModeTile({
     super.key,
-    required this.settings,
-    required this.settingsNotifier,
   });
 
-  final SettingsState settings;
-  final SettingsNotifier settingsNotifier;
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final SettingsState settings = ref.watch(settingsProvider);
+    final SettingsNotifier settingsNotifier =
+        ref.read(settingsProvider.notifier);
     return ListTile(
       leading: Icon(Icons.dark_mode, color: settings.themeColor),
       title: Text(t.settings.interfaceSettings.themeMode),
@@ -70,15 +69,8 @@ class ChangeThemeModeTile extends StatelessWidget {
   }
 }
 
-class ChangeThemeColorTile extends StatelessWidget {
-  const ChangeThemeColorTile({
-    super.key,
-    required this.settings,
-    required this.settingsNotifier,
-  });
-
-  final SettingsState settings;
-  final SettingsNotifier settingsNotifier;
+class ChangeThemeColorTile extends ConsumerWidget {
+  const ChangeThemeColorTile({super.key});
 
   static const themeColors = <String, Color>{
     "Crimson": Color.fromARGB(255, 220, 20, 60),
@@ -96,7 +88,10 @@ class ChangeThemeColorTile extends StatelessWidget {
   };
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final SettingsState settings = ref.watch(settingsProvider);
+    final SettingsNotifier settingsNotifier =
+        ref.read(settingsProvider.notifier);
     return ListTile(
         leading: Icon(Icons.color_lens_rounded, color: settings.themeColor),
         title: Text(t.settings.interfaceSettings.themeColor),

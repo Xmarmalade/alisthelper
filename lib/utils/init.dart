@@ -78,29 +78,29 @@ Future<PersistenceService> preInit(List<String> args) async {
 /// Post-initializes the app.
 /// Starts the Alist if the [Settings.autoStartAlist] is true.
 Future<void> postInit(WidgetRef ref) async {
-  final alistNotifier = ref.read(alistProvider.notifier);
-  if (!ref.read(settingsProvider).isFirstRun) {
+  final alistNotifier = ref.watch(alistProvider.notifier);
+  if (!ref.watch(settingsProvider).isFirstRun) {
     alistNotifier.getAlistCurrentVersion(addToOutput: false);
   }
-  final alistHelperNotifier = ref.read(ahProvider.notifier);
+  final alistHelperNotifier = ref.watch(ahProvider.notifier);
   alistHelperNotifier.getAlistHelperCurrentVersion();
 
-  if (ref.read(settingsProvider).autoStartAlist &&
+  if (ref.watch(settingsProvider).autoStartAlist &&
       !ref.watch(alistProvider).isRunning) {
-    var alistNotifier = ref.read(alistProvider.notifier);
+    var alistNotifier = ref.watch(alistProvider.notifier);
     alistNotifier.startAlist();
   }
 
-  if (ref.read(settingsProvider).autoStartRclone) {
-    if (ref.read(settingsProvider).startAfterAlist) {
+  if (ref.watch(settingsProvider).autoStartRclone) {
+    if (ref.watch(settingsProvider).startAfterAlist) {
       //wait 3 second
       await Future.delayed(const Duration(seconds: 3));
       if (ref.watch(alistProvider).isRunning) {
-        var rcloneNotifier = ref.read(rcloneProvider.notifier);
+        var rcloneNotifier = ref.watch(rcloneProvider.notifier);
         rcloneNotifier.startRclone();
       }
     } else {
-      var rcloneNotifier = ref.read(rcloneProvider.notifier);
+      var rcloneNotifier = ref.watch(rcloneProvider.notifier);
       rcloneNotifier.startRclone();
     }
   }

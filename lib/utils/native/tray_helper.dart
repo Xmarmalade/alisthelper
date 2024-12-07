@@ -75,12 +75,12 @@ Future<void> showFromTray() async {
 }
 
 Future<void> startAlist(WidgetRef ref) async {
-  final alistNotifier = ref.read(alistProvider.notifier);
+  final alistNotifier = ref.watch(alistProvider.notifier);
   alistNotifier.startAlist();
 }
 
 Future<void> endAlist(WidgetRef ref) async {
-  final alistNotifier = ref.read(alistProvider.notifier);
+  final alistNotifier = ref.watch(alistProvider.notifier);
   alistNotifier.endAlist();
 }
 

@@ -15,7 +15,7 @@ class WindowDimensions {
 }
 
 final windowDimensionProvider = Provider<WindowDimensionsController>((ref) {
-  return WindowDimensionsController(ref.read(persistenceProvider));
+  return WindowDimensionsController(ref.watch(persistenceProvider));
 });
 
 const Size _minimalSize = Size(400, 500);
