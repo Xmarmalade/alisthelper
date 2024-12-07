@@ -2,6 +2,7 @@ import 'package:alisthelper/provider/rclone_provider.dart';
 import 'package:alisthelper/widgets/logs_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:alisthelper/i18n/strings.g.dart';
 
 class RcloneLogsPage extends ConsumerWidget {
   const RcloneLogsPage({super.key});
@@ -15,7 +16,7 @@ class RcloneLogsPage extends ConsumerWidget {
           icon: const Icon(Icons.close),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text("t.rcloneOperation.logsDialogTitle"),
+        title: Text(t.rcloneOperation.viewLogs),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8),

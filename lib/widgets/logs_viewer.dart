@@ -11,7 +11,9 @@ class LogListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isWarning = logText.contains('WARN') ||
         logText.contains('ERR') ||
-        logText.contains('FATA') || logText.contains('Exception');
+        logText.contains('FATA') ||
+        logText.contains('Exception') ||
+        logText.contains('CRITICAL');
     return ListTile(
         leading: Icon(isWarning ? Icons.warning : Icons.info,
             color: isWarning ? Colors.amber : Colors.teal),

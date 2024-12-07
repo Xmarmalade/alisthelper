@@ -11,7 +11,10 @@
         "startRclone": "启动",
         "endRclone": "关闭",
         "getRcloneInfo": "版本信息",
-        "help": "Q&A: \nQ1: Rclone 应该放在哪里？ \nA1: 目前请将其与alist可执行文件放在同一目录下。 \nQ2: 如何使用Rclone？ \nA2: 1. 首先运行一次WEB GUI添加存储，在Rclone参数设定中输入rclone rcd --rc-web-gui可以启动。\n 2. 之后修改参数为rclone mount remote: /path/to/mountpoint 部分网盘需要设置参数，请自行搜索 \nQ3: 如何使用Rclone的其他功能？ \nA3: 请参考Rclone官方文档或在社区中搜索。"
+        "viewLogs": "查看日志",
+        "noVdisks": "未设置远程磁盘。",
+        "deleteVdisk": "您确定要删除 $name 吗？此操作不可逆！",
+        "createVdisk": "创建远程磁盘，如果你不明白这里的选项，请寻求帮助"
     },
     "firstLaunch": {
         "intro": "欢迎使用 Alist Helper,让我们开始吧!",
@@ -29,7 +32,8 @@
     },
     "home": {
         "options": "选项",
-        "logs": "日志"
+        "logs": "日志",
+        "manage": "管理"
     },
     "languageSettings": {
         "language": "语言",
@@ -107,7 +111,7 @@
             "argumentsList": {
                 "title": "启动参数列表",
                 "description": "编辑 alist 的启动参数",
-                "descriptionForRclone": "编辑 rclone 的启动参数。你也可以粘贴整行，Alist Helper 会帮你解析。",
+                "descriptionForRclone": "编辑 rclone 的启动参数。如果你不明白这里的选项，请寻求帮助",
                 "editArguments": "编辑参数",
                 "addArgument": "添加参数",
                 "removeAll": "移除所有参数",
@@ -123,7 +127,7 @@
         },
         "rcloneSettings": {
             "title": "Rclone 选项",
-            "rcloneDirNotSet": "Rclone 目录未设置，请在设置中设置 rclone 目录以及启动参数。",
+            "rcloneDirNotSet": "Rclone 目录未设置，请在设置中设置\n(实验性功能)",
             "autoStartAlist": {
                 "title": "允许 rclone 自动启动",
                 "description": "这将在 Alist Helper 启动时自动启动 rclone。"
@@ -131,6 +135,12 @@
             "startAfterAlist": {
                 "title": "要求在 alist 启动后启动",
                 "description": "这将要求 rclone 在 alist 启动后启动。"
+            },
+            "account": {
+                "title": "WebDav 帐户",
+                "description": "设置 WebDav 帐户",
+                "name": "帐户名",
+                "pass": "密码"
             }
         },
         "others": {

@@ -26,9 +26,10 @@ class RclonePage extends ConsumerWidget {
                 title: const Text('Rclone',
                     style: TextStyle(fontWeight: FontWeight.bold)),
               )),
-        body: settings.rcloneDirectory == ''
+        body: (settings.rcloneDirectory == '' || settings.webdavAccount == '')
             ? Center(
                 child: Text(t.settings.rcloneSettings.rcloneDirNotSet,
+                    textAlign: TextAlign.center,
                     style: const TextStyle(
                         fontWeight: FontWeight.w600, fontSize: 18)),
               )
@@ -38,23 +39,13 @@ class RclonePage extends ConsumerWidget {
                 child: Column(
                   children: [
                     ListTile(
-                        title: Text(t.home.options,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w600, fontSize: 18)),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.info_outline_rounded),
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                  title: const Text('Q&A'),
-                                  content: Text(t.rcloneOperation.help)),
-                            );
-                          },
-                        )),
+                      title: Text(t.home.options,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 18)),
+                    ),
                     const RcloneMultiButtonCard(),
                     ListTile(
-                      title: Text('t.rclone.manageVDisks',
+                      title: Text(t.home.manage,
                           style: const TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 18)),
                       trailing: Wrap(
@@ -66,7 +57,7 @@ class RclonePage extends ConsumerWidget {
                     Expanded(
                       child: (rclone.vdList.isEmpty)
                           ? Center(
-                              child: Text('t.rclone.noVDisks',
+                              child: Text(t.rcloneOperation.noVdisks,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 18)),
@@ -115,7 +106,7 @@ class RcloneVirtualDisk extends ConsumerWidget {
               children: [
                 IconButton(
                   icon: const Icon(Icons.settings),
-                  onPressed: () {},
+                  onPressed: null,
                 ),
                 IconButton(
                   icon: const Icon(Icons.delete),
@@ -125,21 +116,21 @@ class RcloneVirtualDisk extends ConsumerWidget {
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                        title: Text('t.rcloneOperation.deleteVdisk(vd.name)'),
-                        content: Text('t.rcloneOperation.deleteVdiskConfirm'),
+                        title:
+                            Text(t.rcloneOperation.deleteVdisk(name: vd.name)),
                         actions: [
-                          TextButton(
+                          FilledButton(
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
-                            child: Text('t.cancel'),
+                            child: Text(t.button.cancel),
                           ),
                           TextButton(
                             onPressed: () {
                               rcloneNotifier.deleteSpecific(vd);
                               Navigator.of(context).pop();
                             },
-                            child: Text('t.delete'),
+                            child: Text(t.button.yes),
                           ),
                         ],
                       ),

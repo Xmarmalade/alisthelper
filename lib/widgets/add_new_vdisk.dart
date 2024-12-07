@@ -1,3 +1,4 @@
+import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/model/virtual_disk_state.dart';
 import 'package:alisthelper/provider/rclone_provider.dart';
 import 'package:alisthelper/utils/textutils.dart';
@@ -29,7 +30,7 @@ class AddNewRcloneDisk extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text('t.rclone.create',
+                    Text(t.rcloneOperation.createVdisk,
                         style: const TextStyle(
                             fontWeight: FontWeight.w600, fontSize: 18)),
                     Expanded(

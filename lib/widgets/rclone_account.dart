@@ -14,9 +14,16 @@ class RcloneMountAccountTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String user = 'dav';
+    String pwd = 'dav';
+    if (settings.webdavAccount.isEmpty) {
+      settingsNotifier.setWebdavAccount(TextUtils.accountEncoder([user, pwd]));
+    } else {
+      [user, pwd] = TextUtils.accountParser(settings.webdavAccount);
+    }
     return ListTile(
         contentPadding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-        title: Text('t.settings.rcloneSettings.account.title',
+        title: Text(t.settings.rcloneSettings.account.title,
             style: const TextStyle(fontWeight: FontWeight.w500)),
         trailing: ElevatedButton(
           onPressed: () async {
@@ -24,26 +31,17 @@ class RcloneMountAccountTile extends StatelessWidget {
             final result = await showDialog<List<String>>(
                 context: context,
                 builder: (context) {
-                  String user = 'dav';
-                  String pwd = 'dav';
-                  if (settings.webdavAccount.isEmpty) {
-                    settingsNotifier.setWebdavAccount(
-                        TextUtils.accountEncoder([user, pwd]));
-                  } else {
-                    [user, pwd] =
-                        TextUtils.accountParser(settings.webdavAccount);
-                  }
                   final userController = TextEditingController(text: user);
                   final pwdController = TextEditingController(text: pwd);
                   return AlertDialog(
-                    title: Text('Edit the WebDav account to access alist'),
+                    title: Text(t.settings.rcloneSettings.account.description),
                     actions: [
                       ElevatedButton(
                         onPressed: () {
                           Navigator.of(context)
                               .pop([userController.text, pwdController.text]);
                         },
-                        child: Text('Save'),
+                        child: Text(t.button.save),
                       ),
                     ],
                     content: Column(
@@ -51,11 +49,15 @@ class RcloneMountAccountTile extends StatelessWidget {
                       children: [
                         TextField(
                           controller: userController,
-                          decoration: InputDecoration(labelText: 'Username'),
+                          decoration: InputDecoration(
+                              labelText:
+                                  t.settings.rcloneSettings.account.name),
                         ),
                         TextField(
                           controller: pwdController,
-                          decoration: InputDecoration(labelText: 'Password'),
+                          decoration: InputDecoration(
+                              labelText:
+                                  t.settings.rcloneSettings.account.pass),
                         ),
                       ],
                     ),

@@ -117,7 +117,7 @@ class RcloneMultiButtonCard extends ConsumerWidget {
                         ),
                       );
                     },
-                    child: Text('t.rclone.viewLogs'),
+                    child: Text(t.rcloneOperation.viewLogs),
                   ),
                 ),
               ],

@@ -11,7 +11,10 @@
         "startRclone": "Start",
         "endRclone": "End",
         "getRcloneInfo": "Version Info",
-        "help": "Q&A: \nQ1: Where should Rclone be placed? \nA1: For now, please put it in the same directory as the alist executable file. \nQ2: How to use Rclone? \nA2: 1. First run the WEB GUI to add storage. Enter rclone rcd --rc-web-gui in the Rclone parameter setting to start. \n 2. Then modify the parameters to rclone mount remote: /path/to/mountpoint. Some network disks need to set parameters, please search by yourself \nQ3: How to use other functions of Rclone? \nA3: Please refer to Rclone official documentation or search in the community."
+        "viewLogs": "View Log",
+        "noVdisks": "No vdisks set in config file.",
+        "deleteVdisk": "Are you sure you want to delete $name? this action is irreversible!",
+        "createVdisk": "Create a remote disk. If you don't understand the options here, please seek help."
     },
     "firstLaunch": {
         "intro": "Welcome to use Alist Helper, let's get started!",
@@ -29,7 +32,8 @@
     },
     "home": {
         "options": "Options",
-        "logs": "Logs"
+        "logs": "Logs",
+        "manage": "Manage"
     },
     "languageSettings": {
         "language": "Language",
@@ -107,7 +111,7 @@
             "argumentsList": {
                 "title": "Arguments List",
                 "description": "Edit startup arguments for alist",
-                "descriptionForRclone": "Edit startup arguments for rclone. You can also paste a full line, Alist Helper will help you parse it.",
+                "descriptionForRclone": "Edit startup arguments for rclone. If you don't understand the options here, please seek help.",
                 "editArguments": "Edit Arguments",
                 "addArgument": "Add Argument",
                 "removeAll": "Remove all",
@@ -123,7 +127,7 @@
         },
         "rcloneSettings": {
             "title": "Rclone Options",
-            "rcloneDirNotSet": "The rclone directory is not set. \nPlease set the rclone directory and startup parameters in the settings.",
+            "rcloneDirNotSet": "The rclone directory is not set. \nPlease set the rclone directory and startup parameters in the settings.\n(Experimental feature)",
             "autoStartAlist": {
                 "title": "Allow rclone auto start",
                 "description": "This will auto start rclone when Alist Helper starts."
@@ -131,6 +135,12 @@
             "startAfterAlist": {
                 "title": "Requires to start after alist starts",
                 "description": "This will require rclone to start after alist starts."
+            },
+            "account": {
+                "title": "WebDav Account",
+                "description": "Set WebDav account",
+                "name": "Account Name",
+                "pass": "Password"
             }
         },
         "others": {
