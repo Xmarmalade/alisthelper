@@ -47,7 +47,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
   @override
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider);
-    final settingsNotifier = ref.watch(settingsProvider.notifier);
+    final settingsNotifier = ref.read(settingsProvider.notifier);
 
     return Center(
       child: Container(

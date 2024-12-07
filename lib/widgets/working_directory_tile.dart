@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/model/settings_state.dart';
+import 'package:alisthelper/provider/alist_provider.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +21,8 @@ class WorkingDirectoryTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final SettingsState settings = ref.watch(settingsProvider);
-    final SettingsNotifier settingsNotifier =
-        ref.read(settingsProvider.notifier);
+    final settings = ref.watch(settingsProvider);
+    final alistNotifier = ref.read(alistProvider.notifier);
     final TextEditingController workingDirectoryController =
         TextEditingController(text: settings.workingDirectory);
 
@@ -126,7 +126,7 @@ class WorkingDirectoryTile extends ConsumerWidget {
             },
           );
           if (path != null) {
-            await settingsNotifier.setWorkingDirectory(path);
+            await alistNotifier.setWorkDir(path);
           }
         },
         child: Text(t.button.select),

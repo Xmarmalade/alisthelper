@@ -1,5 +1,5 @@
 import 'package:alisthelper/i18n/strings.g.dart';
-import 'package:alisthelper/model/settings_state.dart';
+import 'package:alisthelper/provider/alist_provider.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,9 +10,8 @@ class ProxyTile extends ConsumerWidget {
   @override
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final SettingsState settings = ref.watch(settingsProvider);
-    final SettingsNotifier settingsNotifier =
-        ref.read(settingsProvider.notifier);
+    final settings = ref.watch(settingsProvider);
+    final alistNotifier = ref.read(alistProvider.notifier);
     final TextEditingController proxyController =
         TextEditingController(text: settings.proxy);
 
@@ -68,7 +67,7 @@ class ProxyTile extends ConsumerWidget {
             //check url is vaild for http://yourproxy:port
             try {
               if (Uri.parse(proxy).isAbsolute || proxy == '') {
-                await settingsNotifier.setProxy(proxy);
+                await alistNotifier.setProxy(proxy);
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

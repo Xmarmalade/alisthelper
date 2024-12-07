@@ -44,7 +44,7 @@ class _FirstLaunchBodyState extends ConsumerState<FirstLaunchBody> {
   @override
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider);
-    final settingsNotifier = ref.watch(settingsProvider.notifier);
+    final settingsNotifier = ref.read(settingsProvider.notifier);
     final alistState = ref.watch(alistProvider);
 
     return Center(
