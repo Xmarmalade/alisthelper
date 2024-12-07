@@ -23,20 +23,21 @@ final rcloneProvider =
 class RcloneNotifier extends Notifier<RcloneState> {
   late String rcloneDirectory;
   late List<String> rcloneArgs;
+  late Options option;
+  late String webDavAccount;
   List<VirtualDiskState> vdisks = [];
   List<String> stdout = [];
   Dio dio = Dio();
   String credentials = '';
-  late Options option;
 
   @override
   RcloneState build() {
-    final settings = ref.watch(settingsProvider);
-    rcloneDirectory = settings.rcloneDirectory;
-    rcloneArgs = settings.rcloneArgs;
+    webDavAccount = ref.watch(settingsProvider.select((s) => s.webdavAccount));
+    rcloneDirectory =
+        ref.watch(settingsProvider.select((s) => s.rcloneDirectory));
+    rcloneArgs = ref.watch(settingsProvider.select((s) => s.rcloneArgs));
     vdisks = ref
-        .watch(persistenceProvider)
-        .getVdisks()
+        .watch(persistenceProvider.select((p) => p.getVdisks()))
         .map((e) => VirtualDiskState.fromJson(jsonDecode(e)))
         .toList();
     credentials = TextUtils.encodeCredentials(rcloneArgs);
@@ -46,7 +47,7 @@ class RcloneNotifier extends Notifier<RcloneState> {
         'Content-Type': 'application/json',
       },
     );
-    return RcloneState(vdList: vdisks, webdavAccount: settings.webdavAccount);
+    return RcloneState(vdList: vdisks, webdavAccount: webDavAccount);
   }
 
   void toggleMount(VirtualDiskState vd) {
