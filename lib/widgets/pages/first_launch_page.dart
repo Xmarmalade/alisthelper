@@ -143,8 +143,7 @@ class _FirstLaunchBodyState extends ConsumerState<FirstLaunchBody> {
                         mode: LaunchMode.externalApplication);
                   },
                 ),
-                WorkingDirectoryTile(
-                    settings: settings, settingsNotifier: settingsNotifier),
+                WorkingDirectoryTile(),
               ]),
             ),
             Center(

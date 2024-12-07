@@ -8,25 +8,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class WorkingDirectoryTile extends StatelessWidget {
-  const WorkingDirectoryTile({
-    super.key,
-    required this.settings,
-    required this.settingsNotifier,
-  });
+class WorkingDirectoryTile extends ConsumerWidget {
+  const WorkingDirectoryTile({super.key});
 
-  final SettingsState settings;
-  final SettingsNotifier settingsNotifier;
-
-  Future<void> openDirectory() async {
-    final Uri url = Uri.parse('file:${settings.workingDirectory}');
+  Future<void> openDirectory(String dir) async {
+    final Uri url = Uri.parse('file:$dir');
     if (!await launchUrl(url)) {
       throw Exception('Could not launch the $url');
     }
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final SettingsState settings = ref.watch(settingsProvider);
+    final SettingsNotifier settingsNotifier =
+        ref.read(settingsProvider.notifier);
     final TextEditingController workingDirectoryController =
         TextEditingController(text: settings.workingDirectory);
 
@@ -136,24 +132,17 @@ class WorkingDirectoryTile extends StatelessWidget {
         child: Text(t.button.select),
       ),
       onLongPress: () {
-        openDirectory();
+        openDirectory(settings.workingDirectory);
       },
     );
   }
 }
 
 class RcloneDirectoryTile extends ConsumerWidget {
-  const RcloneDirectoryTile({
-    super.key,
-    required this.settings,
-    required this.settingsNotifier,
-  });
+  const RcloneDirectoryTile({super.key});
 
-  final SettingsState settings;
-  final SettingsNotifier settingsNotifier;
-
-  Future<void> openDirectory() async {
-    final Uri url = Uri.parse('file:${settings.rcloneDirectory}');
+  Future<void> openDirectory(String dir) async {
+    final Uri url = Uri.parse('file:$dir');
     if (!await launchUrl(url)) {
       throw Exception('Could not launch the $url');
     }
@@ -161,6 +150,9 @@ class RcloneDirectoryTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    final SettingsState settings = ref.watch(settingsProvider);
+    final SettingsNotifier settingsNotifier =
+        ref.read(settingsProvider.notifier);
     final TextEditingController rcloneDirectoryController =
         TextEditingController(text: settings.rcloneDirectory);
 
@@ -270,7 +262,7 @@ class RcloneDirectoryTile extends ConsumerWidget {
         child: Text(t.button.select),
       ),
       onLongPress: () {
-        openDirectory();
+        openDirectory(settings.rcloneDirectory);
       },
     );
   }

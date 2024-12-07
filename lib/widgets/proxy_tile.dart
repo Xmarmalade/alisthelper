@@ -2,20 +2,17 @@ import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/model/settings_state.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ProxyTile extends StatelessWidget {
-  const ProxyTile({
-    super.key,
-    required this.settings,
-    required this.settingsNotifier,
-  });
-
-  final SettingsState settings;
-  final SettingsNotifier settingsNotifier;
+class ProxyTile extends ConsumerWidget {
+  const ProxyTile({super.key});
 
   @override
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final SettingsState settings = ref.watch(settingsProvider);
+    final SettingsNotifier settingsNotifier =
+        ref.read(settingsProvider.notifier);
     final TextEditingController proxyController =
         TextEditingController(text: settings.proxy);
 

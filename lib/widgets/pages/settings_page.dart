@@ -135,12 +135,9 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                   title: t.settings.alistSettings.autoStartAlist.title,
                   subtitle: t.settings.alistSettings.autoStartAlist.description,
                 ),
-                WorkingDirectoryTile(
-                    settings: settings, settingsNotifier: settingsNotifier),
-                ProxyTile(
-                    settings: settings, settingsNotifier: settingsNotifier),
-                AlistArgsTile(
-                    settings: settings, settingsNotifier: settingsNotifier),
+                WorkingDirectoryTile(),
+                ProxyTile(),
+                AlistArgsTile(),
                 Container(height: 10)
               ]),
             ),
@@ -167,12 +164,9 @@ class _SettingsTabState extends ConsumerState<SettingsTab> {
                   subtitle:
                       t.settings.rcloneSettings.startAfterAlist.description,
                 ),
-                RcloneDirectoryTile(
-                    settings: settings, settingsNotifier: settingsNotifier),
-                RcloneArgsTile(
-                    settings: settings, settingsNotifier: settingsNotifier),
-                RcloneMountAccountTile(
-                    settings: settings, settingsNotifier: settingsNotifier),
+                RcloneDirectoryTile(),
+                RcloneArgsTile(),
+                RcloneMountAccountTile(),
                 Container(height: 10)
               ]),
             ),

@@ -1,21 +1,18 @@
 import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/model/settings_state.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AlistArgsTile extends StatelessWidget {
-  const AlistArgsTile({
-    super.key,
-    required this.settings,
-    required this.settingsNotifier,
-  });
-
-  final SettingsState settings;
-  final SettingsNotifier settingsNotifier;
+class AlistArgsTile extends ConsumerWidget {
+  const AlistArgsTile({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final SettingsState settings = ref.watch(settingsProvider);
+    final SettingsNotifier settingsNotifier =
+        ref.read(settingsProvider.notifier);
+
     return ListTile(
       contentPadding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
       title: Text(
@@ -124,18 +121,14 @@ class __AlistArgsDialogState extends State<_AlistArgsDialog> {
   }
 }
 
-class RcloneArgsTile extends StatelessWidget {
-  const RcloneArgsTile({
-    super.key,
-    required this.settings,
-    required this.settingsNotifier,
-  });
-
-  final SettingsState settings;
-  final SettingsNotifier settingsNotifier;
+class RcloneArgsTile extends ConsumerWidget {
+  const RcloneArgsTile({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final SettingsState settings = ref.watch(settingsProvider);
+    final SettingsNotifier settingsNotifier =
+        ref.read(settingsProvider.notifier);
     return ListTile(
       contentPadding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
       title: Text(
