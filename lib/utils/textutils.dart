@@ -68,4 +68,33 @@ class TextUtils {
     // then base64 encode the account
     return base64.encode(utf8.encode(account.join('\n')));
   }
+
+  static List<String> flagsParser(String text) {
+    List<String> result = [];
+    if (text.contains('"')) {
+      text.replaceAll('"', '');
+    }
+    RegExp exp = RegExp(r'--\S+ \S+');
+    Iterable<Match> matches = exp.allMatches(text);
+    for (Match match in matches) {
+      result.add(match.group(0)!);
+    }
+    return result;
+  }
+
+  static String encodeCredentials(List<String> args) {
+    String user = '';
+    String pass = '';
+
+    for (int i = 0; i < args.length; i++) {
+      if (args[i] == '--rc-user' && i + 1 < args.length) {
+        user = args[i + 1];
+      } else if (args[i] == '--rc-pass' && i + 1 < args.length) {
+        pass = args[i + 1];
+      }
+    }
+
+    String credentials = '$user:$pass';
+    return base64.encode(utf8.encode(credentials));
+  }
 }

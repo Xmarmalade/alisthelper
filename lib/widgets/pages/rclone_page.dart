@@ -1,5 +1,8 @@
 import 'package:alisthelper/i18n/strings.g.dart';
+import 'package:alisthelper/model/virtual_disk_state.dart';
+import 'package:alisthelper/provider/rclone_provider.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
+import 'package:alisthelper/widgets/add_new_vdisk.dart';
 
 import 'package:alisthelper/widgets/button_card.dart';
 import 'package:alisthelper/widgets/responsive_builder.dart';
@@ -14,8 +17,8 @@ class RclonePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(settingsProvider);
+    final rclone = ref.watch(rcloneProvider);
 
-    const ls = [];
     return Scaffold(
         appBar: (sizingInformation.isDesktop
             ? null
@@ -44,32 +47,39 @@ class RclonePage extends ConsumerWidget {
                             showDialog(
                               context: context,
                               builder: (context) => AlertDialog(
-                                title: const Text('Q&A'),
-                                content: Text(t.rcloneOperation.help),
-                              ),
+                                  title: const Text('Q&A'),
+                                  content: Text(t.rcloneOperation.help)),
                             );
                           },
                         )),
                     const RcloneMultiButtonCard(),
                     ListTile(
-                      title: Text('t.rclone.manageVirtualDisks',
+                      title: Text('t.rclone.manageVDisks',
                           style: const TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 18)),
-                      trailing: AddNewRcloneDisk(),
+                      trailing: Wrap(
+                        children: [
+                          AddNewRcloneDisk(),
+                        ],
+                      ),
                     ),
                     Expanded(
-                      child: ls.isEmpty
+                      child: (rclone.vdList.isEmpty)
                           ? Center(
-                              child: Text('No virtual disks found',
+                              child: Text('t.rclone.noVDisks',
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 18)),
                             )
-                          : ListView.builder(
-                              itemCount: ls.length,
-                              itemBuilder: (context, index) {
-                                return ls[index];
-                              },
+                          : Padding(
+                              padding: const EdgeInsets.only(top: 5, bottom: 5),
+                              child: ListView.builder(
+                                itemCount: rclone.vdList.length,
+                                itemBuilder: (context, index) {
+                                  return RcloneVirtualDisk(
+                                      vd: rclone.vdList[index]);
+                                },
+                              ),
                             ),
                     )
                   ],
@@ -78,115 +88,71 @@ class RclonePage extends ConsumerWidget {
   }
 }
 
-class AddNewRcloneDisk extends StatelessWidget {
-  const AddNewRcloneDisk({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      onPressed: () {
-        showModalBottomSheet<void>(
-          context: context,
-          builder: (BuildContext context) {
-            return SizedBox(
-              height: 800,
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
-                  child: Column(
-                    textBaseline: TextBaseline.alphabetic,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Text('t.rclone.create',
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 18)),
-                      Expanded(
-                          child: ListView(children: [
-                        TextField(
-                          decoration: InputDecoration(
-                            labelText: 'Name',
-                            helperText: 'The name of the disk',
-                            hintText: 'OneDrive',
-                          ),
-                        ),
-                        TextField(
-                          decoration: InputDecoration(
-                            labelText: 'Path',
-                            helperText:
-                                'The path after https://localhost:port/dav/',
-                            hintText: 'onedrive',
-                          ),
-                        ),
-                        TextField(
-                          decoration: InputDecoration(
-                            labelText: 'MountPoint',
-                            helperText: 'The mount point of the disk',
-                            hintText: 'T',
-                          ),
-                        ),
-                        TextField(
-                          decoration: InputDecoration(
-                            labelText: 'ExtraFlags',
-                            hintText:
-                                '--vfs-cache-mode writes --vfs-cache-max-size 100M',
-                            helperText: 'Extra flags to pass to rclone',
-                          ),
-                        ),
-                      ])),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          TextButton(
-                            child: const Text('Close'),
-                            onPressed: () => Navigator.pop(context),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: const Text('Save'),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            );
-          },
-        );
-      },
-      label: Text('Add'),
-      icon: const Icon(Icons.playlist_add),
-    );
-  }
-}
-
-class RcloneVirtualDisk extends StatelessWidget {
+class RcloneVirtualDisk extends ConsumerWidget {
   const RcloneVirtualDisk({
     super.key,
+    required this.vd,
   });
 
+  final VirtualDiskState vd;
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final rcloneNotifier = ref.read(rcloneProvider.notifier);
+
     return Card(
-        margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+        margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
         child: ListTile(
+            titleAlignment: ListTileTitleAlignment.center,
             leading: Icon(Icons.settings_system_daydream),
-            title: Text('t.rclone.remote.diskName',
+            title: Text(vd.name.toUpperCase(),
                 style:
-                    const TextStyle(fontWeight: FontWeight.w400, fontSize: 18)),
+                    const TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
             subtitle: Text(
-              't.rclone.remote.diskInfo',
+              '${vd.mountPoint}:  webdav/${vd.path}',
             ),
             trailing: Wrap(
               children: [
                 IconButton(
-                  icon: const Icon(Icons.edit),
+                  icon: const Icon(Icons.settings),
                   onPressed: () {},
                 ),
                 IconButton(
-                  icon: const Icon(Icons.play_arrow),
-                  onPressed: () {},
+                  icon: const Icon(Icons.delete),
+                  onPressed: () {
+                    //rcloneNotifier.deleteSpecific(vd);
+                    // showDialog to confirm deletion
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text('t.rcloneOperation.deleteVdisk(vd.name)'),
+                        content: Text('t.rcloneOperation.deleteVdiskConfirm'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('t.cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              rcloneNotifier.deleteSpecific(vd);
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('t.delete'),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+                IconButton(
+                  icon: vd.isMounted
+                      ? const Icon(Icons.stop)
+                      : const Icon(Icons.play_arrow),
+                  onPressed: () {
+                    rcloneNotifier.toggleMount(vd);
+                  },
                 ),
               ],
             )));

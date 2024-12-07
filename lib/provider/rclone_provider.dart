@@ -1,10 +1,21 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:http/http.dart' as http;
+import 'package:alisthelper/model/virtual_disk_state.dart';
+import 'package:alisthelper/provider/alist_provider.dart';
+import 'package:alisthelper/provider/persistence_provider.dart';
 import 'package:alisthelper/model/rclone_state.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
 import 'package:alisthelper/utils/textutils.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:dio/dio.dart';
+
+/// **IMPORTANT NOTE**:
+///
+/// The http package will add `charset=utf-8` in content-type header by default.
+/// This will cause the rclone server to return a 400 error.
+/// Use [Dio] instead of http package.
+/// https://github.com/dart-lang/http/issues/184
 
 final rcloneProvider =
     NotifierProvider<RcloneNotifier, RcloneState>(RcloneNotifier.new);
@@ -12,17 +23,175 @@ final rcloneProvider =
 class RcloneNotifier extends Notifier<RcloneState> {
   late String rcloneDirectory;
   late List<String> rcloneArgs;
-  late String proxy;
+  List<VirtualDiskState> vdisks = [];
   List<String> stdout = [];
+  Dio dio = Dio();
+  String credentials = '';
+  late Options option;
 
   @override
   RcloneState build() {
     final settings = ref.watch(settingsProvider);
     rcloneDirectory = settings.rcloneDirectory;
     rcloneArgs = settings.rcloneArgs;
-    proxy = settings.proxy ?? '';
-    return const RcloneState();
+    vdisks = ref
+        .watch(persistenceProvider)
+        .getVdisks()
+        .map((e) => VirtualDiskState.fromJson(jsonDecode(e)))
+        .toList();
+    credentials = TextUtils.encodeCredentials(rcloneArgs);
+    option = Options(
+      headers: {
+        'Authorization': 'Basic $credentials',
+        'Content-Type': 'application/json',
+      },
+    );
+    return RcloneState(vdList: vdisks, webdavAccount: settings.webdavAccount);
   }
+
+  void toggleMount(VirtualDiskState vd) {
+    if (vd.isMounted) {
+      unmountRemote(vd);
+      vd = vd.copyWith(isMounted: false);
+    } else {
+      mountRemote(vd);
+      vd = vd.copyWith(isMounted: true);
+    }
+    final index = vdisks.indexWhere((element) => element.name == vd.name);
+    vdisks[index] = vd;
+    state = state.copyWith(vdList: vdisks);
+  }
+
+  void add(VirtualDiskState vd) {
+    vdisks.add(vd);
+    addRemote(vd);
+    saveVdisks();
+    state = state.copyWith(vdList: vdisks);
+  }
+
+  void saveVdisks() {
+    vdisks = vdisks.map((e) => e.copyWith(isMounted: false)).toList();
+    ref
+        .watch(persistenceProvider)
+        .setVdisks(vdisks.map((e) => jsonEncode(e.toJson())).toList());
+  }
+
+  void deleteSpecific(VirtualDiskState vd) {
+    vdisks.remove(vd);
+    deleteRemote(vd);
+    saveVdisks();
+    state = state.copyWith(vdList: vdisks);
+  }
+
+  Future<void> updateRemote() async {
+    final response = await dio.post(
+      '${state.url}/config/listremotes',
+      data: jsonEncode({}),
+      options: option,
+    );
+
+    if (response.statusCode == 200 && response.data['remotes'] != null) {
+      final remotes =
+          (response.data)['remotes'].map<String>((e) => e.toString()).toList();
+      state = state.copyWith(remoteList: remotes);
+
+      for (String remote in remotes) {
+        if (!vdisks.any((element) => element.name == remote)) {
+          debugPrint('Extra remote: $remote');
+          deleteRemote(VirtualDiskState(name: remote));
+        }
+      }
+    } else {
+      // Handle error
+    }
+  }
+
+  Future<void> addRemote(VirtualDiskState vd) async {
+    final List<String> credentials =
+        TextUtils.accountParser(state.webdavAccount);
+    final String alistUrl = ref.watch(alistProvider).url;
+
+    final response = await dio.post(
+      '${state.url}/config/create',
+      data: jsonEncode({
+        'parameters': {
+          'url': '$alistUrl/dav/${vd.path}',
+          'vendor': vd.name,
+          'user': credentials[0],
+          'pass': credentials[1],
+        },
+        'name': vd.name,
+        'type': 'webdav',
+      }),
+      options: option,
+    );
+
+    if (response.statusCode == 200) {
+      updateRemote();
+    } else {
+      // Handle error
+    }
+  }
+
+  Future<void> deleteRemote(VirtualDiskState vd) async {
+    final response = await dio.post(
+      '${state.url}/config/delete',
+      data: jsonEncode({'name': vd.name}),
+      options: option,
+    );
+
+    if (response.statusCode == 200) {
+      // Handle success
+      updateRemote();
+    } else {
+      // Handle error
+    }
+  }
+
+  Future<void> mountRemote(VirtualDiskState vd) async {
+    if (!vd.isMounted) {
+      final response = await dio.post(
+        '${state.url}/mount/mount',
+        data: jsonEncode({
+          'fs': '${vd.name}:',
+          'mountPoint': '${vd.mountPoint}:',
+          'mountType': '',
+          'vfsOpt': {},
+          'mountOpt': {
+            'ExtraFlags': vd.extraFlags,
+            'ExtraOptions': [],
+            'VolumeName': vd.name.toUpperCase(),
+          }
+        }),
+        options: option,
+      );
+
+      if (response.statusCode == 200) {
+        // Handle success
+      } else {
+        // Handle error
+      }
+    }
+  }
+
+  Future<void> unmountRemote(vd) async {
+    if (vd.isMounted) {
+      final response = await dio.post(
+        '${state.url}/mount/unmount',
+        data: jsonEncode({'mountPoint': '${vd.mountPoint}:'}),
+        options: option,
+      );
+
+      if (response.statusCode == 200) {
+        // Handle success
+      } else {
+        // Handle error
+      }
+    }
+  }
+  // **************************************************************************
+  // Rclone
+  // **************************************************************************
 
   void addOutput(String text) {
     checkState(text);
@@ -38,8 +207,7 @@ class RcloneNotifier extends Notifier<RcloneState> {
       String port =
           text.split('http://127.0.0.1:')[1].trim().split('/')[0].trim();
       String url = 'http://localhost:$port';
-      state = state.copyWith(url: url);
-      state = state.copyWith(isRunning: true);
+      state = state.copyWith(url: url, isRunning: true);
     }
   }
 
@@ -67,9 +235,13 @@ class RcloneNotifier extends Notifier<RcloneState> {
     } on Exception catch (e) {
       addOutput(e.toString());
     }
+
+    updateRemote();
   }
 
   Future<void> endRclone() async {
+    vdisks = vdisks.map((e) => e.copyWith(isMounted: false)).toList();
+    state = state.copyWith(vdList: vdisks);
     state = state.copyWith(isRunning: false);
     Process process;
     if (Platform.isWindows) {
@@ -107,22 +279,6 @@ class RcloneNotifier extends Notifier<RcloneState> {
       await Process.start('taskkill', ['/f', '/im', 'rclone.exe']);
     } else {
       await Process.start('pkill', ['rclone']);
-    }
-  }
-
-  Future<void> updateRemote(String url) async {
-    final response = await http.post(
-      Uri.parse('$url/config/listremotes'),
-      headers: {
-        'authorization': 'Basic YWRtaW46YWRtaW4=',
-      },
-    );
-
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      print('Remotes: ${data['remotes']}');
-    } else {
-      print('Failed to fetch remotes');
     }
   }
 }
