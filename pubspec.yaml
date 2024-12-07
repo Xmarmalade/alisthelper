@@ -37,8 +37,8 @@ dependencies:
   dio: ^5.4.0
   archive: ^3.4.5
   #i18n
-  slang: ^4.3.0
-  slang_flutter: ^4.3.0
+  slang: ^3.32.0
+  slang_flutter: ^3.32.0
   flutter_localizations:
     sdk: flutter
   freezed_annotation: ^2.4.1
@@ -53,7 +53,7 @@ dev_dependencies:
   flutter_launcher_icons: ^0.14.1
   build_runner: ^2.4.11
   freezed: ^2.5.2
-  slang_build_runner: ^4.3.0
+  slang_build_runner: ^3.32.0
   json_serializable: ^6.7.1
   riverpod_lint: ^2.6.1
 

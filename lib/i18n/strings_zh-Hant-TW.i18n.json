@@ -13,7 +13,7 @@
         "getRcloneInfo": "版本資訊",
         "viewLogs": "查看日誌",
         "noVdisks": "未設置遠程磁盤。",
-        "deleteVdisk": "您確定要刪除 $name 嗎？此操作不可逆！",
+        "deleteVdisk": "您確定要刪除 ${name} 嗎？此操作不可逆！",
         "createVdisk": "創建遠程磁碟，如果你不明白這裡的選項，請尋求幫助"
     },
     "firstLaunch": {

@@ -13,7 +13,7 @@
         "getRcloneInfo": "Version Info",
         "viewLogs": "View Log",
         "noVdisks": "No vdisks set in config file.",
-        "deleteVdisk": "Are you sure you want to delete $name? this action is irreversible!",
+        "deleteVdisk": "Are you sure you want to delete ${name}? this action is irreversible!",
         "createVdisk": "Create a remote disk. If you don't understand the options here, please seek help."
     },
     "firstLaunch": {
