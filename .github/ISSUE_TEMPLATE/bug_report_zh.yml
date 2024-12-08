@@ -51,7 +51,7 @@ body:
       required: true
 
   - type: checkboxes
-    id: terms
+    id: docs
     attributes:
       label: 文档中不包含该问题的解决方案
       options:
@@ -67,7 +67,7 @@ body:
           required: true
 
   - type: checkboxes
-    id: terms
+    id: relate
     attributes:
       label: 这不是无关的问题
       options:
