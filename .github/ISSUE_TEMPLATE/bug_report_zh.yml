@@ -6,8 +6,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        感谢您花时间填写此错误报告！
-        请确保您已阅读[文档](https://github.com/Xmarmalade/alisthelper/blob/master/README.md)，并提供此模板所需的所有信息，否则问题将被关闭。
+        感谢您花时间填写此错误报告！请确保提出的错误报告详细且有意义。
+        如果您在使用方面存在问题，请考虑在[社区](https://github.com/Xmarmalade/alisthelper/discussions)中提问，或是赞助以获得解答。
+        在填写错误报告前，请确保您已升级至最新稳定版本，且阅读了[文档](https://github.com/Xmarmalade/alisthelper/blob/master/README.md)和[Wiki](https://github.com/Xmarmalade/alisthelper/wiki)，并提供此模板所需的所有信息，否则问题将被关闭。
   - type: textarea
     id: what-expected
     attributes:
@@ -44,7 +45,7 @@ body:
     id: logs
     attributes:
       label: 附加信息
-      description: logs, errors, etc.
+      description: 软件的错误信息，或者异常表现。
       render: shell
     validations:
       required: true
@@ -52,7 +53,23 @@ body:
   - type: checkboxes
     id: terms
     attributes:
+      label: 文档中不包含该问题的解决方案
+      options:
+        - label: 我已经阅读了[文档](https://github.com/Xmarmalade/alisthelper/wiki)。
+          required: true
+
+  - type: checkboxes
+    id: terms
+    attributes:
       label: 这不是重复的问题
       options:
         - label: 我搜索了[现有问题](https://github.com/Xmarmalade/alisthelper/issues) 以确保此错误不是重复的。
+          required: true
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: 这不是无关的问题
+      options:
+        - label: 经过排查，我的 alist 和 rclone 的配置正常，问题在于 alist helper 。
           required: true
