@@ -11,7 +11,7 @@ class AddNewRcloneDisk extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ElevatedButton.icon(
-      onPressed: () => showModalBottomSheet<void>(
+      onPressed: () => showDialog<void>(
         context: context,
         builder: (BuildContext context) {
           final nameController = TextEditingController();
@@ -20,59 +20,51 @@ class AddNewRcloneDisk extends ConsumerWidget {
           final extraFlagsController = TextEditingController();
           final formKey = GlobalKey<FormState>();
 
-          return SizedBox(
-            height: 600,
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                child: Column(
-                  textBaseline: TextBaseline.alphabetic,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text(t.rcloneOperation.createVdisk,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 18)),
-                    Expanded(
-                      child: AddRcloneDiskForm(
-                        formKey: formKey,
-                        nameController: nameController,
-                        pathController: pathController,
-                        mountPointController: mountPointController,
-                        extraFlagsController: extraFlagsController,
+          return Dialog.fullscreen(
+            child: Scaffold(
+              floatingActionButton: FloatingActionButton(
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      ref.read(rcloneProvider.notifier).add(VirtualDiskState(
+                            isMounted: false,
+                            name: nameController.text,
+                            path: pathController.text,
+                            mountPoint: mountPointController.text,
+                            extraFlags: TextUtils.flagsParser(
+                              extraFlagsController.text,
+                            ),
+                          ));
+                      // Save the form data
+                      // Perform save operation here
+                      Navigator.pop(context);
+                    }
+                  },
+                  tooltip: 'Save',
+                  child: const Icon(Icons.save)),
+              appBar: AppBar(
+                title: Text('Add new Virtual Disk'),
+              ),
+              body: Center(
+                child: Container(
+                  constraints: const BoxConstraints(maxWidth: 800),
+                  padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
+                  child: Column(
+                    textBaseline: TextBaseline.alphabetic,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(t.rcloneOperation.createVdisk),
+                      Expanded(
+                        child: AddRcloneDiskForm(
+                          formKey: formKey,
+                          nameController: nameController,
+                          pathController: pathController,
+                          mountPointController: mountPointController,
+                          extraFlagsController: extraFlagsController,
+                        ),
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        TextButton(
-                          child: const Text('Close'),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                        FilledButton(
-                          onPressed: () {
-                            if (formKey.currentState!.validate()) {
-                              ref
-                                  .read(rcloneProvider.notifier)
-                                  .add(VirtualDiskState(
-                                    isMounted: false,
-                                    name: nameController.text,
-                                    path: pathController.text,
-                                    mountPoint: mountPointController.text,
-                                    extraFlags: TextUtils.flagsParser(
-                                      extraFlagsController.text,
-                                    ),
-                                  ));
-                              // Save the form data
-                              // Perform save operation here
-                              Navigator.pop(context);
-                            }
-                          },
-                          child: const Text('Save'),
-                        ),
-                      ],
-                    )
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -106,11 +98,14 @@ class AddRcloneDiskForm extends StatelessWidget {
     return Form(
       key: _formKey,
       child: ListView(
+        padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
         children: [
           TextFormField(
             decoration: InputDecoration(
+                border: OutlineInputBorder(),
                 labelText: 'Name',
                 helperText: 'The name of the disk',
+                prefixIcon: Icon(Icons.file_copy_rounded),
                 hintText: 'OneDrive'),
             controller: nameController,
             validator: (value) {
@@ -120,9 +115,12 @@ class AddRcloneDiskForm extends StatelessWidget {
               return null;
             },
           ),
+          Padding(padding: EdgeInsets.only(top: 20)),
           TextFormField(
             decoration: InputDecoration(
+                border: OutlineInputBorder(),
                 labelText: 'Path',
+                prefixIcon: Icon(Icons.folder),
                 helperText: 'The path after https://localhost:port/dav/',
                 hintText: 'onedrive'),
             controller: pathController,
@@ -133,9 +131,12 @@ class AddRcloneDiskForm extends StatelessWidget {
               return null;
             },
           ),
+          Padding(padding: EdgeInsets.only(top: 20)),
           TextFormField(
             decoration: InputDecoration(
+                border: OutlineInputBorder(),
                 labelText: 'MountPoint',
+                prefixIcon: Icon(Icons.sd_storage_rounded),
                 helperText: 'The mount point of the disk',
                 hintText: 'T'),
             controller: mountPointController,
@@ -150,9 +151,12 @@ class AddRcloneDiskForm extends StatelessWidget {
               return null;
             },
           ),
+          Padding(padding: EdgeInsets.only(top: 20)),
           TextFormField(
             decoration: InputDecoration(
+                border: OutlineInputBorder(),
                 labelText: 'ExtraFlags',
+                prefixIcon: Icon(Icons.code),
                 hintText: '--vfs-cache-mode writes --vfs-cache-max-size 100M',
                 helperText: 'Extra flags to pass to rclone'),
             controller: extraFlagsController,

@@ -20,7 +20,7 @@ class AlistArgsTile extends ConsumerWidget {
         style: const TextStyle(fontWeight: FontWeight.w500),
       ),
       subtitle: Text(settings.alistArgs.join(', ')),
-      trailing: ElevatedButton(
+      trailing: FilledButton.tonal(
         onPressed: () async {
           final args = await showDialog<List<String>>(
             context: context,
@@ -112,7 +112,7 @@ class __AlistArgsDialogState extends State<_AlistArgsDialog> {
           onPressed: () => Navigator.of(context).pop(),
           child: Text(t.button.cancel),
         ),
-        ElevatedButton(
+        FilledButton.tonal(
           onPressed: () => Navigator.of(context).pop(args),
           child: Text(t.button.save),
         ),
@@ -136,7 +136,7 @@ class RcloneArgsTile extends ConsumerWidget {
         style: const TextStyle(fontWeight: FontWeight.w500),
       ),
       subtitle: Text(settings.rcloneArgs.join(', ')),
-      trailing: ElevatedButton(
+      trailing: FilledButton.tonal(
         onPressed: () async {
           final args = await showDialog<List<String>>(
             context: context,
@@ -237,7 +237,7 @@ class __RcloneArgsDialogState extends State<_RcloneArgsDialog> {
           },
           child: Text(t.settings.alistSettings.argumentsList.removeAll),
         ),
-        ElevatedButton(
+        FilledButton.tonal(
           onPressed: () {
             if (args.length == 1 && args[0].contains(' ')) {
               args = args[0].split(' ');

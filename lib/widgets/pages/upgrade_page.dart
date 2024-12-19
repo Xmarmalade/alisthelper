@@ -49,7 +49,7 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
                           return Text(alistState.currentVersion);
                         },
                       ),
-                      trailing: ElevatedButton(
+                      trailing: FilledButton.tonal(
                         onPressed: () async {
                           await launchUrl(Uri.parse(
                               'https://github.com/alist-org/alist/releases'));
@@ -62,7 +62,7 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
                       subtitle: Text((alistState.latestVersion == 'v1.0.0')
                           ? t.upgrade.clickToCheck
                           : alistState.latestVersion),
-                      trailing: ElevatedButton(
+                      trailing: FilledButton.tonal(
                         onPressed: () async {
                           try {
                             await alistNotifier.fetchLatestVersion();
@@ -119,7 +119,7 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
                           return Text(alistHelperState.currentVersion);
                         },
                       ),
-                      trailing: ElevatedButton(
+                      trailing: FilledButton.tonal(
                         onPressed: () async {
                           await launchUrl(Uri.parse(
                               'https://github.com/Xmarmalade/alisthelper/releases'));
@@ -133,7 +133,7 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
                           (alistHelperState.latestVersion == 'v0.0.0')
                               ? t.upgrade.clickToCheck
                               : alistHelperState.latestVersion),
-                      trailing: ElevatedButton(
+                      trailing: FilledButton.tonal(
                         onPressed: () async {
                           try {
                             await alistHelperNotifier
@@ -171,7 +171,7 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
                                 ? t.upgrade.canUpgrade
                                 : t.upgrade.noUpgrade)),
                       ),
-                      trailing: ElevatedButton(
+                      trailing: FilledButton.tonal(
                         onPressed: (alistHelperState.latestVersion == 'v0.0.0'
                             ? null
                             : (TextUtils.isNewVersion(
@@ -203,7 +203,7 @@ class UpgradeAlistButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return FilledButton.tonal(
       onPressed: (alistState.latestVersion == 'v1.0.0'
           ? null
           : (TextUtils.isNewVersion(

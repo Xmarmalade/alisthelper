@@ -18,7 +18,7 @@ class ChangeThemeModeTile extends ConsumerWidget {
     return ListTile(
       leading: Icon(Icons.dark_mode, color: settings.themeColor),
       title: Text(t.settings.interfaceSettings.themeMode),
-      trailing: ElevatedButton(
+      trailing: FilledButton.tonal(
         onPressed: () {
           showDialog(
             context: context,
@@ -95,7 +95,7 @@ class ChangeThemeColorTile extends ConsumerWidget {
     return ListTile(
         leading: Icon(Icons.color_lens_rounded, color: settings.themeColor),
         title: Text(t.settings.interfaceSettings.themeColor),
-        trailing: ElevatedButton(
+        trailing: FilledButton.tonal(
           onPressed: () {
             showDialog(
               context: context,

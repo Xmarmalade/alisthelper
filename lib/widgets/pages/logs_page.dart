@@ -17,24 +17,19 @@ class RcloneLogsPage extends ConsumerWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(t.rcloneOperation.viewLogs),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: TextButton(
-                child: const Text('Close'),
-                onPressed: () => Navigator.of(context).pop()),
-          ),
-        ],
       ),
       body: Center(
-        child: SizedBox(
-          height: double.infinity,
-          width: double.infinity,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Card(
-              child: LogsViewer(
-                output: ref.watch(rcloneProvider).output,
+        child: Container(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: SizedBox(
+            height: double.infinity,
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                child: LogsViewer(
+                  output: ref.watch(rcloneProvider).output,
+                ),
               ),
             ),
           ),

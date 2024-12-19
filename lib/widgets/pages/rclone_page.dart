@@ -49,9 +49,7 @@ class RclonePage extends ConsumerWidget {
                           style: const TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 18)),
                       trailing: Wrap(
-                        children: [
-                          AddNewRcloneDisk(),
-                        ],
+                        children: [AddNewRcloneDisk()],
                       ),
                     ),
                     Expanded(

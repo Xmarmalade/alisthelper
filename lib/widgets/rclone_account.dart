@@ -26,7 +26,7 @@ class RcloneMountAccountTile extends ConsumerWidget {
         contentPadding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
         title: Text(t.settings.rcloneSettings.account.title,
             style: const TextStyle(fontWeight: FontWeight.w500)),
-        trailing: ElevatedButton(
+        trailing: FilledButton.tonal(
           onPressed: () async {
             // show a dialog to edit the rclone account
             final result = await showDialog<List<String>>(
@@ -37,7 +37,7 @@ class RcloneMountAccountTile extends ConsumerWidget {
                   return AlertDialog(
                     title: Text(t.settings.rcloneSettings.account.description),
                     actions: [
-                      ElevatedButton(
+                      FilledButton.tonal(
                         onPressed: () {
                           Navigator.of(context)
                               .pop([userController.text, pwdController.text]);

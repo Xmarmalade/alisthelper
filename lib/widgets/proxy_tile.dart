@@ -24,7 +24,7 @@ class ProxyTile extends ConsumerWidget {
       subtitle: Text((settings.proxy.toString() != '')
           ? settings.proxy.toString()
           : t.settings.alistSettings.proxy.hint),
-      trailing: ElevatedButton(
+      trailing: FilledButton.tonal(
         onPressed: () async {
           final String? proxy = await showDialog<String>(
             context: context, // use the new context variable here
@@ -36,14 +36,13 @@ class ProxyTile extends ConsumerWidget {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(t.settings.alistSettings.proxy.hint),
                     TextField(
                       controller: proxyController,
-                      decoration: const InputDecoration(
-                          labelText: "http://yourproxy:port"),
-                    ),
-                    Container(
-                      height: 20,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: t.settings.alistSettings.proxy.title,
+                          hintText: "http://yourproxy:port",
+                          helperText: t.settings.alistSettings.proxy.hint),
                     ),
                   ],
                 ),
@@ -52,7 +51,7 @@ class ProxyTile extends ConsumerWidget {
                     onPressed: () => Navigator.of(context).pop(),
                     child: Text(t.button.cancel),
                   ),
-                  ElevatedButton(
+                  FilledButton.tonal(
                     onPressed: () async {
                       final proxy = proxyController.text;
                       Navigator.of(context).pop(proxy);

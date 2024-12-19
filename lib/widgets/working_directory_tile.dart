@@ -33,7 +33,7 @@ class WorkingDirectoryTile extends ConsumerWidget {
         style: const TextStyle(fontWeight: FontWeight.w500),
       ),
       subtitle: Text(settings.workingDirectory),
-      trailing: ElevatedButton(
+      trailing: FilledButton.tonal(
         onPressed: () async {
           final String? path = await showDialog<String>(
             context: context, // use the new context variable here
@@ -41,22 +41,15 @@ class WorkingDirectoryTile extends ConsumerWidget {
               // use the new context variable here
               return AlertDialog(
                 title: Text(t.settings.alistSettings.workingDirectory.title),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(t.settings.alistSettings.workingDirectory.hint),
-                    TextField(
-                      controller: workingDirectoryController,
-                      decoration: InputDecoration(
-                        labelText: t.settings.alistSettings.workingDirectory
-                            .description,
-                      ),
-                    ),
-                    Container(
-                      height: 20,
-                    ),
-                    ElevatedButton(
+                content: TextField(
+                  controller: workingDirectoryController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText:
+                        t.settings.alistSettings.workingDirectory.description,
+                    helperText: t.settings.alistSettings.workingDirectory.hint,
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.folder_open_rounded),
                       onPressed: () async {
                         final String? selectedDirectory =
                             await getDirectoryPath();
@@ -64,17 +57,17 @@ class WorkingDirectoryTile extends ConsumerWidget {
                           workingDirectoryController.text = selectedDirectory;
                         }
                       },
-                      child: Text(
-                          t.settings.alistSettings.workingDirectory.chooseFrom),
+                      tooltip:
+                          t.settings.alistSettings.workingDirectory.chooseFrom,
                     ),
-                  ],
+                  ),
                 ),
                 actions: <Widget>[
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(),
                     child: Text(t.button.cancel),
                   ),
-                  ElevatedButton(
+                  FilledButton.tonal(
                     onPressed: () async {
                       final directory =
                           Directory(workingDirectoryController.text);
@@ -163,7 +156,7 @@ class RcloneDirectoryTile extends ConsumerWidget {
         style: const TextStyle(fontWeight: FontWeight.w500),
       ),
       subtitle: Text(settings.rcloneDirectory),
-      trailing: ElevatedButton(
+      trailing: FilledButton.tonal(
         onPressed: () async {
           final String? path = await showDialog<String>(
             context: context, // use the new context variable here
@@ -171,31 +164,32 @@ class RcloneDirectoryTile extends ConsumerWidget {
               // use the new context variable here
               return AlertDialog(
                 title: Text(t.settings.alistSettings.workingDirectory.title),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
+                content: Wrap(
                   children: [
-                    Text(t.settings.alistSettings.workingDirectory.hint),
+                    //Text(t.settings.alistSettings.workingDirectory.hint),
                     TextField(
                       controller: rcloneDirectoryController,
                       decoration: InputDecoration(
+                        border: OutlineInputBorder(),
                         labelText: t.settings.alistSettings.workingDirectory
                             .description,
+                        hintText: 'home/user/rclone',
+                        helperText:
+                            t.settings.alistSettings.workingDirectory.hint,
+                        suffixIcon: IconButton(
+                          icon: Icon(Icons.folder_open_rounded),
+                          onPressed: () async {
+                            final String? selectedDirectory =
+                                await getDirectoryPath();
+                            if (selectedDirectory != null) {
+                              rcloneDirectoryController.text =
+                                  selectedDirectory;
+                            }
+                          },
+                          tooltip: t.settings.alistSettings.workingDirectory
+                              .chooseFrom,
+                        ),
                       ),
-                    ),
-                    Container(
-                      height: 20,
-                    ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        final String? selectedDirectory =
-                            await getDirectoryPath();
-                        if (selectedDirectory != null) {
-                          rcloneDirectoryController.text = selectedDirectory;
-                        }
-                      },
-                      child: Text(
-                          t.settings.alistSettings.workingDirectory.chooseFrom),
                     ),
                   ],
                 ),
@@ -204,7 +198,7 @@ class RcloneDirectoryTile extends ConsumerWidget {
                     onPressed: () => Navigator.of(context).pop(),
                     child: Text(t.button.cancel),
                   ),
-                  ElevatedButton(
+                  FilledButton.tonal(
                     onPressed: () async {
                       final directory =
                           Directory(rcloneDirectoryController.text);
