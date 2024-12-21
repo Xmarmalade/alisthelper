@@ -1,6 +1,7 @@
 import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/model/settings_state.dart';
 import 'package:alisthelper/provider/alist_provider.dart';
+import 'package:alisthelper/provider/rclone_provider.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -32,6 +33,7 @@ class AlistArgsTile extends ConsumerWidget {
             if (args.isEmpty) {
               args.add('');
             }
+            alistNotifier.endAlist();
             alistNotifier.setAlistArgs(args);
           }
         },
@@ -129,6 +131,7 @@ class RcloneArgsTile extends ConsumerWidget {
     final SettingsState settings = ref.watch(settingsProvider);
     final SettingsNotifier settingsNotifier =
         ref.read(settingsProvider.notifier);
+    final rcloneNotifier = ref.read(rcloneProvider.notifier);
     return ListTile(
       contentPadding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
       title: Text(
@@ -148,6 +151,7 @@ class RcloneArgsTile extends ConsumerWidget {
             if (args.isEmpty) {
               args.add('');
             }
+            rcloneNotifier.endRclone();
             settingsNotifier.setRcloneArgs(args);
           }
         },

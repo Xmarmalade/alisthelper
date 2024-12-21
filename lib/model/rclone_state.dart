@@ -15,6 +15,8 @@ class RcloneState with _$RcloneState {
     @Default([]) List<VirtualDiskState> vdList,
     @Default('') String webdavAccount,
     @Default([]) List<String> remoteList,
+    @Default('') String alistToken,
+    @Default([]) List<String> alistRoot,
     int? pid,
     Process? process,
   }) = _RcloneState;

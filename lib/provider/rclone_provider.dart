@@ -24,11 +24,12 @@ class RcloneNotifier extends Notifier<RcloneState> {
   late String rcloneDirectory;
   late List<String> rcloneArgs;
   late Options option;
-  late String webDavAccount;
+  String webDavAccount = '';
   List<VirtualDiskState> vdisks = [];
   List<String> stdout = [];
+  List<String> alistRoot = [];
   Dio dio = Dio();
-  String credentials = '';
+  String rcloneAuth = '';
 
   @override
   RcloneState build() {
@@ -40,14 +41,56 @@ class RcloneNotifier extends Notifier<RcloneState> {
         .watch(persistenceProvider.select((p) => p.getVdisks()))
         .map((e) => VirtualDiskState.fromJson(jsonDecode(e)))
         .toList();
-    credentials = TextUtils.encodeCredentials(rcloneArgs);
+    rcloneAuth = TextUtils.encodeCredentials(rcloneArgs);
     option = Options(
       headers: {
-        'Authorization': 'Basic $credentials',
+        'Authorization': 'Basic $rcloneAuth',
         'Content-Type': 'application/json',
       },
     );
     return RcloneState(vdList: vdisks, webdavAccount: webDavAccount);
+  }
+
+  Future<void> fetchAlistToken() async {
+    final String alistUrl = ref.watch(alistProvider).url;
+    final List<String> credentials =
+        TextUtils.accountParser(state.webdavAccount);
+    final response = await dio.post('$alistUrl/api/auth/login',
+        data: ({
+          'username': credentials[0],
+          'password': credentials[1],
+          'otp_code': ''
+        }));
+    if (response.statusCode == 200) {
+      final token = response.data['data']['token'];
+      state = state.copyWith(alistToken: token);
+    }
+  }
+
+  Future<void> fetchAlistRootPath() async {
+    final String alistUrl = ref.watch(alistProvider).url;
+
+    if (state.alistToken.isEmpty) {
+      await fetchAlistToken();
+    }
+
+    final response = await dio.post('$alistUrl/api/fs/list',
+        data: ({
+          "path": "/",
+          "password": "",
+          "page": 1,
+          "per_page": 0,
+          "refresh": false
+        }),
+        options: Options(headers: {
+          'Authorization': state.alistToken,
+        }));
+
+    if (response.statusCode == 200) {
+      List contents = response.data['data']['content'];
+      alistRoot = contents.map((e) => e['name'] as String).toList();
+      state = state.copyWith(alistRoot: alistRoot);
+    }
   }
 
   void toggleMount(VirtualDiskState vd) {
@@ -67,13 +110,23 @@ class RcloneNotifier extends Notifier<RcloneState> {
     vdisks.add(vd);
     addRemote(vd);
     saveVdisks();
+    syncMount();
     state = state.copyWith(vdList: vdisks);
   }
 
-  void saveVdisks() {
+  void modify(VirtualDiskState vd) {
+    final index = vdisks.indexWhere((element) => element.name == vd.name);
+    toggleMount(vdisks[index]);
+    vdisks[index] = vd;
+    saveVdisks();
+    syncMount();
+    state = state.copyWith(vdList: vdisks);
+  }
+
+  Future<void> saveVdisks() async {
     vdisks = vdisks.map((e) => e.copyWith(isMounted: false)).toList();
     ref
-        .watch(persistenceProvider)
+        .read(persistenceProvider)
         .setVdisks(vdisks.map((e) => jsonEncode(e.toJson())).toList());
   }
 
@@ -84,7 +137,7 @@ class RcloneNotifier extends Notifier<RcloneState> {
     state = state.copyWith(vdList: vdisks);
   }
 
-  Future<void> updateRemote() async {
+  Future<void> syncRemote() async {
     final response = await dio.post(
       '${state.url}/config/listremotes',
       data: jsonEncode({}),
@@ -128,7 +181,7 @@ class RcloneNotifier extends Notifier<RcloneState> {
     );
 
     if (response.statusCode == 200) {
-      updateRemote();
+      syncRemote();
     } else {
       // Handle error
     }
@@ -143,7 +196,7 @@ class RcloneNotifier extends Notifier<RcloneState> {
 
     if (response.statusCode == 200) {
       // Handle success
-      updateRemote();
+      syncRemote();
     } else {
       // Handle error
     }
@@ -190,6 +243,39 @@ class RcloneNotifier extends Notifier<RcloneState> {
       }
     }
   }
+
+  Future<void> syncMount() async {
+    final response = await dio.post(
+      '${state.url}/mount/listmounts',
+      options: option,
+      data: jsonEncode({}),
+    );
+    if (response.statusCode == 200) {
+      // Handle success
+      List ls = response.data['mountPoints'];
+      for (int i = 0; i < vdisks.length; i++) {
+        VirtualDiskState vd = vdisks[i];
+        if (ls.any((element) => element['Fs'] == '${vd.name}:')) {
+          vdisks[i] = vd.copyWith(isMounted: true);
+        } else {
+          vdisks[i] = vd.copyWith(isMounted: false);
+        }
+      }
+      state = state.copyWith(vdList: vdisks);
+    } else {
+      // Handle error
+    }
+  }
+
+  /// mount all vdisks if their isMounted is true
+  Future<void> mount() async {
+    for (VirtualDiskState vd in vdisks) {
+      if (vd.autoMount) {
+        toggleMount(vd);
+      }
+    }
+  }
+
   // **************************************************************************
   // Rclone
   // **************************************************************************
@@ -237,7 +323,9 @@ class RcloneNotifier extends Notifier<RcloneState> {
       addOutput(e.toString());
     }
 
-    updateRemote();
+    syncRemote();
+    fetchAlistRootPath();
+    mount();
   }
 
   Future<void> endRclone() async {

@@ -12,6 +12,7 @@ class VirtualDiskState with _$VirtualDiskState {
     @Default('name') String name,
     @Default('vendor') String vendor,
     @Default('path') String path,
+    @Default(false) bool autoMount,
   }) = _VirtualDiskState;
 
   factory VirtualDiskState.fromJson(Map<String, dynamic> json) =>
