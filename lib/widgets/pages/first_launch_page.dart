@@ -4,7 +4,7 @@ import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/model/alist_state.dart';
 import 'package:alisthelper/provider/alist_provider.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
-import 'package:alisthelper/widgets/choose_package.dart';
+import 'package:alisthelper/widgets/choose_alist_package.dart';
 import 'package:alisthelper/widgets/pages/about_page.dart';
 import 'package:alisthelper/widgets/pages/language_page.dart';
 import 'package:alisthelper/widgets/responsive_builder.dart';
@@ -119,7 +119,7 @@ class _FirstLaunchBodyState extends ConsumerState<FirstLaunchBody> {
                               showDialog(
                                   context: context,
                                   builder: (context) {
-                                    return const ChoosePackage(
+                                    return const ChooseAlistPackage(
                                         isUpgrade: false);
                                   });
                             }

@@ -6,15 +6,16 @@ import 'package:alisthelper/provider/settings_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ChoosePackage extends ConsumerStatefulWidget {
+class ChooseAlistPackage extends ConsumerStatefulWidget {
   final bool isUpgrade;
-  const ChoosePackage({super.key, required this.isUpgrade});
+  const ChooseAlistPackage({super.key, required this.isUpgrade});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _ChoosePackageState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _ChooseAlistPackageState();
 }
 
-class _ChoosePackageState extends ConsumerState<ChoosePackage> {
+class _ChooseAlistPackageState extends ConsumerState<ChooseAlistPackage> {
   @override
   Widget build(BuildContext context) {
     final alistState = ref.watch(alistProvider);

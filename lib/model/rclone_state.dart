@@ -17,6 +17,7 @@ class RcloneState with _$RcloneState {
     @Default([]) List<String> remoteList,
     @Default('') String alistToken,
     @Default([]) List<String> alistRoot,
+    @Default('v1.0.0') String currentVersion,
     int? pid,
     Process? process,
   }) = _RcloneState;

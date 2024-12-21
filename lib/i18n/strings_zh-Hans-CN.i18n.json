@@ -14,7 +14,20 @@
         "viewLogs": "查看日志",
         "noVdisks": "未设置远程磁盘。",
         "deleteVdisk": "您确定要删除 ${name} 吗？此操作不可逆！",
-        "createVdisk": "创建远程磁盘，如果你不明白这里的选项，请寻求帮助"
+        "createVdisk": {
+            "title": "创建远程磁盘",
+            "description": "创建一个远程磁盘，如果您不理解这里的选项，请寻求帮助。",
+            "name": "名称",
+            "nameHint": "磁盘的名称",
+            "path": "路径", 
+            "pathHint": "dav/ 后的路径",
+            "mountPoint": "挂载点",
+            "mountPointHint": "系统中磁盘的挂载点",
+            "extraFlags": "额外参数",
+            "extraFlagsHint": "rclone 挂载的额外参数",
+            "enableAutoMount": "启用自动挂载",
+            "enableAutoMountHint": "rclone 启动后自动挂载此磁盘"
+        }
     },
     "firstLaunch": {
         "intro": "欢迎使用 Alist Helper,让我们开始吧!",
@@ -47,7 +60,8 @@
         "select": "选择",
         "edit": "编辑",
         "save": "保存",
-        "upgrade": "升级"
+        "upgrade": "升级",
+        "add": "添加"
     },
     "tray": {
         "open": "打开",
@@ -166,6 +180,11 @@
             "title": "Alist Helper 版本",
             "currentVersion": "当前 Alist Helper 版本",
             "latestVersion": "最新 Alist Helper 版本"
+        },
+        "rcloneVersion": {
+            "title": "Rclone 版本",
+            "currentVersion": "当前 Rclone 版本",
+            "latestVersion": "最新 Rclone 版本"
         }
     }
 }

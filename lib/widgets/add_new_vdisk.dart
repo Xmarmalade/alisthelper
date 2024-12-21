@@ -55,7 +55,7 @@ class AddNewRcloneDisk extends ConsumerWidget {
                           tooltip: t.button.save,
                           child: const Icon(Icons.save)),
                       appBar: AppBar(
-                        title: Text('Add new Virtual Disk'),
+                        title: Text(t.rcloneOperation.createVdisk.title),
                       ),
                       body: Center(
                         child: Container(
@@ -66,7 +66,7 @@ class AddNewRcloneDisk extends ConsumerWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              Text(t.rcloneOperation.createVdisk),
+                              Text(t.rcloneOperation.createVdisk.description),
                               Expanded(
                                 child: AddRcloneDiskForm(
                                   formKey: formKey,
@@ -85,7 +85,7 @@ class AddNewRcloneDisk extends ConsumerWidget {
                   );
                 },
               ),
-      label: Text('Add'),
+      label: Text(t.button.add),
       icon: const Icon(Icons.playlist_add),
     );
   }
@@ -128,8 +128,8 @@ class AddRcloneDiskForm extends ConsumerWidget {
           TextFormField(
             decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: 'Name',
-                helperText: 'The name of the disk',
+                labelText: t.rcloneOperation.createVdisk.name,
+                helperText: t.rcloneOperation.createVdisk.nameHint,
                 prefixIcon: Icon(Icons.file_copy_rounded),
                 hintText: 'OneDrive'),
             controller: nameController,
@@ -147,9 +147,9 @@ class AddRcloneDiskForm extends ConsumerWidget {
             initialSelection: vd.path,
             controller: pathController,
             leadingIcon: const Icon(Icons.folder),
-            label: const Text('Path'),
+            label: Text(t.rcloneOperation.createVdisk.path),
             hintText: 'onedrive',
-            helperText: 'The path after https://localhost:port/dav/',
+            helperText: t.rcloneOperation.createVdisk.pathHint,
             dropdownMenuEntries: driveEntries,
             enabled: (vd.vendor == 'new'), // Disable if isedit is true
           ),
@@ -157,9 +157,9 @@ class AddRcloneDiskForm extends ConsumerWidget {
           TextFormField(
             decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: 'MountPoint',
+                labelText: t.rcloneOperation.createVdisk.mountPoint,
                 prefixIcon: Icon(Icons.sd_storage_rounded),
-                helperText: 'The mount point of the disk',
+                helperText: t.rcloneOperation.createVdisk.mountPointHint,
                 hintText: 'T'),
             controller: mountPointController,
             validator: (value) {
@@ -177,17 +177,16 @@ class AddRcloneDiskForm extends ConsumerWidget {
           TextFormField(
             decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: 'ExtraFlags',
+                labelText: t.rcloneOperation.createVdisk.extraFlags,
                 prefixIcon: Icon(Icons.code),
                 hintText: '--vfs-cache-mode writes --vfs-cache-max-size 100M',
-                helperText: 'Extra flags to pass to rclone'),
+                helperText: t.rcloneOperation.createVdisk.extraFlagsHint),
             controller: extraFlagsController,
           ),
           ListTile(
             contentPadding: EdgeInsets.all(8),
-            title: const Text('Enable AutoMount'),
-            subtitle:
-                const Text('Automatically mount the disk on rclone startup.'),
+            title: Text(t.rcloneOperation.createVdisk.enableAutoMount),
+            subtitle: Text(t.rcloneOperation.createVdisk.enableAutoMountHint),
             leading: const Icon(Icons.drive_file_move),
             trailing: Switch(
               value: ref.watch(autoMountProvider),
@@ -248,7 +247,7 @@ class EditRcloneDisk extends ConsumerWidget {
                         tooltip: 'Save',
                         child: const Icon(Icons.save)),
                     appBar: AppBar(
-                      title: Text('Add new Virtual Disk'),
+                      title: Text(t.rcloneOperation.createVdisk.title),
                     ),
                     body: Center(
                       child: Container(
@@ -259,7 +258,7 @@ class EditRcloneDisk extends ConsumerWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
-                            Text(t.rcloneOperation.createVdisk),
+                            Text(t.rcloneOperation.createVdisk.description),
                             Expanded(
                               child: AddRcloneDiskForm(
                                 formKey: formKey,

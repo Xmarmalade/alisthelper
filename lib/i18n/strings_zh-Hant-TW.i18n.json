@@ -14,7 +14,20 @@
         "viewLogs": "查看日誌",
         "noVdisks": "未設置遠程磁盤。",
         "deleteVdisk": "您確定要刪除 ${name} 嗎？此操作不可逆！",
-        "createVdisk": "創建遠程磁碟，如果你不明白這裡的選項，請尋求幫助"
+        "createVdisk": {
+            "title": "創建遠程磁盤",
+            "description": "創建遠程磁盤，如果您不理解這裡的選項，請尋求幫助。",
+            "name": "名稱",
+            "nameHint": "磁盤的名稱",
+            "path": "路徑",
+            "pathHint": "dav/ 之後的路徑",
+            "mountPoint": "掛載點",
+            "mountPointHint": "系統上磁盤的掛載點",
+            "extraFlags": "額外標誌",
+            "extraFlagsHint": "rclone 掛載的額外標誌",
+            "enableAutoMount": "啟用自動掛載",
+            "enableAutoMountHint": "rclone 啟動後自動掛載此磁盤"
+        }
     },
     "firstLaunch": {
         "intro": "歡迎使用 Alist Helper,讓我們開始吧!",
@@ -47,7 +60,8 @@
         "select": "選擇",
         "edit": "編輯",
         "save": "儲存",
-        "upgrade": "升級"
+        "upgrade": "升級",
+        "add": "新增"
     },
     "tray": {
         "open": "開啟",
@@ -166,6 +180,10 @@
             "title": "Alist Helper 版本",
             "currentVersion": "目前 Alist Helper 版本",
             "latestVersion": "最新 Alist Helper 版本"
-        }
+        },
+        "rcloneVersion": {
+            "title": "Rclone 版本",
+            "currentVersion": "目前 Rclone 版本",
+            "latestVersion": "最新 Rclone 版本"}
     }
 }

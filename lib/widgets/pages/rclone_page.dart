@@ -125,7 +125,6 @@ class RcloneVirtualDisk extends ConsumerWidget {
         ),
         trailing: Wrap(
           children: [
-            // TODO: Implement settings for each vdisk
             EditRcloneDisk(disk: vd),
             IconButton(
               icon: const Icon(Icons.delete),

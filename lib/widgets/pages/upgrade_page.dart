@@ -1,9 +1,13 @@
 import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/model/alist_state.dart';
+import 'package:alisthelper/model/updater_state.dart';
 import 'package:alisthelper/provider/alist_helper_provider.dart';
 import 'package:alisthelper/provider/alist_provider.dart';
+import 'package:alisthelper/provider/rclone_provider.dart';
+import 'package:alisthelper/provider/updater_provider.dart';
 import 'package:alisthelper/utils/textutils.dart';
-import 'package:alisthelper/widgets/choose_package.dart';
+import 'package:alisthelper/widgets/choose_alist_package.dart';
+import 'package:alisthelper/widgets/choose_rclone_package.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -21,6 +25,8 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
     final alistState = ref.watch(alistProvider);
     final alistHelperNotifier = ref.watch(ahProvider.notifier);
     final alistHelperState = ref.watch(ahProvider);
+    final rcloneState = ref.watch(rcloneProvider);
+    final updaterState = ref.watch(updaterProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -52,7 +58,7 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
                       trailing: FilledButton.tonal(
                         onPressed: () async {
                           await launchUrl(Uri.parse(
-                              'https://github.com/alist-org/alist/releases'));
+                              'https://github.com/AlistGo/alist/releases'));
                         },
                         child: const Icon(Icons.link),
                       ),
@@ -189,9 +195,111 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
                   ]),
                 ),
                 //Rclone Version
+                Card(
+                  margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                  child: Column(children: [
+                    ListTile(
+                      title: Text(t.upgrade.rcloneVersion.title,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 18)),
+                    ),
+                    ListTile(
+                      title: Text(t.upgrade.rcloneVersion.currentVersion),
+                      subtitle: Consumer(
+                        builder: (context, watch, child) {
+                          return Text(rcloneState.currentVersion);
+                        },
+                      ),
+                      trailing: FilledButton.tonal(
+                        onPressed: () async {
+                          await launchUrl(Uri.parse(
+                              'https://github.com/rclone/rclone/releases'));
+                        },
+                        child: const Icon(Icons.link),
+                      ),
+                    ),
+                    ListTile(
+                      title: Text(t.upgrade.rcloneVersion.latestVersion),
+                      subtitle: Text(
+                          (updaterState.rcloneLatestVersion == 'v1.0.0')
+                              ? t.upgrade.clickToCheck
+                              : updaterState.rcloneLatestVersion),
+                      trailing: FilledButton.tonal(
+                        onPressed: () async {
+                          try {
+                            await ref
+                                .read(updaterProvider.notifier)
+                                .getRcloneCurrentVersion();
+
+                            await ref
+                                .read(updaterProvider.notifier)
+                                .fetchLatestVersion();
+                          } catch (e) {
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: e
+                                              .toString()
+                                              .split('\n')
+                                              .map((message) => Text(
+                                                    message,
+                                                    maxLines: 5,
+                                                  ))
+                                              .toList())));
+                            }
+                          }
+                        },
+                        child: const Icon(Icons.find_replace),
+                      ),
+                    ),
+                    ListTile(
+                      title: Text(t.upgrade.upgrade),
+                      subtitle: Text(
+                        (updaterState.rcloneLatestVersion == 'v1.0.0'
+                            ? t.upgrade.checkFirst
+                            : (TextUtils.isNewVersion(
+                                    updaterState.rcloneCurrentVersion,
+                                    updaterState.rcloneLatestVersion)
+                                ? t.upgrade.canUpgrade
+                                : t.upgrade.noUpgrade)),
+                      ),
+                      trailing: UpgradeButton(
+                        updaterState: updaterState,
+                      ),
+                    ),
+                    Container(height: 10)
+                  ]),
+                ),
               ],
             )),
       ),
+    );
+  }
+}
+
+class UpgradeButton extends StatelessWidget {
+  const UpgradeButton({super.key, required this.updaterState});
+
+  final UpdaterState updaterState;
+
+  @override
+  Widget build(BuildContext context) {
+    return FilledButton.tonal(
+      onPressed: (updaterState.rcloneLatestVersion == 'v1.0.0'
+          ? null
+          : (TextUtils.isNewVersion(updaterState.rcloneCurrentVersion,
+                  updaterState.rcloneLatestVersion)
+              ? () => showDialog(
+                  context: context,
+                  builder: (context) {
+                    return const ChooseRclonePackage(isUpgrade: true);
+                  })
+              : null)),
+      child: const Icon(Icons.file_download_outlined),
     );
   }
 }
@@ -211,7 +319,7 @@ class UpgradeAlistButton extends StatelessWidget {
               ? () => showDialog(
                   context: context,
                   builder: (context) {
-                    return const ChoosePackage(isUpgrade: true);
+                    return const ChooseAlistPackage(isUpgrade: true);
                   })
               : null)),
       child: const Icon(Icons.file_download_outlined),

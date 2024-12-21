@@ -344,7 +344,7 @@ class RcloneNotifier extends Notifier<RcloneState> {
     });
   }
 
-  void getRcloneInfo() async {
+  Future<void> getRcloneInfo() async {
     Process process;
     if (Platform.isWindows) {
       process = await Process.start('$rcloneDirectory\\rclone.exe', ['version'],
@@ -355,12 +355,23 @@ class RcloneNotifier extends Notifier<RcloneState> {
     }
     process.stdout.listen((data) {
       String text = TextUtils.stdDecode(data, false);
+      _parseVersion(text);
       addOutput(text);
     });
     process.stderr.listen((data) {
       String text = TextUtils.stdDecode(data, false);
       addOutput(text);
     });
+  }
+
+  void _parseVersion(String output) {
+    final versionRegExp = RegExp(r'rclone v([\d.]+)');
+    final match = versionRegExp.firstMatch(output);
+    if (match != null) {
+      final version = 'v${match.group(1)}';
+      print('Current version: $version');
+      state = state.copyWith(currentVersion: version);
+    }
   }
 
   static Future<void> endRcloneProcess() async {

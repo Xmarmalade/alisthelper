@@ -14,7 +14,20 @@
         "viewLogs": "View Log",
         "noVdisks": "No vdisks set in config file.",
         "deleteVdisk": "Are you sure you want to delete ${name}? this action is irreversible!",
-        "createVdisk": "Create a remote disk. If you don't understand the options here, please seek help."
+        "createVdisk": {
+            "title": "Create Remote Disk",
+            "description": "Create a remote disk, if you don't understand the options here, please seek help.",
+            "name": "Name",
+            "nameHint": "Name of the disk",
+            "path": "Path", 
+            "pathHint": "Path after the dav/ ",
+            "mountPoint": "Mount Point",
+            "mountPointHint": "Mount point of the disk on your system",
+            "extraFlags": "Extra Flags",
+            "extraFlagsHint": "Extra flags for rclone mount",
+            "enableAutoMount": "Enable Auto Mount",
+            "enableAutoMountHint": "Auto mount this disk after rclone starts"
+        }
     },
     "firstLaunch": {
         "intro": "Welcome to use Alist Helper, let's get started!",
@@ -47,7 +60,8 @@
         "select": "Select",
         "edit": "Edit",
         "save": "Save",
-        "upgrade": "Upgrade"
+        "upgrade": "Upgrade",
+        "add": "Add"
     },
     "tray": {
         "open": "Open",
@@ -166,6 +180,11 @@
             "title": "Alist Helper Version",
             "currentVersion": "Current Alist Helper Version",
             "latestVersion": "Latest Alist Helper Version"
+        },
+        "rcloneVersion": {
+            "title": "Rclone Version",
+            "currentVersion": "Current Rclone Version",
+            "latestVersion": "Latest Rclone Version"
         }
     }
 }
