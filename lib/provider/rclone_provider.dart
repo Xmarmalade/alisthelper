@@ -9,6 +9,7 @@ import 'package:alisthelper/utils/textutils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dio/dio.dart';
+import 'package:logger/logger.dart';
 
 /// **IMPORTANT NOTE**:
 ///
@@ -29,6 +30,7 @@ class RcloneNotifier extends Notifier<RcloneState> {
   List<String> stdout = [];
   List<String> alistRoot = [];
   Dio dio = Dio();
+  Logger logger = Logger();
   String rcloneAuth = '';
 
   @override
@@ -345,32 +347,26 @@ class RcloneNotifier extends Notifier<RcloneState> {
   }
 
   Future<void> getRcloneInfo() async {
-    Process process;
-    if (Platform.isWindows) {
-      process = await Process.start('$rcloneDirectory\\rclone.exe', ['version'],
-          workingDirectory: rcloneDirectory);
-    } else {
-      process = await Process.start('$rcloneDirectory/rclone', ['version'],
-          workingDirectory: rcloneDirectory);
-    }
-    process.stdout.listen((data) {
-      String text = TextUtils.stdDecode(data, false);
-      _parseVersion(text);
-      addOutput(text);
-    });
-    process.stderr.listen((data) {
-      String text = TextUtils.stdDecode(data, false);
-      addOutput(text);
-    });
-  }
-
-  void _parseVersion(String output) {
-    final versionRegExp = RegExp(r'rclone v([\d.]+)');
-    final match = versionRegExp.firstMatch(output);
-    if (match != null) {
-      final version = 'v${match.group(1)}';
-      print('Current version: $version');
-      state = state.copyWith(currentVersion: version);
+    try {
+      Process process;
+      if (Platform.isWindows) {
+        process = await Process.start(
+            '$rcloneDirectory\\rclone.exe', ['version'],
+            workingDirectory: rcloneDirectory);
+      } else {
+        process = await Process.start('$rcloneDirectory/rclone', ['version'],
+            workingDirectory: rcloneDirectory);
+      }
+      process.stdout.listen((data) {
+        String text = TextUtils.stdDecode(data, false);
+        addOutput(text);
+      });
+      process.stderr.listen((data) {
+        String text = TextUtils.stdDecode(data, false);
+        addOutput(text);
+      });
+    } on ProcessException catch (e) {
+      logger.e('ProcessException: ${e.message}');
     }
   }
 

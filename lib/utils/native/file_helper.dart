@@ -19,7 +19,6 @@ class FileHelper {
   static void extractRclone(String targetArchiveFile, String outputFolder) {
     final inputStream = InputFileStream(targetArchiveFile);
     final archive = ZipDecoder().decodeBuffer(inputStream);
-    print(archive.files);
     for (var file in archive.files) {
       if (file.isFile &&
           file.name.endsWith('rclone.exe') &&

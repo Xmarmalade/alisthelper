@@ -34,7 +34,7 @@
         "about": "點擊此處瞭解更多關於 Alist Helper 的資訊!",
         "chooseTheme": "首先,讓我們在這裡選擇您喜歡的主題!",
         "chooseDirectory": "第二步,您需要安装 alist 並告訴 Alist Helper 它在哪裡。",
-        "autoInstall": "Alist Helper現已支持自動安裝 alist,點擊這裡以開始安裝。",
+        "autoInstall": "Alist Helper現已支持自動安裝 ${name} ,點擊這裡以開始安裝。",
         "getAlist": "想要使用特定版本的alist或是手動安裝?點擊這裡。",
         "finish": "完成!您可以在設定中更改這些設定!"
     },
@@ -61,7 +61,9 @@
         "edit": "編輯",
         "save": "儲存",
         "upgrade": "升級",
-        "add": "新增"
+        "add": "新增",
+        "docs": "文档",
+        "sponsor": "赞助"
     },
     "tray": {
         "open": "開啟",
@@ -141,7 +143,8 @@
         },
         "rcloneSettings": {
             "title": "Rclone 選項",
-            "rcloneDirNotSet": "rclone 目錄未設置，請在設定中設定。\n(實驗性功能)",
+            "rcloneDirNotSet": "您可以使用 rclone 將您的網絡驅動器掛載到計算機上。但是，尚未設置 Rclone 目錄。請轉到設置並配置 Rclone 目錄以繼續。",
+            "rcloneWebdavNotSet": "您可以使用 rclone 將您的網絡驅動器掛載到計算機上。但是，尚未設置用於訪問 alist 的 WebDav 帳戶。請轉到設置並配置 WebDav 帳戶以繼續。",
             "autoStartAlist": {
                 "title": "允許 rclone 自動啟動",
                 "description": "這將在 Alist Helper 啟動時自動啟動 rclone。"
@@ -184,6 +187,7 @@
         "rcloneVersion": {
             "title": "Rclone 版本",
             "currentVersion": "目前 Rclone 版本",
-            "latestVersion": "最新 Rclone 版本"}
+            "latestVersion": "最新 Rclone 版本"
+        }
     }
 }

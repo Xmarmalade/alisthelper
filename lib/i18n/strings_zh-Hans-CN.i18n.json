@@ -34,7 +34,7 @@
         "about": "点击此处了解更多关于 Alist Helper 的信息!",
         "chooseTheme": "首先,让我们在这里选择您喜欢的主题!",
         "chooseDirectory": "第二步,您需要安装 alist 并告诉 Alist Helper 它在哪里。",
-        "autoInstall": "Alist Helper现已支持自动安装 alist,点击这里安装。",
+        "autoInstall": "Alist Helper现已支持自动安装 ${name},点击这里安装。",
         "getAlist": "想要使用特定版本的alist或是手动安装?点击这里了解。",
         "finish": "完成!您可以在设置中更改这些设置!"
     },
@@ -61,7 +61,9 @@
         "edit": "编辑",
         "save": "保存",
         "upgrade": "升级",
-        "add": "添加"
+        "add": "添加",
+        "docs": "文档",
+        "sponsor": "赞助"
     },
     "tray": {
         "open": "打开",
@@ -141,7 +143,8 @@
         },
         "rcloneSettings": {
             "title": "Rclone 选项",
-            "rcloneDirNotSet": "Rclone 目录未设置，请在设置中设置\n(实验性功能)",
+            "rcloneDirNotSet": "您可以使用 rclone 将您的网络驱动器挂载到计算机上。但是，尚未设置 Rclone 目录。请转到设置并配置 Rclone 目录以继续。",
+            "rcloneWebdavNotSet": "您可以使用 rclone 将您的网络驱动器挂载到计算机上。但是，尚未设置用于访问 alist 的 WebDav 帐户。请转到设置并配置 WebDav 帐户以继续。",
             "autoStartAlist": {
                 "title": "允许 rclone 自动启动",
                 "description": "这将在 Alist Helper 启动时自动启动 rclone。"

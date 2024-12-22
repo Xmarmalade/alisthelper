@@ -4,26 +4,63 @@ import 'package:alisthelper/model/updater_state.dart';
 import 'package:alisthelper/provider/rclone_provider.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
 import 'package:alisthelper/utils/native/file_helper.dart';
+import 'package:alisthelper/utils/textutils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
+import 'package:logger/logger.dart';
 
 final updaterProvider =
     NotifierProvider<UpdaterNotifier, UpdaterState>(UpdaterNotifier.new);
 
 class UpdaterNotifier extends Notifier<UpdaterState> {
   Dio dio = Dio();
+  Logger logger = Logger();
 
   @override
   UpdaterState build() {
     return UpdaterState(
-      rcloneCurrentVersion: ref.watch(rcloneProvider).currentVersion,
-      workDir: ref.watch(settingsProvider).rcloneDirectory,
+      rcloneDirectory: ref.watch(settingsProvider).rcloneDirectory,
     );
   }
 
+  Future<void> getRcloneInfo() async {
+    try {
+      Process process;
+      if (Platform.isWindows) {
+        process = await Process.start(
+            '${state.rcloneDirectory}\\rclone.exe', ['version'],
+            workingDirectory: state.rcloneDirectory);
+      } else {
+        process = await Process.start(
+            '${state.rcloneDirectory}/rclone', ['version'],
+            workingDirectory: state.rcloneDirectory);
+      }
+      process.stdout.listen((data) {
+        String text = TextUtils.stdDecode(data, false);
+        _parseVersion(text);
+      });
+      process.stderr.listen((data) {
+        String text = TextUtils.stdDecode(data, false);
+        logger.e('stderr: $text');
+      });
+    } on ProcessException catch (e) {
+      logger.e('ProcessException: $e');
+    }
+  }
+
+  void _parseVersion(String output) {
+    final versionRegExp = RegExp(r'rclone v([\d.]+)');
+    final match = versionRegExp.firstMatch(output);
+    if (match != null) {
+      final version = 'v${match.group(1)}';
+      logger.e('Current version: $version');
+      state = state.copyWith(rcloneCurrentVersion: version);
+    }
+  }
+
   Future<void> getRcloneCurrentVersion() async {
-    await ref.read(rcloneProvider.notifier).getRcloneInfo();
+    await getRcloneInfo();
   }
 
   Future<void> fetchLatestVersion() async {
@@ -59,9 +96,9 @@ class UpdaterNotifier extends Notifier<UpdaterState> {
 
   Future<void> installRclone(String downloadLink) async {
     state = state.copyWith(upgradeStatus: UpgradeStatus.installing);
-    String targetArchiveFile = '${state.workDir}/rclonenew.zip';
+    String targetArchiveFile = '${state.rcloneDirectory}/rclonenew.zip';
     await Dio().download(downloadLink, targetArchiveFile);
-    FileHelper.extractRclone(targetArchiveFile, state.workDir);
+    FileHelper.extractRclone(targetArchiveFile, state.rcloneDirectory);
     await File(targetArchiveFile).delete();
     getRcloneCurrentVersion();
     state = state.copyWith(upgradeStatus: UpgradeStatus.complete);
@@ -70,11 +107,11 @@ class UpdaterNotifier extends Notifier<UpdaterState> {
 
   Future<void> upgradeRclone(String downloadLink) async {
     state = state.copyWith(upgradeStatus: UpgradeStatus.installing);
-    String targetArchiveFile = '${state.workDir}/rclonenew.zip';
-    String backupFolder = '${state.workDir}/.old';
+    String targetArchiveFile = '${state.rcloneDirectory}/rclonenew.zip';
+    String backupFolder = '${state.rcloneDirectory}/.old';
     String currentAlist = Platform.isWindows
-        ? '${state.workDir}/rclone.exe'
-        : '${state.workDir}/rclone';
+        ? '${state.rcloneDirectory}/rclone.exe'
+        : '${state.rcloneDirectory}/rclone';
     await Dio().download(downloadLink, targetArchiveFile);
     ref.read(rcloneProvider.notifier).endRclone();
     if (!await Directory(backupFolder).exists()) {
@@ -87,7 +124,8 @@ class UpdaterNotifier extends Notifier<UpdaterState> {
     }
     await File(currentAlist)
         .rename('$backupFolder/rclone-${state.rcloneCurrentVersion}.exe');
-    FileHelper.extractRclone('${state.workDir}/rclonenew.zip', state.workDir);
+    FileHelper.extractRclone(
+        '${state.rcloneDirectory}/rclonenew.zip', state.rcloneDirectory);
     await File(targetArchiveFile).delete();
     getRcloneCurrentVersion();
     state = state.copyWith(upgradeStatus: UpgradeStatus.complete);

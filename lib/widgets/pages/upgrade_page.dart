@@ -3,7 +3,6 @@ import 'package:alisthelper/model/alist_state.dart';
 import 'package:alisthelper/model/updater_state.dart';
 import 'package:alisthelper/provider/alist_helper_provider.dart';
 import 'package:alisthelper/provider/alist_provider.dart';
-import 'package:alisthelper/provider/rclone_provider.dart';
 import 'package:alisthelper/provider/updater_provider.dart';
 import 'package:alisthelper/utils/textutils.dart';
 import 'package:alisthelper/widgets/choose_alist_package.dart';
@@ -25,7 +24,6 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
     final alistState = ref.watch(alistProvider);
     final alistHelperNotifier = ref.watch(ahProvider.notifier);
     final alistHelperState = ref.watch(ahProvider);
-    final rcloneState = ref.watch(rcloneProvider);
     final updaterState = ref.watch(updaterProvider);
 
     return Scaffold(
@@ -207,7 +205,7 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
                       title: Text(t.upgrade.rcloneVersion.currentVersion),
                       subtitle: Consumer(
                         builder: (context, watch, child) {
-                          return Text(rcloneState.currentVersion);
+                          return Text(updaterState.rcloneCurrentVersion);
                         },
                       ),
                       trailing: FilledButton.tonal(

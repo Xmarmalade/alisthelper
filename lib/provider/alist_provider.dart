@@ -10,12 +10,14 @@ import 'package:http/http.dart' as http;
 import 'package:alisthelper/provider/settings_provider.dart';
 import 'package:alisthelper/utils/textutils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
 
 final alistProvider =
     NotifierProvider<AlistNotifier, AlistState>(AlistNotifier.new);
 
 class AlistNotifier extends Notifier<AlistState> {
   List<String> stdOut = [];
+  Logger logger = Logger();
 
   @override
   AlistState build() {
@@ -154,29 +156,34 @@ class AlistNotifier extends Notifier<AlistState> {
   //get alist version
   Future<void> getAlistCurrentVersion({required bool addToOutput}) async {
     Process alistVersion;
-    if (Platform.isWindows) {
-      alistVersion = await Process.start(
-          '${state.workDir}\\alist.exe', ['version'],
-          workingDirectory: state.workDir);
-    } else {
-      alistVersion = await Process.start('${state.workDir}/alist', ['version'],
-          workingDirectory: state.workDir);
+    try {
+      if (Platform.isWindows) {
+        alistVersion = await Process.start(
+            '${state.workDir}\\alist.exe', ['version'],
+            workingDirectory: state.workDir);
+      } else {
+        alistVersion = await Process.start(
+            '${state.workDir}/alist', ['version'],
+            workingDirectory: state.workDir);
+      }
+      alistVersion.stdout.listen((data) {
+        String text = TextUtils.stdDecode(data, false);
+        if (text.contains('Version')) {
+          String versionInfo = text
+              .split('Go Version:')[1]
+              .split('Version:')[1]
+              .trim()
+              .split('\n')[0]
+              .trim();
+          state = state.copyWith(currentVersion: versionInfo);
+        }
+        if (addToOutput) {
+          addOutput(text);
+        }
+      });
+    } on ProcessException catch (e) {
+      logger.e('Error: ${e.message}');
     }
-    alistVersion.stdout.listen((data) {
-      String text = TextUtils.stdDecode(data, false);
-      if (text.contains('Version')) {
-        String versionInfo = text
-            .split('Go Version:')[1]
-            .split('Version:')[1]
-            .trim()
-            .split('\n')[0]
-            .trim();
-        state = state.copyWith(currentVersion: versionInfo);
-      }
-      if (addToOutput) {
-        addOutput(text);
-      }
-    });
   }
 
   Future<void> fetchLatestVersion() async {

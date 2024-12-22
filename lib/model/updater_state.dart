@@ -8,7 +8,7 @@ class UpdaterState with _$UpdaterState {
     @Default('v1.0.0') String rcloneCurrentVersion,
     @Default('v1.0.0') String rcloneLatestVersion,
     @Default([]) List<Map> rcloneAssets,
-    @Default('') String workDir,
+    @Default('') String rcloneDirectory,
     @Default(UpgradeStatus.idle) UpgradeStatus upgradeStatus,
   }) = _UpdaterState;
 }

@@ -8,6 +8,7 @@ import 'package:alisthelper/widgets/button_card.dart';
 import 'package:alisthelper/widgets/responsive_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RclonePage extends ConsumerWidget {
   final SizingInformation sizingInformation;
@@ -18,6 +19,18 @@ class RclonePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(settingsProvider);
     final rclone = ref.watch(rcloneProvider);
+    final String message;
+
+    if (settings.rcloneDirectory == '' && settings.webdavAccount == '') {
+      message =
+          '${t.settings.rcloneSettings.rcloneDirNotSet}\n${t.settings.rcloneSettings.rcloneWebdavNotSet}';
+    } else if (settings.rcloneDirectory == '') {
+      message = t.settings.rcloneSettings.rcloneDirNotSet;
+    } else if (settings.webdavAccount == '') {
+      message = t.settings.rcloneSettings.rcloneWebdavNotSet;
+    } else {
+      message = 'Error\nPlease check your settings';
+    }
 
     return Scaffold(
         appBar: (sizingInformation.isDesktop
@@ -28,10 +41,13 @@ class RclonePage extends ConsumerWidget {
               )),
         body: (settings.rcloneDirectory == '' || settings.webdavAccount == '')
             ? Center(
-                child: Text(t.settings.rcloneSettings.rcloneDirNotSet,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w600, fontSize: 18)),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(message,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w600, fontSize: 18)),
+                ),
               )
             : Center(
                 child: Container(
@@ -42,48 +58,17 @@ class RclonePage extends ConsumerWidget {
                       title: Text(t.home.options,
                           style: const TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 18)),
-                      trailing: Wrap(
-                        children: [
-                          OutlinedButton.icon(
-                              onPressed: () => showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text('t.rcloneOperation.info'),
-                                      content:
-                                          Text('t.rcloneOperation.infoText'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: Text(t.button.ok),
-                                        ),
-                                      ],
-                                    );
-                                  }),
-                              icon: Icon(Icons.info_outline_rounded),
-                              label: Text('Important')),
-                        ],
-                      ),
+                      trailing: HelpButton(),
                     ),
                     const RcloneMultiButtonCard(),
                     ListTile(
-                      title: Text(t.home.manage,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 18)),
-                      trailing: Wrap(
-                        children: [AddNewRcloneDisk()],
-                      ),
-                    ),
+                        title: Text(t.home.manage,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 18)),
+                        trailing: AddNewRcloneDisk()),
                     Expanded(
                       child: (rclone.vdList.isEmpty)
-                          ? Center(
-                              child: Text(t.rcloneOperation.noVdisks,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 18)),
-                            )
+                          ? NoVdisks()
                           : Padding(
                               padding: const EdgeInsets.only(top: 5, bottom: 5),
                               child: ListView.builder(
@@ -98,6 +83,35 @@ class RclonePage extends ConsumerWidget {
                   ],
                 ),
               )));
+  }
+}
+
+class NoVdisks extends StatelessWidget {
+  const NoVdisks({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(t.rcloneOperation.noVdisks,
+          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
+    );
+  }
+}
+
+class HelpButton extends StatelessWidget {
+  const HelpButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton.icon(
+        onPressed: () => launchUrl(
+            Uri.parse('https://github.com/Xmarmalade/alisthelper/wiki')),
+        icon: Icon(Icons.info_outline_rounded),
+        label: Text(t.button.docs));
   }
 }
 

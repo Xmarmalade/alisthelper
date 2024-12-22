@@ -1,6 +1,5 @@
 import 'package:alisthelper/i18n/strings.g.dart';
 import 'package:alisthelper/provider/settings_provider.dart';
-import 'package:alisthelper/provider/updater_provider.dart';
 import 'package:alisthelper/widgets/alist_args_tile.dart';
 import 'package:alisthelper/widgets/pages/about_page.dart';
 import 'package:alisthelper/widgets/pages/language_page.dart';

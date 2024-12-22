@@ -82,7 +82,7 @@ class _ChooseRclonePackageState extends ConsumerState<ChooseRclonePackage> {
                                 updaterNotifier.upgradeRclone(
                                     asset['browser_download_url']);
                               } else {
-                                updaterNotifier.upgradeRclone(
+                                updaterNotifier.installRclone(
                                     asset['browser_download_url']);
                               }
                             } catch (e) {

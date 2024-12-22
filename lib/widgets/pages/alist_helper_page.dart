@@ -8,6 +8,7 @@ import 'package:alisthelper/widgets/responsive_builder.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AlistHelperPage extends ConsumerWidget {
   final SizingInformation sizingInformation;
@@ -36,6 +37,17 @@ class AlistHelperPage extends ConsumerWidget {
                 title: Text(t.home.options,
                     style: const TextStyle(
                         fontWeight: FontWeight.w600, fontSize: 18)),
+                trailing: TextButton.icon(
+                  onPressed: () {
+                    final locale = Localizations.localeOf(context).toString();
+                    final url = locale == 'zh_Hans_CN'
+                        ? 'https://github.com/Xmarmalade/alisthelper/wiki/sponsor_cn'
+                        : 'https://github.com/Xmarmalade/alisthelper/wiki/sponsor';
+                    launchUrl(Uri.parse(url));
+                  },
+                  label: Text(t.button.sponsor),
+                  icon: Icon(Icons.star_border_outlined),
+                ),
               ),
               const AlistMultiButtonCard(),
               ListTile(

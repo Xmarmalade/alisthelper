@@ -34,7 +34,7 @@
         "about": "Click here to learn more about Alist Helper!",
         "chooseTheme": "First, let's choose your preferred theme here!",
         "chooseDirectory": "Second, you have to get an alist and tell the Alist Helper where it is!",
-        "autoInstall": "AlistHelper now supports automatic installation of alist, try it out!",
+        "autoInstall": "AlistHelper now supports automatic installation of ${name}, try it out!",
         "getAlist": "Want to use a specific version of alist or install it manually? Click here!",
         "finish": "Finish! You can change these settings in settings!"
     },
@@ -61,7 +61,9 @@
         "edit": "Edit",
         "save": "Save",
         "upgrade": "Upgrade",
-        "add": "Add"
+        "add": "Add",
+        "docs": "Docs",
+        "sponsor": "Sponsor"
     },
     "tray": {
         "open": "Open",
@@ -141,7 +143,8 @@
         },
         "rcloneSettings": {
             "title": "Rclone Options",
-            "rcloneDirNotSet": "The rclone directory is not set. \nPlease set the rclone directory and startup parameters in the settings.\n(Experimental feature)",
+            "rcloneDirNotSet": "You can mount your web drives on your computer using rclone. However, the Rclone Directory has not been set yet. Please go to the settings and configure the Rclone Directory to proceed.",
+            "rcloneWebdavNotSet": "You can mount your web drives on your computer using rclone. However, the WebDav account for accessing alist has not been set yet. Please go to the settings and configure the WebDav account to proceed.",
             "autoStartAlist": {
                 "title": "Allow rclone auto start",
                 "description": "This will auto start rclone when Alist Helper starts."
