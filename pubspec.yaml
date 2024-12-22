@@ -19,7 +19,7 @@ dependencies:
   # window_manager allows Flutter desktop apps to control window
   window_manager: ^0.4.3
   # collection is a package that has some useful collection utils
-  collection: 1.18.0
+  collection: ^1.19.0
   # flutter_riverpod is a package that provides state management
   flutter_riverpod: ^2.6.1
   # shared_preferences is a package that provides persistent storage
