@@ -10,7 +10,7 @@ final persistenceProvider = Provider<PersistenceService>((ref) {
 });
 
 // Version of the storage
-const currentAlistHelperVersion = 'v0.1.5';
+const currentAlistHelperVersion = 'v0.2.0';
 const _version = 'ah_current_version';
 
 // App Window Offset and Size info
