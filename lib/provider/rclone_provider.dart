@@ -205,12 +205,12 @@ class RcloneNotifier extends Notifier<RcloneState> {
   }
 
   Future<void> mountRemote(VirtualDiskState vd) async {
-    int cacheMode = 1;
+    int cacheMode = 0;
     for (String flag in vd.extraFlags) {
       if (flag.contains('--vfs-cache-mode')) {
         switch (flag.split(' ').last) {
           case 'minimal':
-            cacheMode = 0;
+            cacheMode = 1;
             break;
           case 'writes':
             cacheMode = 2;
