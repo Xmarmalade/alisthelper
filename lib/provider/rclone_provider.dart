@@ -205,6 +205,22 @@ class RcloneNotifier extends Notifier<RcloneState> {
   }
 
   Future<void> mountRemote(VirtualDiskState vd) async {
+    int cacheMode = 1;
+    for (String flag in vd.extraFlags) {
+      if (flag.contains('--vfs-cache-mode')) {
+        switch (flag.split(' ').last) {
+          case 'minimal':
+            cacheMode = 0;
+            break;
+          case 'writes':
+            cacheMode = 2;
+            break;
+          case 'full':
+            cacheMode = 3;
+            break;
+        }
+      }
+    }
     if (!vd.isMounted) {
       final response = await dio.post(
         '${state.url}/mount/mount',
@@ -212,7 +228,9 @@ class RcloneNotifier extends Notifier<RcloneState> {
           'fs': '${vd.name}:',
           'mountPoint': '${vd.mountPoint}:',
           'mountType': '',
-          'vfsOpt': {},
+          'vfsOpt': {
+            'CacheMode': cacheMode,
+          },
           'mountOpt': {
             'ExtraFlags': vd.extraFlags,
             'ExtraOptions': [],
