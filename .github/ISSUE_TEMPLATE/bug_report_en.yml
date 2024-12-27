@@ -6,9 +6,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this bug report!
-        Please ensure you have read [documentation](https://github.com/Xmarmalade/alisthelper/blob/master/README.md), and provide all the information required by this template, otherwise the issue will be closed.
-
+        Thank you for taking the time to fill out this bug report! Please ensure the bug report filed is detailed and meaningful.
+        If you are having problems with usage, consider asking in the [community](https://github.com/Xmarmalade/alisthelper/discussions), or sponsoring to get answers.
+        Before filling out a bug report, please make sure you have upgraded to the latest stable version, read the [documentation](https://github.com/Xmarmalade/alisthelper/blob/master/README.md) and [Wiki](https://github.com/Xmarmalade/alisthelper/wiki), and provide all the information required by this template, otherwise the issue will be closed.
   - type: textarea
     id: what-expected
     attributes:
@@ -50,6 +50,14 @@ body:
     validations:
       required: true
 
+ - type: checkboxes
+    id: docs
+    attributes:
+      label: The document does not contain a solution to this problem
+      options:
+        - label: I have read the [documentation](https://github.com/Xmarmalade/alisthelper/wiki).
+          required: true
+
   - type: checkboxes
     id: terms
     attributes:
@@ -57,3 +65,12 @@ body:
       options:
         - label: I have searched [existing issues](https://github.com/Xmarmalade/alisthelper/issues) to ensure this bug has not already been reported.
           required: true
+ 
+  - type: checkboxes
+    id: relate
+    attributes:
+      label: This is not an irrelevant issue.
+      options:
+        - label:  The configurations of my alist and rclone are correct, the problem lies with alist helper.
+          required: true
+
