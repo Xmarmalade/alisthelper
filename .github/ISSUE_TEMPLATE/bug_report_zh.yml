@@ -9,6 +9,7 @@ body:
         感谢您花时间填写此错误报告！请确保提出的错误报告详细且有意义。
         如果您在使用方面存在问题，请考虑在[社区](https://github.com/Xmarmalade/alisthelper/discussions)中提问，或是赞助以获得解答。
         在填写错误报告前，请确保您已升级至最新稳定版本，且阅读了[文档](https://github.com/Xmarmalade/alisthelper/blob/master/README.md)和[Wiki](https://github.com/Xmarmalade/alisthelper/wiki)，并提供此模板所需的所有信息，否则问题将被关闭。
+  
   - type: textarea
     id: what-expected
     attributes:
