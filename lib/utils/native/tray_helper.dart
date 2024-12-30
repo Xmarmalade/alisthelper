@@ -45,13 +45,19 @@ Future<void> changeTray(bool isRunning) async {
     items.insert(
         2, tm.MenuItem(key: TrayEntry.openGUI.name, label: t.tray.openGUI));
     tm.trayManager.setContextMenu(tm.Menu(items: items));
-    await tm.trayManager.setToolTip(t.tray.workingTooltip);
+    //setToolTip() method is not available on linux,just cancel it！
+    if (!Platform.isLinux) {
+      await tm.trayManager.setToolTip(t.tray.tooltip);
+    }
   } else {
     //add startAlist
     items.insert(1,
         tm.MenuItem(key: TrayEntry.startAlist.name, label: t.tray.startAlist));
     tm.trayManager.setContextMenu(tm.Menu(items: items));
-    await tm.trayManager.setToolTip(t.tray.tooltip);
+    //setToolTip() method is not available on linux,just cancel it！
+    if (!Platform.isLinux) {
+      await tm.trayManager.setToolTip(t.tray.tooltip);
+    }
   }
 }
 
