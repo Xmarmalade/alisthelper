@@ -165,8 +165,15 @@ class AddRcloneDiskForm extends ConsumerWidget {
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter a mount point';
-              } else if (value.length > 1) {
-                return 'Please enter a single character';
+
+              //Linux does not have a Windows drive letter such as "T" or "E", and 
+              //uses an absolute path such as "/path/to/dir" in Linux, so removes 
+              //the one-character limit to accommodate the use of absolute paths in 
+              //Linux systems.
+
+              /* }  
+              else if (value.length > 1) {
+              return 'Please enter a single character'; */
               } else if (!value.contains(RegExp(r'[A-Za-z]'))) {
                 return 'Please enter a letter';
               }

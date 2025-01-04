@@ -222,11 +222,13 @@ class RcloneNotifier extends Notifier<RcloneState> {
       }
     }
     if (!vd.isMounted) {
+      //Added support for Linux paths
+      String mountPointOS= Platform.isLinux ? vd.mountPoint:'${vd.mountPoint}:';
       final response = await dio.post(
         '${state.url}/mount/mount',
         data: jsonEncode({
           'fs': '${vd.name}:',
-          'mountPoint': '${vd.mountPoint}:',
+          'mountPoint': mountPointOS,
           'mountType': '',
           'vfsOpt': {
             'CacheMode': cacheMode,
@@ -250,9 +252,11 @@ class RcloneNotifier extends Notifier<RcloneState> {
 
   Future<void> unmountRemote(vd) async {
     if (vd.isMounted) {
+      //Added support for Linux paths
+      String mountPointOS= Platform.isLinux ? vd.mountPoint:'${vd.mountPoint}:';
       final response = await dio.post(
         '${state.url}/mount/unmount',
-        data: jsonEncode({'mountPoint': '${vd.mountPoint}:'}),
+        data: jsonEncode({'mountPoint': mountPointOS}),
         options: option,
       );
 
