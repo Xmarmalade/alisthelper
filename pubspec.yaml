@@ -15,7 +15,7 @@ dependencies:
   # url_launcher can launch url
   url_launcher: ^6.2.3
   # tray_manager allows Flutter desktop apps to defines system tray
-  tray_manager: ^0.3.0
+  tray_manager: ^0.4.0
   # window_manager allows Flutter desktop apps to control window
   window_manager: ^0.4.3
   # collection is a package that has some useful collection utils
@@ -27,7 +27,7 @@ dependencies:
   # screen_retriever is a package that provides screen info
   screen_retriever: ^0.2.0
   # launch_at_startup is a package that provides launch at startup
-  launch_at_startup: ^0.3.1
+  launch_at_startup: ^0.4.0
   # package_info_plus is a package that provides package info
   package_info_plus: ^8.0.1
   # file_selector is used to choose working dir
@@ -35,13 +35,13 @@ dependencies:
   # http is used to check upgrade
   http: ^1.2.2
   dio: ^5.4.0
-  archive: ^3.4.5
+  archive: ^4.0.5
   #i18n
-  slang: ^3.32.0
-  slang_flutter: ^3.32.0
+  slang: ^4.6.0
+  slang_flutter: ^4.6.0
   flutter_localizations:
     sdk: flutter
-  freezed_annotation: ^2.4.1
+  freezed_annotation: ^3.0.0
   path_provider: ^2.1.2
   json_annotation: ^4.9.0
   logger: ^2.5.0
@@ -53,8 +53,8 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   flutter_launcher_icons: ^0.14.1
   build_runner: ^2.4.11
-  freezed: ^2.5.2
-  slang_build_runner: ^3.32.0
+  freezed: ^3.0.4
+  slang_build_runner: ^4.6.0
   json_serializable: ^6.7.1
   riverpod_lint: ^2.6.1
 
