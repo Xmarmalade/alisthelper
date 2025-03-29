@@ -22,11 +22,12 @@ Future<PersistenceService> preInit(List<String> args) async {
 
   // Register default plural resolver
   for (final locale in AppLocale.values) {
-    if ([AppLocale.en].contains(locale)) {
+    if ([AppLocale.en, AppLocale.zhHansCn, AppLocale.zhHantTw]
+        .contains(locale)) {
       continue;
     }
 
-    LocaleSettings.setPluralResolver(
+    await LocaleSettings.setPluralResolver(
       locale: locale,
       cardinalResolver: (n, {zero, one, two, few, many, other}) {
         if (n == 0) {
