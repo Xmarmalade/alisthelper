@@ -46,14 +46,14 @@ class AlistNotifier extends Notifier<AlistState> {
   }
 
   void addOutput(String text) {
-    if (text.contains('start HTTP server')) {
-      checkState(text);
-    }
     if (text.contains('\n') && text.contains('[')) {
       List<String> lines = text.split('\n');
       for (String line in lines) {
         if (line.isNotEmpty) {
           stdOut.add(line);
+        }
+        if (line.contains('start HTTP server @')) {
+          checkState(line);
         }
       }
     } else {
