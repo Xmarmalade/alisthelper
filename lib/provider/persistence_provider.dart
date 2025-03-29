@@ -236,7 +236,7 @@ class PersistenceService {
   }
 
   Future<void> setThemeColor(Color themeColor) async {
-    await _prefs.setInt(_themeColor, themeColor.value);
+    await _prefs.setInt(_themeColor, themeColor.toARGB32());
   }
 
   AppLocale? getLocale() {
