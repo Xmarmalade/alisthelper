@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'alist_state.freezed.dart';
 
 @freezed
-class AlistState with _$AlistState {
+abstract class AlistState with _$AlistState {
   const factory AlistState({
     @Default(false) bool isRunning,
     @Default([]) List<String> output,

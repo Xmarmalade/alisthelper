@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'updater_state.freezed.dart';
 
 @freezed
-class UpdaterState with _$UpdaterState {
+abstract class UpdaterState with _$UpdaterState {
   const factory UpdaterState({
     @Default('v1.0.0') String rcloneCurrentVersion,
     @Default('v1.0.0') String rcloneLatestVersion,

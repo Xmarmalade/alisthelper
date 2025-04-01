@@ -6,7 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'rclone_state.freezed.dart';
 
 @freezed
-class RcloneState with _$RcloneState {
+abstract class RcloneState with _$RcloneState {
   const factory RcloneState({
     @Default(false) bool isRunning,
     @Default([]) List<String> output,

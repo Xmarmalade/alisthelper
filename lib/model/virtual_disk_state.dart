@@ -4,7 +4,7 @@ part 'virtual_disk_state.freezed.dart';
 part 'virtual_disk_state.g.dart';
 
 @freezed
-class VirtualDiskState with _$VirtualDiskState {
+abstract class VirtualDiskState with _$VirtualDiskState {
   const factory VirtualDiskState({
     @Default(false) bool isMounted,
     @Default([]) List<String> extraFlags,

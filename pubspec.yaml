@@ -1,38 +1,29 @@
 name: alisthelper
 description: A flutter app designed to provide more convenient management of alist operations.
-publish_to: 'none' 
+publish_to: "none"
 version: 0.2.0+10
 
 environment:
-  sdk: '>=3.4.0 <4.0.0'
+  sdk: ">=3.4.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  
-  # fast_gbk is a package that has gbk utils
-  fast_gbk: ^1.0.0
-  # url_launcher can launch url
-  url_launcher: ^6.2.3
-  # tray_manager allows Flutter desktop apps to defines system tray
-  tray_manager: ^0.4.0
-  # window_manager allows Flutter desktop apps to control window
-  window_manager: ^0.4.3
-  # collection is a package that has some useful collection utils
   collection: ^1.19.0
-  # flutter_riverpod is a package that provides state management
-  flutter_riverpod: ^2.6.1
-  # shared_preferences is a package that provides persistent storage
   shared_preferences: ^2.3.1
-  # screen_retriever is a package that provides screen info
+  flutter_riverpod: ^2.6.1
+  fast_gbk: ^1.0.0
+  url_launcher: ^6.2.3
+  tray_manager: ^0.4.0
+  window_manager: ^0.4.3
   screen_retriever: ^0.2.0
-  # launch_at_startup is a package that provides launch at startup
   launch_at_startup: ^0.4.0
-  # package_info_plus is a package that provides package info
   package_info_plus: ^8.0.1
-  # file_selector is used to choose working dir
-  file_selector: ^1.0.2
-  # http is used to check upgrade
+  file_selector: ^1.0.2  
+  freezed_annotation: ^3.0.0
+  path_provider: ^2.1.2
+  json_annotation: ^4.9.0
+  logger: ^2.5.0
   http: ^1.2.2
   dio: ^5.4.0
   archive: ^4.0.5
@@ -41,11 +32,6 @@ dependencies:
   slang_flutter: ^4.6.0
   flutter_localizations:
     sdk: flutter
-  freezed_annotation: ^3.0.0
-  path_provider: ^2.1.2
-  json_annotation: ^4.9.0
-  logger: ^2.5.0
-  
 
 dev_dependencies:
   flutter_test:
@@ -57,7 +43,6 @@ dev_dependencies:
   slang_build_runner: ^4.6.0
   json_serializable: ^6.7.1
   riverpod_lint: ^2.6.1
-
 
 flutter_launcher_icons:
   image_path: "assets\\alisthelper.png"
@@ -73,4 +58,3 @@ flutter:
   assets:
     - assets/alisthelper.ico
     - assets/alisthelper.png
-
