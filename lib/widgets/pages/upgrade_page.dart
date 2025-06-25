@@ -56,7 +56,7 @@ class _UpgradePageState extends ConsumerState<UpgradePage> {
                       trailing: FilledButton.tonal(
                         onPressed: () async {
                           await launchUrl(Uri.parse(
-                              'https://github.com/AlistGo/alist/releases'));
+                              'https://github.com/OpenListTeam/OpenList/releases'));
                         },
                         child: const Icon(Icons.link),
                       ),

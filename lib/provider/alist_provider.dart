@@ -188,7 +188,7 @@ class AlistNotifier extends Notifier<AlistState> {
 
   Future<void> fetchLatestVersion() async {
     final response = await http.get(Uri.parse(
-        'https://api.github.com/repos/AlistGo/alist/releases/latest'));
+        'https://api.github.com/repos/OpenListTeam/OpenList/releases/latest'));
     final json = jsonDecode(response.body) as Map<String, dynamic>;
     try {
       String latest = json['tag_name'];
