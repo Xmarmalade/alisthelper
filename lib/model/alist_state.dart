@@ -15,6 +15,7 @@ abstract class AlistState with _$AlistState {
     @Default([]) List<String> alistArgs,
     @Default('') String proxy,
     @Default(UpgradeStatus.idle) UpgradeStatus upgradeStatus,
+    @Default('') String alistArchitecture,
   }) = _AlistState;
 }
 

@@ -40,7 +40,7 @@ class _ChooseAlistPackageState extends ConsumerState<ChooseAlistPackage> {
               child: ListTile(
                 title: widget.isUpgrade
                     ? Text(
-                        'Will be upgrade from: ${settingsState.workingDirectory}')
+                        'Will be upgrade from: ${settingsState.workingDirectory}, Your current Alist architecture: ${alistState.alistArchitecture}')
                     : Text(
                         'Will be installed to: ${settingsState.workingDirectory}'),
               ),

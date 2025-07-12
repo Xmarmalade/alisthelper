@@ -153,7 +153,7 @@ class AlistNotifier extends Notifier<AlistState> {
     });
   }
 
-  //get alist version
+  //get alist version and architecture
   Future<void> getAlistCurrentVersion({required bool addToOutput}) async {
     Process alistVersion;
     try {
@@ -175,7 +175,15 @@ class AlistNotifier extends Notifier<AlistState> {
               .trim()
               .split('\n')[0]
               .trim();
-          state = state.copyWith(currentVersion: versionInfo);
+          String arch = text
+              .split('Go Version:')[1]
+              .trim()
+              .split('\n')[0]
+              .trim()
+              .split('/')
+              .last;
+          //print('Current Alist Version: $versionInfo, Architecture: $arch');
+          state = state.copyWith(currentVersion: versionInfo, alistArchitecture: arch);
         }
         if (addToOutput) {
           addOutput(text);
@@ -235,18 +243,32 @@ class AlistNotifier extends Notifier<AlistState> {
     String currentAlist = Platform.isWindows
         ? '${state.workDir}/alist.exe'
         : '${state.workDir}/alist';
+    String backupFile = Platform.isWindows
+        ? '$backupFolder/alist-${state.currentVersion}.exe'
+        : '$backupFolder/alist-${state.currentVersion}';
+
     await Dio().download(downloadLink, targetArchiveFile);
     endAlist();
     if (!await Directory(backupFolder).exists()) {
       await Directory(backupFolder).create();
     }
-    if (await File('$backupFolder/alist-${state.currentVersion}.exe')
-        .exists()) {
-      await File('$backupFolder/alist-${state.currentVersion}.exe').delete();
+    if (await File(backupFile).exists()) {
+      await File(backupFile).delete();
     }
-    await File(currentAlist)
-        .rename('$backupFolder/alist-${state.currentVersion}.exe');
+    await File(currentAlist).rename(backupFile);
     FileHelper.unzipFile('${state.workDir}/alistnew.zip', state.workDir);
+    // if openlist rename it to alist
+    if (Platform.isWindows) {
+      if (await File('${state.workDir}/openlist.exe').exists()) {
+        await File('${state.workDir}/openlist.exe')
+            .rename('${state.workDir}/alist.exe');
+      }
+    } else {
+      if (await File('${state.workDir}/openlist').exists()) {
+        await File('${state.workDir}/openlist')
+            .rename('${state.workDir}/alist');
+      }
+    }
     await File(targetArchiveFile).delete();
     getAlistCurrentVersion(addToOutput: false);
     state = state.copyWith(upgradeStatus: UpgradeStatus.complete);
