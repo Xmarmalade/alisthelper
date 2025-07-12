@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 final _body = '''
-          Alist Helper is an open source app to manage alist.
+          Alist Helper is an open source app to manage alist/openlist.
       
           Free. No tracking*. No ads.
 
@@ -61,9 +61,9 @@ class AboutPage extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () async {
-                    await launchUrl(Uri.parse('https://alist.nn.ci/'));
+                    await launchUrl(Uri.parse('https://docs.openlist.team/'));
                   },
-                  child: const Text('Alist'),
+                  child: const Text('OpenList'),
                 ),
                 TextButton(
                   onPressed: () {
