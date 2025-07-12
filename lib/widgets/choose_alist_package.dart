@@ -65,36 +65,40 @@ class _ChooseAlistPackageState extends ConsumerState<ChooseAlistPackage> {
                         )
                       : Container(),
             ),
-            Column(
-              children: (alistState.newReleaseAssets.isEmpty)
-                  ? [Text(t.upgrade.networkError)]
-                  : alistState.newReleaseAssets.map((asset) {
-                      return ListTile(
-                        title: Text(asset['name']),
-                        leading: const Icon(Icons.grid_view_outlined),
-                        subtitle: Text(
-                            '${(asset['size'] / 1000000).toStringAsFixed(2)} MB'),
-                        trailing: IconButton(
-                          onPressed: () async {
-                            try {
-                              if (widget.isUpgrade) {
-                                alistNotifier.upgradeAlist(
-                                    asset['browser_download_url']);
-                              } else {
-                                alistNotifier.installAlist(
-                                    asset['browser_download_url']);
+            SizedBox(
+              width: double.maxFinite,
+              height: 300,
+              child: alistState.newReleaseAssets.isEmpty
+                  ? Center(child: Text(t.upgrade.networkError))
+                  : ListView(
+                      children: alistState.newReleaseAssets.map((asset) {
+                        return ListTile(
+                          title: Text(asset['name']),
+                          leading: const Icon(Icons.grid_view_outlined),
+                          subtitle: Text(
+                              '${(asset['size'] / 1000000).toStringAsFixed(2)} MB'),
+                          trailing: IconButton(
+                            onPressed: () async {
+                              try {
+                                if (widget.isUpgrade) {
+                                  alistNotifier.upgradeAlist(
+                                      asset['browser_download_url']);
+                                } else {
+                                  alistNotifier.installAlist(
+                                      asset['browser_download_url']);
+                                }
+                              } catch (e) {
+                                if (context.mounted) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text(e.toString())));
+                                }
                               }
-                            } catch (e) {
-                              if (context.mounted) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text(e.toString())));
-                              }
-                            }
-                          },
-                          icon: const Icon(Icons.file_download_outlined),
-                        ),
-                      );
-                    }).toList(),
+                            },
+                            icon: const Icon(Icons.file_download_outlined),
+                          ),
+                        );
+                      }).toList(),
+                    ),
             ),
           ],
         ));

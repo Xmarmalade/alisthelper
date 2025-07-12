@@ -66,37 +66,40 @@ class _ChooseRclonePackageState extends ConsumerState<ChooseRclonePackage> {
                         )
                       : Container(),
             ),
-            Column(
-              children: (updaterState.rcloneAssets.isEmpty)
-                  ? [Text(t.upgrade.networkError)]
-                  : updaterState.rcloneAssets.map((asset) {
-                      return ListTile(
-                        title: Text(asset['name']),
-                        leading: const Icon(Icons.grid_view_outlined),
-                        subtitle: Text(
-                            '${(asset['size'] / 1000000).toStringAsFixed(2)} MB'),
-                        trailing: IconButton(
-                          onPressed: () async {
-                            try {
-                              if (widget.isUpgrade) {
-                                updaterNotifier.upgradeRclone(
-                                    asset['browser_download_url']);
-                              } else {
-                                updaterNotifier.installRclone(
-                                    asset['browser_download_url']);
-                              }
-                            } catch (e) {
-                              if (context.mounted) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text(e.toString())));
-                              }
-                            }
-                          },
-                          icon: const Icon(Icons.file_download_outlined),
-                        ),
-                      );
-                    }).toList(),
-            ),
+            SizedBox(
+                width: double.maxFinite,
+                height: 200,
+                child: (updaterState.rcloneAssets.isEmpty)
+                    ? Center(child: Text(t.upgrade.networkError))
+                    : ListView(
+                        children: updaterState.rcloneAssets.map((asset) {
+                          return ListTile(
+                            title: Text(asset['name']),
+                            leading: const Icon(Icons.grid_view_outlined),
+                            subtitle: Text(
+                                '${(asset['size'] / 1000000).toStringAsFixed(2)} MB'),
+                            trailing: IconButton(
+                              onPressed: () async {
+                                try {
+                                  if (widget.isUpgrade) {
+                                    updaterNotifier.upgradeRclone(
+                                        asset['browser_download_url']);
+                                  } else {
+                                    updaterNotifier.installRclone(
+                                        asset['browser_download_url']);
+                                  }
+                                } catch (e) {
+                                  if (context.mounted) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text(e.toString())));
+                                  }
+                                }
+                              },
+                              icon: const Icon(Icons.file_download_outlined),
+                            ),
+                          );
+                        }).toList(),
+                      )),
           ],
         ));
   }
