@@ -14,9 +14,9 @@ English | [简体中文](./README_zh-Hans.md) |  [CODE_OF_CONDUCT](./CODE_OF_CON
 ![](https://img.shields.io/github/stars/Xmarmalade/alisthelper?style=for-the-badge)
 ![](https://img.shields.io/github/issues/Xmarmalade/alisthelper?style=for-the-badge&color=9C27B0)
 
-Alist Helper is an application developed using Flutter, designed to simplify the use of the desktop version of alist. It can manage alist, allowing you to easily start and stop the alist program.
+Alist Helper is an application developed using Flutter, designed to simplify the use of the desktop version of alist/openlist. It can manage alist/openlist, allowing you to easily start and stop the alist/openlist program.
 
-*Maintainer needed for the macOS part of the code. No new macOS-related changes or updates will be accepted until volunteers.*
+Wait, not only alist/openlist, alisthelper also supports rclone management, mounting alist/openlist as a hard drive for use.
 
 ### Screenshots
 | ![image](https://github.com/Xmarmalade/alisthelper/assets/16839488/5b77df3a-8b07-40e4-adc5-9f0907f6a3f9) | ![image](https://github.com/Xmarmalade/alisthelper/assets/16839488/5a85db81-de92-4362-8c01-73e89482dcb7) |
@@ -25,17 +25,19 @@ Alist Helper is an application developed using Flutter, designed to simplify the
 
 Alist Helper includes several useful features:
 
-- Automatic launching of alist
+- Automatic launching of alist/openlist
 - Minimizing to the system tray
 - Automatic startup on boot, with the option for silent startup
-- Quick access to alist version and administrator information
-- Adjustable alist startup parameters. You can customize the startup parameters to meet your specific needs and preferences.
+- Quick access to alist/openlist version and administrator information
+- Adjustable alist/openlist startup parameters. You can customize the startup parameters to meet your specific needs and preferences.
 
 Free. No tracking. No ads.
 
-Currently, this app is available on Windows and macOS. Adaptation plans for more platforms are in progress.
+Currently, this app is available on Windows and macOS. (You can build it for Linux, but no official support yet.)
 
 Please note that this program does not include the binary files for alist. You will need to download them manually.
+
+Here's a comparison of alisthelper and other solutions.
 
 |                     | alist                        | alisthelper | alist desktop   |
 | ------------------- | ---------------------------- | ----------- | --------------- |

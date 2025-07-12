@@ -14,7 +14,9 @@
 ![](https://img.shields.io/github/stars/Xmarmalade/alisthelper?style=for-the-badge)
 ![](https://img.shields.io/github/issues/Xmarmalade/alisthelper?style=for-the-badge&color=9C27B0)
 
-Alist Helper是一款使用Flutter开发的应用程序，旨在简化桌面版alist的使用。它可以管理alist，让您更轻松地开启、关闭alist程序。
+Alist Helper是一款使用Flutter开发的应用程序，旨在简化alist/openlist桌面版的使用。它可以管理alist/openlist，让您轻松启动和停止alist/openlist程序。
+
+等等，Alist Helper不仅支持alist/openlist，还支持rclone管理，将alist/openlist挂载为硬盘使用。
 
 ### 截图
 | ![image](https://github.com/Xmarmalade/alisthelper/assets/16839488/26b3e59a-ab5c-49de-b590-1374f45fbc34) | ![image](https://github.com/Xmarmalade/alisthelper/assets/16839488/17d661cd-75df-470d-9ee0-afc8b4c6fa6e) |
@@ -23,17 +25,19 @@ Alist Helper是一款使用Flutter开发的应用程序，旨在简化桌面版a
 
 Alist Helper包括多个实用功能
 
- - 自动启动alist
+ - 自动启动alist/openlist
  - 最小化至系统托盘
  - 开机自启和开机静默启动
- - 能够快速查看alist的版本和管理员信息
- - 可调整的alist启动参数。你可以可以根据自己的特定需求和偏好来自定义启动参数。
+ - 能够快速查看alist/openlist的版本和管理员信息
+ - 可调整的alist/openlist启动参数。你可以可以根据自己的特定需求和偏好来自定义启动参数。
 
 免费。无跟踪。无广告。
 
-目前，此应用可在 Windows 和 macOS 上使用。更多平台的适配计划正在进行中。
+目前，此应用可在 Windows 和 macOS 上使用。（您可以在 Linux 上自行构建）
 
-特别注意，本程序不包含alist的二进制文件，您需要手动下载。
+请注意，此程序不包含 alist 的二进制文件。您需要手动下载它们。
+
+以下是 Alist Helper 和其他解决方案的比较。
 
 |          | alist          | alisthelper | alist desktop |
 | -------- | -------------- | ----------- | ------------- |
