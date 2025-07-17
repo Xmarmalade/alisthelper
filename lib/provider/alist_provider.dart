@@ -46,7 +46,7 @@ class AlistNotifier extends Notifier<AlistState> {
   }
 
   void addOutput(String text) {
-    if (text.contains('\n') && text.contains('[')) {
+    if (text.contains('[')) {
       List<String> lines = text.split('\n');
       for (String line in lines) {
         if (line.isNotEmpty) {
