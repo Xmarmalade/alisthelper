@@ -1,0 +1,118 @@
+name: Nightly Build
+
+on:
+  push:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    outputs:
+      date: ${{ steps.date.outputs.date }}
+    steps:
+      - name: Get current date
+        id: date
+        run: echo "date=$(Get-Date -Format 'yyyyMMdd')" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+
+      - name: Build
+        run: |
+          flutter config --enable-windows-desktop
+          flutter pub get
+          dart run build_runner build
+          flutter build windows
+
+      - name: Prepare artifacts
+        shell: pwsh
+        run: |
+          cp windows/scripts/innosetup.iss build/windows/x64/runner/
+          cp assets/alisthelper.ico build/windows/x64/runner/
+          cd build/windows/x64/runner/
+          iscc /F"AlistHelper-Beta-installer-windows-x86_64-${{ steps.date.outputs.date }}" innosetup.iss /DAppVersion=beta
+          cd Release
+          Compress-Archive -Path ./* -DestinationPath ..\..\..\..\..\Release-windows-x64-${{ steps.date.outputs.date }}.zip
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-artifacts
+          path: |
+            build/windows/x64/runner/Output/AlistHelper-Beta-installer-windows-x86_64-${{ steps.date.outputs.date }}.exe
+            Release-windows-x64-${{ steps.date.outputs.date }}.zip
+
+  build-macos:
+    runs-on: macos-latest
+    outputs:
+      date: ${{ steps.date.outputs.date }}
+    steps:
+      - name: Get current date
+        id: date
+        run: echo "date=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
+
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+
+      - name: Build
+        run: |
+          flutter config --enable-macos-desktop
+          flutter pub get
+          dart run build_runner build
+          flutter build macos
+
+      - name: Archive App
+        run: |
+          cd build/macos/Build/Products/Release/
+          tar -czf "AlistHelper-Beta-app-macos-x86_64-${{ steps.date.outputs.date }}.tar.gz" alisthelper.app
+          hdiutil create -volname "alisthelper" -srcfolder alisthelper.app -ov -format UDZO "AlistHelper-Beta-macos-${{ steps.date.outputs.date }}.dmg"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-artifacts
+          path: |
+            build/macos/Build/Products/Release/AlistHelper-Beta-app-macos-x86_64-${{ steps.date.outputs.date }}.tar.gz
+            build/macos/Build/Products/Release/AlistHelper-Beta-macos-${{ steps.date.outputs.date }}.dmg
+
+  release:
+    needs: [build-windows, build-macos]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get current date
+        id: date
+        run: echo "date=${{ needs.build-windows.outputs.date }}" >> $GITHUB_OUTPUT
+
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Move beta tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -f beta
+          git push -f origin beta
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: beta
+          name: "AlistHelper-Beta-${{ steps.date.outputs.date }}"
+          body: "Nightly build based on commit ${{ github.sha }}"
+          draft: false
+          prerelease: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: |
+            artifacts/windows-artifacts/*.exe
+            artifacts/windows-artifacts/*.zip
+            artifacts/macos-artifacts/*.tar.gz
+            artifacts/macos-artifacts/*.dmg
