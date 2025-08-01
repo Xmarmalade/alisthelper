@@ -46,19 +46,19 @@ class AlistNotifier extends Notifier<AlistState> {
   }
 
   void addOutput(String text) {
-    if (text.contains('[')) {
-      List<String> lines = text.split('\n');
-      for (String line in lines) {
-        if (line.isNotEmpty) {
-          stdOut.add(line);
-        }
+    // Split the text into lines to handle multi-line log chunks.
+    final lines = text.split('\n');
+    for (final line in lines) {
+      // Process only non-empty lines.
+      if (line.isNotEmpty) {
+        stdOut.add(line);
+        // Check for the server start message in any line.
         if (line.contains('start HTTP server @')) {
           checkState(line);
         }
       }
-    } else {
-      stdOut.add(text);
     }
+    // Update the state with the new output list.
     state = state.copyWith(output: stdOut);
   }
 
