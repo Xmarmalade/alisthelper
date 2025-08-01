@@ -31,17 +31,17 @@ jobs:
           cp windows/scripts/innosetup.iss build/windows/x64/runner/
           cp assets/alisthelper.ico build/windows/x64/runner/
           cd build/windows/x64/runner/
-          iscc /F"AlistHelper-Beta-installer-windows-x86_64-${{ steps.date.outputs.date }}" innosetup.iss /DAppVersion=beta
+          # iscc /F"AlistHelper-Beta-installer-windows-x86_64-${{ steps.date.outputs.date }}" innosetup.iss /DAppVersion=beta
           cd Release
-          Compress-Archive -Path ./* -DestinationPath ..\..\..\..\..\Release-windows-x64-${{ steps.date.outputs.date }}.zip
+          Compress-Archive -Path ./* -DestinationPath ..\..\..\..\..\Release-windows-x64-${{ steps.date.outputs.date }}-${{ github.sha }}.zip
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: windows-artifacts
           path: |
-            build/windows/x64/runner/Output/AlistHelper-Beta-installer-windows-x86_64-${{ steps.date.outputs.date }}.exe
-            Release-windows-x64-${{ steps.date.outputs.date }}.zip
+            # build/windows/x64/runner/Output/AlistHelper-Beta-installer-windows-x86_64-${{ steps.date.outputs.date }}.exe
+            Release-windows-x64-${{ steps.date.outputs.date }}-${{ github.sha }}.zip
 
   build-macos:
     runs-on: macos-latest
@@ -67,7 +67,7 @@ jobs:
       - name: Archive App
         run: |
           cd build/macos/Build/Products/Release/
-          tar -czf "AlistHelper-Beta-app-macos-x86_64-${{ steps.date.outputs.date }}.tar.gz" alisthelper.app
+          tar -czf "AlistHelper-Beta-app-macos-x86_64-${{ steps.date.outputs.date }}-${{ github.sha }}.tar.gz" alisthelper.app
           hdiutil create -volname "alisthelper" -srcfolder alisthelper.app -ov -format UDZO "AlistHelper-Beta-macos-${{ steps.date.outputs.date }}.dmg"
 
       - name: Upload artifacts
@@ -75,7 +75,7 @@ jobs:
         with:
           name: macos-artifacts
           path: |
-            build/macos/Build/Products/Release/AlistHelper-Beta-app-macos-x86_64-${{ steps.date.outputs.date }}.tar.gz
+            build/macos/Build/Products/Release/AlistHelper-Beta-app-macos-x86_64-${{ steps.date.outputs.date }}-${{ github.sha }}.tar.gz
             build/macos/Build/Products/Release/AlistHelper-Beta-macos-${{ steps.date.outputs.date }}.dmg
 
   release:
@@ -95,6 +95,26 @@ jobs:
         with:
           path: artifacts
 
+      - name: Delete existing releases
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { data: releases } = await github.rest.repos.listReleases({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+            
+            for (const release of releases) {
+              if (release.tag_name === 'beta') {
+                console.log(`Deleting release ${release.id}`);
+                await github.rest.repos.deleteRelease({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  release_id: release.id,
+                });
+              }
+            }
+ 
       - name: Move beta tag
         run: |
           git config user.name "github-actions[bot]"
@@ -106,13 +126,11 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: beta
-          name: "AlistHelper-Beta-${{ steps.date.outputs.date }}"
+          name: "AlistHelper-Beta-${{ steps.date.outputs.date }}-${{ github.sha }}"
           body: "Nightly build based on commit ${{ github.sha }}"
           draft: false
           prerelease: true
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
-            artifacts/windows-artifacts/*.exe
             artifacts/windows-artifacts/*.zip
             artifacts/macos-artifacts/*.tar.gz
-            artifacts/macos-artifacts/*.dmg
