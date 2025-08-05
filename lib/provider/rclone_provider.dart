@@ -250,7 +250,7 @@ class RcloneNotifier extends Notifier<RcloneState> {
     }
   }
 
-  Future<void> unmountRemote(vd) async {
+  Future<void> unmountRemote(VirtualDiskState vd) async {
     if (vd.isMounted) {
       //Added support for Linux paths
       String mountPointOS= Platform.isLinux ? vd.mountPoint:'${vd.mountPoint}:';

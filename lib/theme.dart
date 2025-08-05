@@ -5,7 +5,7 @@ class AlistHelperTheme {
 
   AlistHelperTheme(this.primaryColor);
 
-  get lightThemeData => ThemeData.from(
+  ThemeData get lightThemeData => ThemeData.from(
       colorScheme: ColorScheme.fromSeed(
         seedColor: primaryColor,
         brightness: Brightness.light,
@@ -37,7 +37,7 @@ class AlistHelperTheme {
         ),
       ));
 
-  get darkThemeData => ThemeData.from(
+  ThemeData get darkThemeData => ThemeData.from(
       colorScheme: ColorScheme.fromSeed(
         error: const Color.fromARGB(255, 255, 99, 71),
         seedColor: primaryColor,
