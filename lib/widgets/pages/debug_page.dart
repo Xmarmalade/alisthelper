@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 class DebugPage extends ConsumerWidget {
   const DebugPage({super.key});
 
@@ -70,6 +69,11 @@ class CopyableText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final children = <InlineSpan>[
+      ...(prefix == null ? const <InlineSpan>[] : <InlineSpan>[prefix!]),
+      TextSpan(text: value ?? '-'),
+    ];
+
     return InkWell(
       onTap: value == null
           ? null
@@ -85,10 +89,7 @@ class CopyableText extends StatelessWidget {
             },
       child: Text.rich(
         TextSpan(
-          children: [
-            if (prefix != null) prefix!,
-            TextSpan(text: value ?? '-'),
-          ],
+          children: children,
         ),
       ),
     );

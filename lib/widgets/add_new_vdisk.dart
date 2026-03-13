@@ -7,7 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // a lite provider bool to switch : autoMount and a setter
-final autoMountProvider = StateProvider<bool>((ref) => false);
+final autoMountProvider =
+    NotifierProvider<AutoMountNotifier, bool>(AutoMountNotifier.new);
+
+class AutoMountNotifier extends Notifier<bool> {
+  @override
+  bool build() => false;
+
+  void set(bool value) => state = value;
+}
 
 class AddNewRcloneDisk extends ConsumerWidget {
   const AddNewRcloneDisk({super.key});
@@ -198,7 +206,7 @@ class AddRcloneDiskForm extends ConsumerWidget {
             trailing: Switch(
               value: ref.watch(autoMountProvider),
               onChanged: (bool value) {
-                ref.read(autoMountProvider.notifier).state = value;
+                ref.read(autoMountProvider.notifier).set(value);
               },
             ),
           ),
@@ -225,7 +233,7 @@ class EditRcloneDisk extends ConsumerWidget {
     return IconButton(
         icon: const Icon(Icons.settings),
         onPressed: () {
-          ref.watch(autoMountProvider.notifier).state = disk.autoMount;
+          ref.read(autoMountProvider.notifier).set(disk.autoMount);
           showDialog<void>(
               context: context,
               builder: (BuildContext context) {

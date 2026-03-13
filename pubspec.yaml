@@ -4,32 +4,33 @@ publish_to: "none"
 version: 0.2.0+10
 
 environment:
-  sdk: ">=3.4.0 <4.0.0"
+  sdk: ">=3.10.3 <4.0.0"
+  flutter: ">=3.38.4"
 
 dependencies:
   flutter:
     sdk: flutter
   collection: ^1.19.0
-  shared_preferences: ^2.3.1
-  flutter_riverpod: ^2.6.1
+  shared_preferences: ^2.5.4
+  flutter_riverpod: ^3.3.1
   fast_gbk: ^1.0.0
-  url_launcher: ^6.2.3
-  tray_manager: ^0.5.0
+  url_launcher: ^6.3.1
+  tray_manager: ^0.5.2
   window_manager: ^0.5.1
   screen_retriever: ^0.2.0
   launch_at_startup: ^0.5.1
-  package_info_plus: ^8.0.1
-  file_selector: ^1.0.2  
+  package_info_plus: ^9.0.0
+  file_selector: ^1.1.0
   freezed_annotation: ^3.0.0
   path_provider: ^2.1.2
-  json_annotation: ^4.9.0
-  logger: ^2.5.0
-  http: ^1.2.2
-  dio: ^5.4.0
-  archive: ^4.0.5
+  json_annotation: ^4.11.0
+  logger: ^2.6.2
+  http: ^1.6.0
+  dio: ^5.9.2
+  archive: ^4.0.9
   #i18n
-  slang: ^4.6.0
-  slang_flutter: ^4.6.0
+  slang: ^4.13.0
+  slang_flutter: ^4.13.0
   flutter_localizations:
     sdk: flutter
 
@@ -38,11 +39,11 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^6.0.0
   flutter_launcher_icons: ^0.14.1
-  build_runner: ^2.4.11
-  freezed: ^3.0.4
-  slang_build_runner: ^4.6.0
-  json_serializable: ^6.7.1
-  riverpod_lint: ^2.6.1
+  build_runner: ^2.12.2
+  freezed: ^3.2.5
+  slang_build_runner: ^4.13.0
+  json_serializable: ^6.13.0
+  riverpod_lint: ^3.1.3
 
 flutter_launcher_icons:
   image_path: "assets\\alisthelper.png"
