@@ -3,6 +3,9 @@ name: Nightly Build
 on:
   push:
 
+permissions:
+  contents: write
+
 jobs:
   build-windows:
     runs-on: windows-latest
@@ -13,7 +16,7 @@ jobs:
         id: date
         run: echo "date=$(Get-Date -Format 'yyyyMMdd')" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
           channel: "stable"
@@ -22,7 +25,8 @@ jobs:
         run: |
           flutter config --enable-windows-desktop
           flutter pub get
-          dart run build_runner build
+          dart run slang
+          dart run build_runner build --delete-conflicting-outputs
           flutter build windows
 
       - name: Prepare artifacts
@@ -52,7 +56,7 @@ jobs:
         id: date
         run: echo "date=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
           channel: "stable"
@@ -61,7 +65,8 @@ jobs:
         run: |
           flutter config --enable-macos-desktop
           flutter pub get
-          dart run build_runner build
+          dart run slang
+          dart run build_runner build --delete-conflicting-outputs
           flutter build macos
 
       - name: Archive App
@@ -86,7 +91,7 @@ jobs:
         id: date
         run: echo "date=${{ needs.build-windows.outputs.date }}" >> $GITHUB_OUTPUT
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -96,7 +101,7 @@ jobs:
           path: artifacts
 
       - name: Delete existing releases
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const { data: releases } = await github.rest.repos.listReleases({
@@ -123,14 +128,14 @@ jobs:
           git push -f origin beta
 
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: beta
           name: "AlistHelper-Beta-${{ steps.date.outputs.date }}-${{ github.sha }}"
           body: "Nightly build based on commit ${{ github.sha }}"
           draft: false
           prerelease: true
-          token: ${{ secrets.GITHUB_TOKEN }}
           files: |
             artifacts/windows-artifacts/*.zip
+            artifacts/macos-artifacts/*.dmg
             artifacts/macos-artifacts/*.tar.gz
